@@ -1,13 +1,15 @@
 ChuCloneSite::Application.routes.draw do
-  get "levels/scrub"
-  get "levels/data"
 
-  resources :creators
 
-  resources :levels
-  resources :home
+	get "levels/scrub"
+	get "levels/data"
+	get "levels/reorder"
+#	match ':controller/:action/:id/'
+	get "home/index"
 
-  get "home/index"
+	resources :creators
+	resources :levels
+	resources :home
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
