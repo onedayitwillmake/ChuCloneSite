@@ -1,0 +1,3 @@
+[submodule "public/game"]
+	path = public/game
+	url = git://github.com/onedayitwillmake/ChuClone.git
