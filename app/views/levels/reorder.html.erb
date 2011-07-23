@@ -13,19 +13,17 @@
 </div>
 
 <script type="text/javascript">
-	(function()
-	{
+	(function() {
 		/**
 		 * Create a sortable grid of level items
 		 */
 		var p = $('levelContainer'), info = $('info'), moves = 0;
 		var elements = Array.prototype.slice.call(p.getElementsByTagName('div'), 0);
 
-		lastSave = null;
+		var lastSave = null;
 		Sortable.create('levelContainer', {
 					tag: 'div', overlap: "horizontal", constraint: false,
-					onChange: function(element)
-					{
+					onChange: function(element) {
 						clearTimeout(lastSave);
 						lastSave = setTimeout(saveLevelData, 1200);
 					}
@@ -35,12 +33,10 @@
 		/**
 		 * Saves new level order to database
 		 */
-		saveLevelData = function()
-		{
+		var saveLevelData = function() {
 			var postData = [];
 			var sortedObjectIDs = Sortable.sequence('levelContainer');
-			for (var i = 0; i < sortedObjectIDs.length; i++)
-			{
+			for (var i = 0; i < sortedObjectIDs.length; i++) {
 				postData.push({id: sortedObjectIDs[i], order_index: i})
 			}
 
@@ -51,10 +47,8 @@
 			formData.append("data", JSON.stringify(postData));
 
 			var that = this;
-			request.onreadystatechange = function()
-			{
-				if (request.readyState == 4)
-				{
+			request.onreadystatechange = function() {
+				if (request.readyState == 4) {
 					console.log(request.responseText);
 				}
 			};
