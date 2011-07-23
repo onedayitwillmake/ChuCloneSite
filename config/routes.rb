@@ -4,8 +4,10 @@ ChuCloneSite::Application.routes.draw do
 	get "levels/scrub"
 	get "levels/data"
 	get "levels/reorder"
-#	match ':controller/:action/:id/'
 	get "home/index"
+
+	match "/auth/twitter/callback" => "sessions#create"
+	match "/signout" => "sessions#destroy", :as => :signout
 
 	resources :creators
 	resources :levels

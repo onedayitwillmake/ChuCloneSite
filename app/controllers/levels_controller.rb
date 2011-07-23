@@ -1,5 +1,5 @@
 class LevelsController < ApplicationController
-	layout "levels"
+#	layout "levels"
 
 	# GET /levels
 	# GET /levels.xml

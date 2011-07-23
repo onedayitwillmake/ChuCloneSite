@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110723031708) do
+ActiveRecord::Schema.define(:version => 20110723205035) do
 
   create_table "creators", :force => true do |t|
     t.string   "facebook_id"
@@ -25,7 +25,15 @@ ActiveRecord::Schema.define(:version => 20110723031708) do
     t.integer  "times_played"
     t.integer  "times_completed"
     t.text     "json"
-    t.integer  "order_index"
+    t.integer  "order_index",     :default => 0, :null => false
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.datetime "created_at"
     t.datetime "updated_at"
   end
 
