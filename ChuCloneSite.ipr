@@ -188,11 +188,6 @@
       </words>
     </dictionary>
   </component>
-  <component name="ProjectInspectionProfilesVisibleTreeState">
-    <entry key="Project Default">
-      <profile-state />
-    </entry>
-  </component>
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ChuCloneSite.iml" filepath="$PROJECT_DIR$/ChuCloneSite.iml" />
