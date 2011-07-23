@@ -13,7 +13,6 @@ ChuCloneSite::Application.routes.draw do
 	get "home/index"
 
 	# RESOURCE MAPPING
-	resources :creators
 	resources :levels
 	resources :home
 
