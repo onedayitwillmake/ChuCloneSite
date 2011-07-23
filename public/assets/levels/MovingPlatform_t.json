@@ -1,0 +1,153 @@
+{
+	"editingInfo": {
+		"author": "mario gonzalez",
+		"levelName": "MovingPlatform",
+		"creationDate": 1311292065788,
+		"modificationDate": 1311292065788
+	},
+	"worldSettings": {
+		"PTM_RATIO": 64
+	},
+	"playerInfo": null,
+	"bodyList": [
+		{
+			"x": 22.204643998347066,
+			"y": -7.548628429207994,
+			"dimensions": {
+				"width": 838.4000000000001,
+				"height": 38.400000000000006,
+				"depth": 873.6
+			},
+			"angle": 0,
+			"physicsInfo": {
+				"density": 1000,
+				"friction": 1000,
+				"restitution": 0.5,
+				"bodyType": 0
+			},
+			"entityType": 4,
+			"components": [
+				{
+					"displayName": "MovingPlatformComponent",
+					"range": {
+						"x": 5,
+						"y": -10
+					},
+					"speed": 0.055
+				}
+			]
+		},
+		{
+			"x": 47.50000000000004,
+			"y": 0.10000000000000014,
+			"dimensions": {
+				"width": 838.4000000000001,
+				"height": 38.400000000000006,
+				"depth": 873.6
+			},
+			"angle": 0,
+			"physicsInfo": {
+				"density": 1000,
+				"friction": 1000,
+				"restitution": 0.5,
+				"bodyType": 0
+			},
+			"entityType": 4,
+			"components": []
+		},
+		{
+			"x": 21.300000000000004,
+			"y": 0.1,
+			"dimensions": {
+				"width": 838.4000000000001,
+				"height": 38.400000000000006,
+				"depth": 873.6
+			},
+			"angle": 0,
+			"physicsInfo": {
+				"density": 1000,
+				"friction": 1000,
+				"restitution": 0.5,
+				"bodyType": 0
+			},
+			"entityType": 4,
+			"components": []
+		},
+		{
+			"x": 4.800000000000001,
+			"y": -6.800000000000001,
+			"dimensions": {
+				"width": 192,
+				"height": 192,
+				"depth": 192
+			},
+			"angle": 0,
+			"physicsInfo": {
+				"density": 1000,
+				"friction": 1000,
+				"restitution": 0.5,
+				"bodyType": 0
+			},
+			"entityType": 4,
+			"components": [
+				{
+					"displayName": "RespawnComponent",
+					"textureSource": "assets/images/game/flooraqua.png"
+				}
+			]
+		},
+		{
+			"x": 4.7,
+			"y": -0.3999999999999999,
+			"dimensions": {
+				"width": 192,
+				"height": 192,
+				"depth": 192
+			},
+			"angle": 0,
+			"physicsInfo": {
+				"density": 1000,
+				"friction": 1000,
+				"restitution": 0.5,
+				"bodyType": 0
+			},
+			"entityType": 4,
+			"components": []
+		},
+		{
+			"x": 27.71723072397276,
+			"y": -13.846421491078225,
+			"dimensions": {
+				"width": 30,
+				"height": 30,
+				"depth": 30
+			},
+			"angle": -28.274333882308138,
+			"physicsInfo": {
+				"density": 0,
+				"friction": 0,
+				"restitution": 0,
+				"bodyType": 2
+			},
+			"entityType": 2,
+			"components": [
+				{
+					"displayName": "PhysicsVelocityLimitComponent"
+				},
+				{
+					"displayName": "BoundsYCheckComponent",
+					"minY": 0.006
+				},
+				{
+					"displayName": "CheckIsJumpingComponent"
+				},
+				{
+					"displayName": "KeyboardInputComponent"
+				},
+				{
+					"displayName": "CharacterControllerComponent"
+				}
+			]
+		}
+	]
+}
