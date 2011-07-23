@@ -1,0 +1,33 @@
+<h1 style="margin-top: 10px; padding-bottom:30px">Order Levels</h1>
+<div class="container_12">
+	 <div class="push_2 grid_7">
+		 <div id="levelContainer">
+	<% count = 0 %>
+	<% perRow = 3  %>
+	<% @levels.each do |level| %>
+		<div data-location="<%= level.title %>" data-id="<%= level.id %>"class="grid_2 levelThumbnail"><%= level.title %> <%= count %></div>
+	<% end %>
+		 </div>
+		 </div>
+
+	    <div class="push_3 grid_1">
+	<%= submit_tag "Save edits"  %>
+	</div>
+</div>
+
+<script type="text/javascript">
+        (function() {
+			var p = $('levelContainer'), info = $('info'), moves = 0;
+
+			Sortable.create('levelContainer', {
+						tag: 'div', overlap: 'horizontal', constraint: false,
+						onChange: function( element ) {
+							console.log("ARGS", element)
+						}
+					});
+
+//			/levels/35/edit
+		})();
+     </script>
+
+<%= flash_helper %>
