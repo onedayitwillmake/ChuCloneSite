@@ -1,33 +1,68 @@
 <h1 style="margin-top: 10px; padding-bottom:30px">Order Levels</h1>
 <div class="container_12">
-	 <div class="push_2 grid_7">
-		 <div id="levelContainer">
-	<% count = 0 %>
-	<% perRow = 3  %>
-	<% @levels.each do |level| %>
-		<div data-location="<%= level.title %>" data-id="<%= level.id %>"class="grid_2 levelThumbnail"><%= level.title %> <%= count %></div>
-	<% end %>
-		 </div>
-		 </div>
-
-	    <div class="push_3 grid_1">
-	<%= submit_tag "Save edits"  %>
+	<div class="push_3 grid_7">
+		<div id="levelContainer">
+			<% count = 0 %>
+			<% perRow = 3 %>
+			<% @levels.each do |level| %>
+				<div data-location="<%= level.title %>" data-id="<%= level.id %>" class="grid_2 levelThumbnail" id='item_<%= level.id %>'><%= level.title %> <%= count %></div>
+				<% count = count + 1 %>
+			<% end %>
+		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
-        (function() {
-			var p = $('levelContainer'), info = $('info'), moves = 0;
+	(function()
+	{
+		/**
+		 * Create a sortable grid of level items
+		 */
+		var p = $('levelContainer'), info = $('info'), moves = 0;
+		var elements = Array.prototype.slice.call(p.getElementsByTagName('div'), 0);
 
-			Sortable.create('levelContainer', {
-						tag: 'div', overlap: 'horizontal', constraint: false,
-						onChange: function( element ) {
-							console.log("ARGS", element)
-						}
-					});
+		lastSave = null;
+		Sortable.create('levelContainer', {
+					tag: 'div', overlap: "horizontal", constraint: false,
+					onChange: function(element)
+					{
+						clearTimeout(lastSave);
+						lastSave = setTimeout(saveLevelData, 1200);
+					}
+				});
 
-//			/levels/35/edit
-		})();
-     </script>
+
+		/**
+		 * Saves new level order to database
+		 */
+		saveLevelData = function()
+		{
+			var postData = [];
+			var sortedObjectIDs = Sortable.sequence('levelContainer');
+			for (var i = 0; i < sortedObjectIDs.length; i++)
+			{
+				postData.push({id: sortedObjectIDs[i], order_index: i})
+			}
+
+			// Create an XMLHR sending the order with corresponding ID's
+			var request = new XMLHttpRequest();
+
+			var formData = new FormData();
+			formData.append("data", JSON.stringify(postData));
+
+			var that = this;
+			request.onreadystatechange = function()
+			{
+				if (request.readyState == 4)
+				{
+					console.log(request.responseText);
+				}
+			};
+
+			request.open("POST", "http://localhost:3000/levels/reorder/save.js");
+			request.send(formData);
+		}
+	})();
+</script>
 
 <%= flash_helper %>

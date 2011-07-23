@@ -43,16 +43,30 @@ class LevelsController < ApplicationController
 	# GET /levels/reorder
 	def reorder
 
-		if params[:save] then
-
+		if defined?(params[:type]) && params[:type] == "save" then
+			flash[:notice] = params[:type]
 		end
-		flash[:notice] = params[:save].inspect
 
 		@levels = Level.all
-		flash[:notice] << "HELLO" << "<br>"
 		respond_to do |format|
 			format.html # reoder.html.erb
+			format.js { render :json => @levels }
 		end
+	end
+
+	# GET /levels/reorder/save
+	def save_order
+		sortinfo = ActiveSupport::JSON.decode(params[:data])
+		sendback = []
+
+		sortinfo.each do |leveldata|
+			level = Level.find( leveldata["id"] )
+			level.order_index = leveldata["order_index"]
+			level.save
+		end
+
+#		@levels = Level.all
+		render :json => sendback
 	end
 
 	# GET /levels/1

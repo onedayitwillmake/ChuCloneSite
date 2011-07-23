@@ -3,3 +3,6 @@ db/*.sqlite3
 log/*.log
 tmp/
 .DS_Store
+ChuCloneSite.iml
+ChuCloneSite.iws
+/ChuCloneSite.iws
