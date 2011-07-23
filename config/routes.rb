@@ -1,14 +1,18 @@
 ChuCloneSite::Application.routes.draw do
 
 
-	get "levels/scrub"
-	get "levels/data"
-	get "levels/reorder"
-	get "home/index"
-
+	# AUTHENTICATION
 	match "/auth/twitter/callback" => "sessions#create"
 	match "/signout" => "sessions#destroy", :as => :signout
 
+	# LEVELS
+	get "levels/scrub"
+	get "levels/data"
+	match "levels/reorder/" => "levels#reorder"
+	match "levels/reorder/save" => "levels#save_order"
+	get "home/index"
+
+	# RESOURCE MAPPING
 	resources :creators
 	resources :levels
 	resources :home
