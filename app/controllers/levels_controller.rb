@@ -7,9 +7,11 @@ class LevelsController < ApplicationController
 
 		@levels = Level.all
 
+
+#		n = SessionsController.new
 		respond_to do |format|
 			format.html # index.html.erb
-			format.xml { render :xml => @levels }
+			format.json { render :json => @levels }
 		end
 	end
 
@@ -26,18 +28,18 @@ class LevelsController < ApplicationController
 			leveljson = ActiveSupport::JSON.decode(contents)
 			levelname = leveljson["editingInfo"]["levelName"]
 
-			@level = Level.where('title' => levelname)
+			@level = Level.first('title' => levelname)
 
 ##		  Alternative way of searching for file in DB - returns only the first
 ##		  @level = Level.find(:first, :conditions => ["title = :u", {:u => levelName}]);
 
-			if not @level.first.nil? then
-				flash[:notice] << ("Updated: " << @level.first.title.html_safe)
+			if not @level.nil? then
+				flash[:notice] << ("Updated: " << @level.title.html_safe)
 
 				# Save if record is different
-				if not leveljson.to_json == @level.first.json then
-					@level.first.json = leveljson.to_json
-					@level.first.save
+				if not leveljson.to_json == @level.json then
+					@level.json = leveljson.to_json
+					@level.save
 				end
 			else # Does not exist create it from the DB
 				flash[:notice] << ("Created: " << Level.createFromJSON(leveljson).inspect)
@@ -86,12 +88,15 @@ class LevelsController < ApplicationController
 		end
 	end
 
+	# Ruturns only the json level data
+	# GET /levels/data.json
+	# get /levels/data/1.json
 	def data
-		@level = Level.find(params[:id])
+		@levels = (params[:id].nil?) ? Level.all(:select => 'title,id') : Level.find(params[:id], :select => 'title,id')
 
 		respond_to do |format|
-			format.xml { render :xml => @level }
-			format.json { render :json => @level }
+			format.xml { render :xml => @levels }
+			format.json { render :json => @levels }
 		end
 	end
 
@@ -126,6 +131,42 @@ class LevelsController < ApplicationController
 				format.xml { render :xml => @level.errors, :status => :unprocessable_entity }
 			end
 		end
+	end
+
+	def create_from_editor
+
+		flash[:notice] = p
+
+		p = params
+		cu = @current_user
+
+
+#		raise session.to_yaml
+		render(:json => session)
+
+		# Kill if user is nill
+#		render(:json => ["status" => false, "reason" => "Not logged in"]) if cu.nil?
+
+		# Overwriting level?
+		@level = Level.find_by_title(params[:levelName])
+
+		if @level.nil?
+			Level.create_from_editor(params[:levelName], params[:level_json])
+		else
+			@level.json = params[:data]
+		end
+
+#		@level = Level.new(params[:level])
+#
+#		respond_to do |format|
+#			if @level.save
+#				format.html { redirect_to(@level, :notice => 'Level was successfully created.') }
+#				format.xml { render :xml => @level, :status => :created, :location => @level }
+#			else
+#				format.html { render :action => "new" }
+#				format.xml { render :xml => @level.errors, :status => :unprocessable_entity }
+#			end
+#		end
 	end
 
 	# PUT /levels/1
