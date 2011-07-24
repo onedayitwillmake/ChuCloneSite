@@ -10,14 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110723205035) do
-
-  create_table "creators", :force => true do |t|
-    t.string   "facebook_id"
-    t.string   "username"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20110724000404) do
 
   create_table "levels", :force => true do |t|
     t.string   "title"

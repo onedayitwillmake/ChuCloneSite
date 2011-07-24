@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-	def self.create_with_omniauth(auth)
+		# Modify the user before it is saved to the DB to set the auth properties
+		def self.create_with_omniauth(auth)
 		create! do |user|
 			user.provider = auth['provider']
 			user.uid = auth['uid']
