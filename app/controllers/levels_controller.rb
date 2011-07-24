@@ -82,7 +82,7 @@ class LevelsController < ApplicationController
 		respond_to do |format|
 			format.html # show.html.erb
 			format.xml { render :xml => @level }
-			format.json { render :json => @level }
+			format.js { render :json => @level.json }
 		end
 	end
 

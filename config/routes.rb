@@ -6,7 +6,7 @@ ChuCloneSite::Application.routes.draw do
 
 	# LEVELS
 	get "levels/scrub"
-	post "levels/data"
+	get "levels/data"
 	match "levels/reorder/" => "levels#reorder"
 	match "levels/reorder/save" => "levels#save_order"
 	match "home/:action" => "home#:action"
