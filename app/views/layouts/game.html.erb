@@ -1,10 +1,7 @@
 <% content_for :game_imports do %>
 	<% # A bit hacky for now -  %>
-	<%= load 'public/game/build.rb' %>
-	<%= $output.html_safe %>
-	<%= $output = nil %>
+	<%= embed_all.html_safe %>
 <% end %>
-
 
 
 <!DOCTYPE html>

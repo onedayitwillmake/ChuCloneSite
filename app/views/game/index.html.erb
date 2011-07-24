@@ -1,0 +1,55 @@
+<% content_for :game_start do %>
+<script type="text/javascript">
+		var game = new ChuClone.ChuCloneGame();
+	</script>
+<% end %>
+
+<h1> ChuClone </h1>
+<div class="container_12">
+    <div class="clear"></div>
+	<% 12.times do |i| %>
+		<% color = rand(360) %>
+		<%= "\t<div class='grid_1 headerGrid' style='background-color: hsl(#{color},50%, 93%);'></div>".html_safe %>
+	<% end %>
+    <div class="grid_4">
+        <p> Level Name </p>
+    </div>
+    <div class="grid_1 doMore prefix_1">
+        <p><a href="https://github.com/onedayitwillmake/ChuClone">Fork on Github</a></p>
+    </div>
+    <div class="grid_1 doMore suffix_1">
+        <p><a href="?editMode=true">Switch to Edit Mode</a></p>
+    </div>
+    <div class="grid_4 lineBorder omega" id="HUDTime">00.0 secs</div>
+    <div class="clear"></div>
+    <div id="gameContainer" class="grid_12"></div>
+    <div id="editorContainer" class="grid_12" style="height: 540px;"></div>
+    <div class="clear"></div>
+    <div class="grid_12" style="height: 20px"></div>
+    <div class="clear"></div>
+    <div class="grid_6">
+        <p>
+            Select Level
+        </p>
+        <!--    BEGIN LEVEL LIST -->
+
+		<% count = 0 %>
+        <% perRow = 3 %>
+		<% @levels.each do |level| %>
+			<% count = count + 1 %>
+			<% extraClass = count % perRow == 0 ? " levelThumbnailEOL" : "" %>
+			<%= "\t<div data-location='' data-id='#{level.id}' class='grid_2 levelThumbnail#{extraClass}'>#{level.title}</div>".html_safe %>
+		<% end %>
+        <!--    END LEVEL LIST -->
+    </div>
+    <div class="grid_6">
+        <p>
+            Level Information
+        </p>
+
+        <div class="grid_6 levelThumbnail">
+            <p>Some Level details go here</p>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
