@@ -1,8 +1,7 @@
 class HomeController < ApplicationController
+	layout ="home"
   def index
-    flash[:notice] = []
-    flash[:notice] << 'Flash:Notice - worked'
-    flash[:notice] << 'Flash:Notice - worked'
+	  render :file => "#{RAILS_ROOT}/public/game/EditMode.html"
   end
 
 end

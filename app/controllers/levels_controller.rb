@@ -15,10 +15,9 @@ class LevelsController < ApplicationController
 
 	# GET /levels/scrub
 	def scrub
-		flash[:notice] = ""
-		prefix = '../assets/levels/'
-
-		Dir.glob(prefix + '*.json') do |rb_file|
+		flash[:notice] = []
+		prefix = 'public/game/assets/levels/'
+		Dir.glob(prefix + "*.json" ) do |rb_file|
 			next if rb_file.include? '_t.json'
 
 			file = File.open(rb_file, 'rb')
@@ -29,13 +28,19 @@ class LevelsController < ApplicationController
 
 			@level = Level.where('title' => levelname)
 
-#		  Alternative way of searching for file in DB - returns only the first
-#		  @level = Level.find(:first, :conditions => ["title = :u", {:u => levelName}]);
+##		  Alternative way of searching for file in DB - returns only the first
+##		  @level = Level.find(:first, :conditions => ["title = :u", {:u => levelName}]);
 
 			if not @level.first.nil? then
-				flash[:notice] << @level.first.title.inspect << "<br>"
+				flash[:notice] << ("Updated: " << @level.first.title.html_safe)
+
+				# Save if record is different
+				if not leveljson.to_json == @level.first.json then
+					@level.first.json = leveljson.to_json
+					@level.first.save
+				end
 			else # Does not exist create it from the DB
-				flash[:notice] << Level.createFromJSON(leveljson).inspect << "<br>"
+				flash[:notice] << ("Created: " << Level.createFromJSON(leveljson).inspect)
 			end
 		end
 	end
