@@ -53,7 +53,10 @@
 				}
 			};
 
-			request.open("POST", "http://localhost:3000/levels/reorder/save.js");
+//			request.open("POST", "http://localhost:3000/levels/reorder/save.js");
+//			request.send(formData);
+
+			request.open("POST", "http://localhost:3000/levels/create_from_editor.js");
 			request.send(formData);
 		}
 	})();
