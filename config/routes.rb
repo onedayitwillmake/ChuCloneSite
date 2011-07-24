@@ -11,13 +11,14 @@ ChuCloneSite::Application.routes.draw do
 	match "levels/reorder/save" => "levels#save_order"
 	match "home/:action" => "home#:action"
 
-
-#  	get "home/index"
+	# GAME
+	get "game/index"
+  	match "EditMode" => "game#edit"
 
 	# RESOURCE MAPPING
 	resources :users
 	resources :levels
-#	resources :home
+	resources :game
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -68,7 +69,7 @@ ChuCloneSite::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "home#index"
+  root :to => "game#index"
 
   # See how all your routes lay out with "rake routes"
 

@@ -1,0 +1,34 @@
+<% content_for :game_imports do %>
+	<% # A bit hacky for now -  %>
+	<%= load 'public/game/build.rb' %>
+	<%= $output.html_safe %>
+	<%= $output = nil %>
+<% end %>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>ChuClone - Alpha</title>
+    <link rel="stylesheet" href="game/assets/css/960/reset.css"/>
+    <link rel="stylesheet" href="game/assets/css/960/text.css"/>
+    <link rel="stylesheet" href="game/assets/css/960/960.css"/>
+    <link rel="stylesheet" href="game/assets/css/ChuClone.css"/>
+
+	<link href="http://fonts.googleapis.com/css?family=Jura:300,400,500,600&v1" rel="stylesheet" type="text/css">
+	<style>
+		body {
+			overflow-y: hidden;
+		}
+	</style>
+	<%= yield :game_imports %>
+	<%= yield :game_start %>
+
+</head>
+<body>
+
+	<%= yield %>
+</body>
+</html>
