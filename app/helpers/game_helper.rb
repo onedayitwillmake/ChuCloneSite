@@ -12,6 +12,7 @@ module GameHelper
 		embed("js/lib/three.js/build/Three.js");
 		embed("js/lib/three.js/examples/js/RequestAnimationFrame.js");
 		embed("js/lib/three.js/examples/js/Stats.js");
+		embed("js/lib/Tween.js");
 
 		embed("assets/geometry/Bird.js");
 
