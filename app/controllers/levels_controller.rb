@@ -137,7 +137,10 @@ class LevelsController < ApplicationController
 	# POST /levels/create_from_editor
 	def create_from_editor
 		# Kill if user is nill
-		render(:json => ["status" => false, "notice" => "Not logged in"]) if current_user.nil?
+		if current_user.nil? then
+			render(:json => ["status" => false, "notice" => "Not logged in"])
+			return
+		end
 
 		# Overwriting level?
 		@level = Level.find_by_title(params[:levelName])
@@ -146,7 +149,8 @@ class LevelsController < ApplicationController
 		if @level.nil?
 			Level.create_from_editor(params[:levelName], params[:level_json])
 		else
-			@level.json = params[:data]
+			@level.json = params[:level_json]
+			@level.save
 		end
 
 		# Spit back info
