@@ -8,7 +8,7 @@ ChuCloneSite::Application.routes.draw do
 	get "levels/scrub"
 	get "levels/data/:id" => "levels#data"
 	get "levels/data" => "levels#data"
-	match "levels/reorder/" => "levels#reorder"
+	match "levels/reorder/" => "levels#reorder", :as => :reorder
 	match "levels/reorder/save" => "levels#save_order"
 	match "levels/create_from_editor" => "levels#create_from_editor"
 	match "home/:action" => "home#:action"

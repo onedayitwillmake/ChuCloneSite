@@ -1,5 +1,5 @@
 class LevelsController < ApplicationController
-#	layout "levels"
+	protect_from_forgery :except => :create_from_editor
 
 	# GET /levels
 	# GET /levels.xml
@@ -133,40 +133,24 @@ class LevelsController < ApplicationController
 		end
 	end
 
+	# Save a level from the editor via POST
+	# POST /levels/create_from_editor
 	def create_from_editor
-
-		flash[:notice] = p
-
-		p = params
-		cu = @current_user
-
-
-#		raise session.to_yaml
-		render(:json => session)
-
 		# Kill if user is nill
-#		render(:json => ["status" => false, "reason" => "Not logged in"]) if cu.nil?
+		render(:json => ["status" => false, "notice" => "Not logged in"]) if current_user.nil?
 
 		# Overwriting level?
 		@level = Level.find_by_title(params[:levelName])
 
+		# Create or update
 		if @level.nil?
 			Level.create_from_editor(params[:levelName], params[:level_json])
 		else
 			@level.json = params[:data]
 		end
 
-#		@level = Level.new(params[:level])
-#
-#		respond_to do |format|
-#			if @level.save
-#				format.html { redirect_to(@level, :notice => 'Level was successfully created.') }
-#				format.xml { render :xml => @level, :status => :created, :location => @level }
-#			else
-#				format.html { render :action => "new" }
-#				format.xml { render :xml => @level.errors, :status => :unprocessable_entity }
-#			end
-#		end
+		# Spit back info
+		render(:json => ["status" => true, "notice" => @level])
 	end
 
 	# PUT /levels/1
