@@ -3,7 +3,7 @@ module GameHelper
 	#This file simply contains all the imports needed to run the game, in depencency order, in one place
 	def embed(src)
 		#	puts "\t<script type='text/javascript' src='#{src}'></script>\n";
-		$output << "\t<script type='text/javascript' src='game/#{src}'></script>\n";
+		$output << "\t<script type='text/javascript' src='#{root_url}game/#{src}'></script>\n";
 	end
 
 	def embed_all()

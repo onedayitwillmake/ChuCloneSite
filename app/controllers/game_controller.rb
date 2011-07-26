@@ -4,6 +4,9 @@ class GameController < ApplicationController
   end
 
   def edit
+	  if not params[:id].nil?
+	  	@level = Level.find(params[:id])
+	  end
   end
 
 end

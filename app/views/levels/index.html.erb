@@ -18,7 +18,7 @@
 		<div class="grid_1 grayBorder"><%= 0 if level.times_completed.nil? %></div>
 		<div class="grid_1 grayBorder"><%= level.order_index  %></div>
 		<div class="grid_1 grayBorder"><%= link_to 'Show', level %></div>
-		<div class="grid_1 grayBorder"><%= link_to 'Edit', edit_level_path(level) %></div>
+		<div class="grid_1 grayBorder"><%= link_to 'Edit', editor_path(level) %></div>
 		<div class="grid_1 grayBorder omega"><%= link_to 'Destroy', level, :confirm => 'Are you sure?', :method => :delete %></div>
 		<div class="clear"></div>
 	<% end  %>

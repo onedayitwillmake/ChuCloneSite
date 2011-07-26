@@ -15,7 +15,8 @@ ChuCloneSite::Application.routes.draw do
 
 	# GAME
 	get "game/index"
-  	match "EditMode" => "game#edit"
+  	match "editor/:id" => "game#edit", :as => :editor
+  	match "editor" => "game#edit"
 
 	# RESOURCE MAPPING
 	resources :users
