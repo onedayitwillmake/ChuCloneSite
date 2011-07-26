@@ -1,5 +1,9 @@
 <h1 style="margin-top: 10px; padding-bottom:30px">Order Levels</h1>
 <div class="container_12">
+    <div class="grid_2 omega"><p><%= link_to 'back', levels_path %><p></div>
+    </div>
+
+<div class="container_12">
 	<div class="push_3 grid_7">
 		<div id="levelContainer">
 			<% count = 0 %>
@@ -53,10 +57,7 @@
 				}
 			};
 
-//			request.open("POST", "http://localhost:3000/levels/reorder/save.js");
-//			request.send(formData);
-
-			request.open("POST", "http://localhost:3000/levels/create_from_editor.js");
+			request.open("POST", "http://localhost:3000/levels/reorder/save.js");
 			request.send(formData);
 		}
 	})();

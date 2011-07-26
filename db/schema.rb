@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(:version => 20110724000404) do
     t.integer  "times_played"
     t.integer  "times_completed"
     t.text     "json"
-    t.integer  "order_index",     :default => 0, :null => false
+    t.integer  "order_index"
     t.datetime "updated_at"
   end
 

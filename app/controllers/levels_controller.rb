@@ -28,8 +28,12 @@ class LevelsController < ApplicationController
 			leveljson = ActiveSupport::JSON.decode(contents)
 			levelname = leveljson["editingInfo"]["levelName"]
 
-			@level = Level.first('title' => levelname)
 
+
+			#@level = Level.all# first('title' => levelname)
+      @level = Level.find(:first, :conditions => ["title = :u", {:u => levelname}]);
+
+      #raise @level.to_yaml
 ##		  Alternative way of searching for file in DB - returns only the first
 ##		  @level = Level.find(:first, :conditions => ["title = :u", {:u => levelName}]);
 
@@ -136,7 +140,7 @@ class LevelsController < ApplicationController
 	# Save a level from the editor via POST
 	# POST /levels/create_from_editor
 	def create_from_editor
-		# Kill if user is nill
+		# Kill if user is nil
 		if current_user.nil? then
 			render(:json => ["status" => false, "notice" => "Not logged in"])
 			return
@@ -152,6 +156,11 @@ class LevelsController < ApplicationController
 			@level.json = params[:level_json]
 			@level.save
 		end
+
+    # Save level to file with same name
+    aFile = File.new( "#{APP_CONFIG["PATHS"]["LEVELS_DIRECTORY"]}/#{params[:levelName]}_t.json", "w")
+    aFile.write(params[:level_json])
+    aFile.close
 
 		# Spit back info
 		render(:json => ["status" => true, "notice" => @level])

@@ -15,13 +15,6 @@
 <body>
 
 <div id='contentContainer'>
-	<% if current_user %>
-		Welcome <%= current_user.name %>
-		<%= link_to "Sign out", signout_path %>
-	<% else %>
-		<%= link_to "Sign in with twitter", "/auth/twitter" %>
-	<% end %>
-
 	<%= yield %>
 </div>
 <div class="container_12" id="info">
