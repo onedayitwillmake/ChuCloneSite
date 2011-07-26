@@ -28,8 +28,8 @@
     <orderEntry type="library" scope="PROVIDED" name="bundler (v1.0.15, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="faraday (v0.6.1, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="oauth (v0.4.5, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="abstract (v1.0.0, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="oa-basic (v0.2.6, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="abstract (v1.0.0, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-mount (v0.6.14, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mail (v2.2.19, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mysql2 (v0.2.11, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
@@ -40,8 +40,8 @@
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v0.5.7, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="builder (v2.1.2, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="polyglot (v0.3.1, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="activesupport (v3.0.9, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="oa-openid (v0.2.6, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="activesupport (v3.0.9, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.4.7, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="oa-enterprise (v0.2.6, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby-openid-apps-discovery (v1.2.0, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
@@ -54,17 +54,17 @@
     <orderEntry type="library" scope="PROVIDED" name="multi_xml (v0.2.2, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack (v1.2.3, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby-debug-base (v0.10.4, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="thor (v0.14.6, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multi_json (v1.0.3, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="thor (v0.14.6, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="actionpack (v3.0.9, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v0.3.29, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v0.5.0, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pyu-ruby-sasl (v0.0.3.3, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="oauth2 (v0.4.1, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails (v3.0.9, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="addressable (v2.2.4, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="ruby-debug (v0.10.4, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="treetop (v1.4.9, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="ruby-debug (v0.10.4, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="addressable (v2.2.4, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="linecache (v0.46, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rbx-require-relative (v0.0.5, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activerecord (v3.0.9, RVM: ruby-1.8.7-p352 [global]) [gem]" level="application" />
