@@ -1,0 +1,5 @@
+<% # Pretty little rectangles %>
+<% 12.times do |i| %>
+	<% color = rand(360) %>
+	<%= "\t<div class='grid_1 headerGrid' style='background-color: hsl(#{color},50%, 90%);'></div>".html_safe %>
+<% end %>
