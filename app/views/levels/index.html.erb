@@ -13,7 +13,7 @@
 	<% @levels.each do |level| %>
 		<% ampm = level.created_at.hour < 12 ? "am" : "pm"  %>
 		<div class="grid_2 grayBorder alpha"><%= level.title %></div>
-		<div class="grid_2 grayBorder"><%= "#{level.created_at.month}|#{level.created_at.day} @ #{(level.created_at.hour-12).abs}:#{level.created_at.min}#{ampm}"  %></div>
+		<div class="grid_2 grayBorder"><%= "#{distance_of_time_in_words_to_now(level.created_at)} ago"  %></div>
 		<div class="grid_1 grayBorder"><%= 0 if level.times_played.nil? %></div>
 		<div class="grid_1 grayBorder"><%= 0 if level.times_completed.nil? %></div>
 		<div class="grid_1 grayBorder"><%= level.order_index  %></div>

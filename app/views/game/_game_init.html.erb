@@ -1,0 +1,2 @@
+ChuClone.model.Constants.SERVER.ASSET_PREFIX = "<%= root_url.html_safe %>" + "game/";
+var game = new ChuClone.ChuCloneGame( <%= @level.nil? ? "" : "\"#{level_path(@level,  :format => :js)}\"".html_safe %> );
