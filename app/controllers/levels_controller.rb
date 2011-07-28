@@ -4,22 +4,20 @@ class LevelsController < ApplicationController
 	# GET /levels
 	# GET /levels.xml
 	def index
-
 		@levels = Level.all
-
-
-#		n = SessionsController.new
 		respond_to do |format|
 			format.html # index.html.erb
 			format.json { render :json => @levels }
 		end
 	end
 
+	# Scrubs the level directory and adds those levels to the DB
+	# Helper method for use during development
 	# GET /levels/scrub
 	def scrub
 		flash[:notice] = []
-		prefix = 'public/game/assets/levels/'
-		Dir.glob(prefix + "*.json" ) do |rb_file|
+		prefix = "#{APP_CONFIG["PATHS"]["LEVELS_DIRECTORY"]}/"
+		Dir.glob(prefix + "*.json") do |rb_file|
 			next if rb_file.include? '_t.json'
 
 			file = File.open(rb_file, 'rb')
@@ -29,21 +27,22 @@ class LevelsController < ApplicationController
 			levelname = leveljson["editingInfo"]["levelName"]
 
 
-
+			# Check if exist
 			#@level = Level.all# first('title' => levelname)
-      @level = Level.find(:first, :conditions => ["title = :u", {:u => levelname}]);
+			@level = Level.find(:first, :conditions => ["title = :u", {:u => levelname}]);
 
-      #raise @level.to_yaml
-##		  Alternative way of searching for file in DB - returns only the first
+			#raise @level.to_yaml
+#		  Alternative way of searching for file in DB - returns only the first
 ##		  @level = Level.find(:first, :conditions => ["title = :u", {:u => levelName}]);
 
-			if not @level.nil? then
+			if not @level.nil? then # Update
 				flash[:notice] << ("Updated: " << @level.title.html_safe)
 
 				# Save if record is different
-				if not leveljson.to_json == @level.json then
+				if not leveljson.to_json == @level.json then # Create new
 					@level.json = leveljson.to_json
 					@level.save
+					puts @level.errors
 				end
 			else # Does not exist create it from the DB
 				flash[:notice] << ("Created: " << Level.createFromJSON(leveljson).inspect)
@@ -76,7 +75,6 @@ class LevelsController < ApplicationController
 			level.save
 		end
 
-#		@levels = Level.all
 		render :json => sendback
 	end
 
@@ -140,11 +138,6 @@ class LevelsController < ApplicationController
 	# Save a level from the editor via POST
 	# POST /levels/create_from_editor
 	def create_from_editor
-		# Kill if user is nil
-		if current_user.nil? then
-			render(:json => ["status" => false, "notice" => "Not logged in"])
-			return
-		end
 
 		# Overwriting level?
 		@level = Level.find_by_title(params[:levelName])
@@ -153,14 +146,18 @@ class LevelsController < ApplicationController
 		if @level.nil?
 			Level.create_from_editor(params[:levelName], params[:level_json])
 		else
+			@level.current_user = current_user
 			@level.json = params[:level_json]
-			@level.save
+			unless @level.save
+				render(:json => ["notice" => @level.errors, "status" => false])
+				return
+			end
 		end
 
-    # Save level to file with same name
-    aFile = File.new( "#{APP_CONFIG["PATHS"]["LEVELS_DIRECTORY"]}/#{params[:levelName]}_t.json", "w")
-    aFile.write(params[:level_json])
-    aFile.close
+		# Save level to file with same name
+		file = File.new("#{APP_CONFIG["PATHS"]["LEVELS_DIRECTORY"]}/#{params[:levelName]}.json", "w")
+		file.write(params[:level_json])
+		file.close
 
 		# Spit back info
 		render(:json => ["status" => true, "notice" => @level])
