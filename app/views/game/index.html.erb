@@ -61,7 +61,7 @@
 		<% @levels.each do |level| %>
 			<% count = count + 1 %>
 			<% extraClass = count % perRow == 0 ? " levelThumbnailEOL" : "" %>
-			<%= "\t<div data-location='' data-id='#{level.id}' class='grid_2 levelThumbnail#{extraClass}'>#{level.title}</div>".html_safe %>
+			<%= "\t<div data-location='' data-id='#{level.id}' class='grid_2 levelThumbnail#{extraClass}'><p>#{level.title}</p></div>".html_safe %>
 		<% end %>
         <!--    END LEVEL LIST -->
     </div>

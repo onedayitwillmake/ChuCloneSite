@@ -4,48 +4,10 @@ class LevelsController < ApplicationController
 	# GET /levels
 	# GET /levels.xml
 	def index
-		@levels = Level.all
+		@levels = Level.find(:all, :order => 'order_index')
 		respond_to do |format|
 			format.html # index.html.erb
 			format.json { render :json => @levels }
-		end
-	end
-
-	# Scrubs the level directory and adds those levels to the DB
-	# Helper method for use during development
-	# GET /levels/scrub
-	def scrub
-		flash[:notice] = []
-		prefix = "#{APP_CONFIG["PATHS"]["LEVELS_DIRECTORY"]}/"
-		Dir.glob(prefix + "*.json") do |rb_file|
-			next if rb_file.include? '_t.json'
-
-			file = File.open(rb_file, 'rb')
-			contents = file.read
-
-			leveljson = ActiveSupport::JSON.decode(contents)
-			levelname = leveljson["editingInfo"]["levelName"]
-
-
-			# Check if exist
-			#@level = Level.all# first('title' => levelname)
-			@level = Level.find(:first, :conditions => ["title = :u", {:u => levelname}]);
-
-			#raise @level.to_yaml
-#		  Alternative way of searching for file in DB - returns only the first
-##		  @level = Level.find(:first, :conditions => ["title = :u", {:u => levelName}]);
-
-			if not @level.nil? then # Update
-				flash[:notice] << ("Updated: " << @level.title.html_safe)
-
-				# Save if record is different
-				if not leveljson.to_json == @level.json then # Create new
-					@level.json = leveljson.to_json
-					@level.save
-				end
-			else # Does not exist create it from the DB
-				flash[:notice] << ("Created: " << Level.createFromJSON(leveljson).inspect)
-			end
 		end
 	end
 
@@ -69,9 +31,10 @@ class LevelsController < ApplicationController
 		sendback = []
 
 		sortinfo.each do |leveldata|
-			level = Level.find( leveldata["id"] )
-			level.order_index = leveldata["order_index"]
-			level.save
+			@level = Level.find( leveldata["id"] )
+      @level.current_user = current_user
+			@level.order_index = leveldata["order_index"]
+			@level.save
 		end
 
 		render :json => sendback

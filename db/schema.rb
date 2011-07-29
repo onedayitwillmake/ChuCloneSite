@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110724000404) do
+ActiveRecord::Schema.define(:version => 20110729183913) do
+
+  create_table "highscores", :force => true do |t|
+    t.float    "score"
+    t.integer  "level_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "levels", :force => true do |t|
     t.string   "title"
@@ -18,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20110724000404) do
     t.integer  "times_played"
     t.integer  "times_completed"
     t.text     "json"
-    t.integer  "order_index"
+    t.integer  "order_index",     :default => 0
     t.datetime "updated_at"
   end
 
