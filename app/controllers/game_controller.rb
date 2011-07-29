@@ -1,6 +1,8 @@
 class GameController < ApplicationController
 	def index
 		@levels = Level.all(:order => "order_index")
+		# Load the title screen by default
+		@level = Level.find_all_by_title( APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"] ).first
 	end
 
 	def edit

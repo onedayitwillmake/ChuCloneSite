@@ -1,2 +1,3 @@
 ChuClone.model.Constants.SERVER.ASSET_PREFIX = "<%= root_url.html_safe %>" + "game/";
+ChuClone.model.Constants.INITIAL_STATE = <%= @level && @level.title == APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"] ? '"TitleScreen"'.html_safe : '"PlayLevel"'.html_safe  %>
 var game = new ChuClone.ChuCloneGame( <%= @level.nil? ? "" : "\"#{level_path(@level,  :format => :js)}\"".html_safe %> );

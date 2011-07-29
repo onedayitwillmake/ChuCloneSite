@@ -58,12 +58,12 @@ module GameHelper
 		embed("js/ChuClone/physics/ContactListener.js");
 		embed("js/ChuClone/physics/DestructionListener.js");
 		embed("js/ChuClone/physics/WorldController.js");
-		embed("js/ChuClone/view/BackgroundParticleManager.js");
 		embed("js/ChuClone/GameViewController.js");
 		embed("js/ChuClone/GameEntity.js");
 
 		embed("js/ChuClone/states/EditState.js");
 		embed("js/ChuClone/states/PlayLevelState.js");
+		embed("js/ChuClone/states/TitleScreenState.js");
 		embed("js/ChuClone/ChuCloneGame.js");
 	end
 end

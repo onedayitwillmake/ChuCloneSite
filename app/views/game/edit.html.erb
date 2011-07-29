@@ -2,14 +2,20 @@
 <script type="text/javascript">
 		ChuClone.model.Constants.GAME_WIDTH = 800;
 		ChuClone.model.Constants.GAME_HEIGHT = 400;
-		<%= render :partial => "game_init", :locals => { :level => @level } %>
+		ChuClone.model.Constants.INITIAL_STATE = 'Edit';
+
+
+		<%#= render :partial => "game_init", :locals => { :level => @level } %>
+		ChuClone.model.Constants.SERVER.ASSET_PREFIX = "<%= root_url.html_safe %>" + "game/";
+		var game = new ChuClone.ChuCloneGame( <%= @level.nil? ? "" : "\"#{level_path(@level,  :format => :js)}\"".html_safe %> );
+
 
 		window.addEventListener('DOMContentLoaded', function callback(e){
                 window.removeEventListener('DOMContentLoaded', callback, false);
             }, false);
 	</script>
 <% end %>
-
+                                          h
 
 <div class="container_12">
 	<div class="flash_notice" id="flash_notice">
