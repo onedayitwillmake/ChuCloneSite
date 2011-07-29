@@ -9,7 +9,7 @@
 			<% count = 0 %>
 			<% perRow = 3 %>
 			<% @levels.each do |level| %>
-				<div data-location="<%= level.title %>" data-id="<%= level.id %>" class="grid_2 levelThumbnail" id='item_<%= level.id %>'><%= level.title %> <%= count %></div>
+				<div data-location="<%= level.title %>" data-id="<%= level.id %>" class="grid_2 levelThumbnail" id='item_<%= level.id %>' style=""><p style="text-align:center; width:100%;height:82px;position:absolute;top:50%;margin-top:-10px;"><%= level.title %></p></div>
 				<% count = count + 1 %>
 			<% end %>
 		</div>

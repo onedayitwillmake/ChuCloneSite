@@ -1,11 +1,12 @@
 ChuCloneSite::Application.routes.draw do
 
+  #resources :highscores
+
 	# AUTHENTICATION
 	match "/auth/twitter/callback" => "sessions#create"
 	match "/signout" => "sessions#destroy", :as => :signout
 
 	# LEVELS
-	get "levels/scrub"
 	get "levels/data/:id" => "levels#data"
 	get "levels/data" => "levels#data"
 	match "levels/reorder/" => "levels#reorder", :as => :reorder
@@ -19,12 +20,13 @@ ChuCloneSite::Application.routes.draw do
 
 	# RESOURCE MAPPING
 	# resources :users
-	resources :levels
 	resources :game
 
-	namespace :admin do
-		resource :levels
-	end
+  # LEVELS AND HIGHSCORES
+  resources :levels do
+    resources :highscores
+  end
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
