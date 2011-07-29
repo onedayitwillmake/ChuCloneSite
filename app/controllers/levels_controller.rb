@@ -42,7 +42,6 @@ class LevelsController < ApplicationController
 				if not leveljson.to_json == @level.json then # Create new
 					@level.json = leveljson.to_json
 					@level.save
-					puts @level.errors
 				end
 			else # Does not exist create it from the DB
 				flash[:notice] << ("Created: " << Level.createFromJSON(leveljson).inspect)

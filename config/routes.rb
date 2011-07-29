@@ -11,7 +11,6 @@ ChuCloneSite::Application.routes.draw do
 	match "levels/reorder/" => "levels#reorder", :as => :reorder
 	match "levels/reorder/save" => "levels#save_order"
 	match "levels/create_from_editor" => "levels#create_from_editor"
-	match "home/:action" => "home#:action"
 
 	# GAME
 	get "game/index"
@@ -19,9 +18,13 @@ ChuCloneSite::Application.routes.draw do
   	match "editor" => "game#edit"
 
 	# RESOURCE MAPPING
-	resources :users
+	# resources :users
 	resources :levels
 	resources :game
+
+	namespace :admin do
+		resource :levels
+	end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,2 +1,5 @@
 PATHS:
-  LEVELS_DIRECTORY: public/game/assets/levels
+ LEVELS_DIRECTORY: public/game/assets/levels
+
+DEFAULTS:
+ TITLE_SCREEN_LEVEL: TitleScreen
