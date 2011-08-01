@@ -31,3 +31,4 @@ gem 'ruby-debug'
 # end
 
 gem 'omniauth'
+gem 'sass'

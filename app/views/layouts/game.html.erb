@@ -1,9 +1,3 @@
-<% content_for :game_imports do %>
-	<% # A bit hacky for now -  %>
-	<%= embed_all.html_safe %>
-<% end %>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +7,18 @@
     <link rel="stylesheet" href="<%= root_url %>game/assets/css/960/reset.css"/>
     <link rel="stylesheet" href="<%= root_url %>game/assets/css/960/text.css"/>
     <link rel="stylesheet" href="<%= root_url %>game/assets/css/960/960.css"/>
-    <link rel="stylesheet" href="<%= root_url %>game/assets/css/ChuClone.css"/>
+    
+    <%= stylesheet_link_tag "ChuClone", :cache => false %>
+
+    
+    <% if false %><!-- start erb comment -->
+         <link rel="stylesheet" href="<%= root_url %>game/assets/css/ChuClone.css"/>
+        <!-- end erb comment --><% end %>
 
 	<link href="http://fonts.googleapis.com/css?family=Jura:300,400,500,600&v1" rel="stylesheet" type="text/css">
 	<style>
 	</style>
-	<%= yield :game_imports %>
+    <%= embed_all.html_safe %>
 	<%= yield :game_start %>
 
 </head>

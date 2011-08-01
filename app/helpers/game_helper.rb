@@ -37,6 +37,7 @@ module GameHelper
 		embed("js/ChuClone/components/KeyboardInputComponent.js");
 		embed("js/ChuClone/components/AutoRotationComponent.js");
 		embed("js/ChuClone/components/effect/ParticleEmitterComponent.js");
+		embed("js/ChuClone/components/effect/BirdEmitterComponent.js");
 		embed("js/ChuClone/components/CharacterControllerComponent.js");
 		embed("js/ChuClone/components/PhysicsVelocityLimitComponent.js");
 		embed("js/ChuClone/components/BoundsYCheckComponent.js");
@@ -62,6 +63,7 @@ module GameHelper
 		embed("js/ChuClone/GameEntity.js");
 
 		embed("js/ChuClone/states/EditState.js");
+		embed("js/ChuClone/states/EndLevelState.js");
 		embed("js/ChuClone/states/PlayLevelState.js");
 		embed("js/ChuClone/states/TitleScreenState.js");
 		embed("js/ChuClone/ChuCloneGame.js");
