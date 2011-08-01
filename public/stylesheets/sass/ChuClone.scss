@@ -1,0 +1,193 @@
+/* COLORS */
+$gray: #333;
+$darkGray: #666;
+
+/* FUNCTIONS */
+@mixin lineBorder($color) {
+    border: 1px solid $color;
+    text-align: center;
+}
+
+@mixin jura($size, $fontWeight) {
+    font-size: $size + px;
+	font-family: 'Jura', serif;
+    font-weight: $fontWeight;
+    text-shadow: none;
+    text-decoration: none;
+    text-transform: none;
+    letter-spacing: 0em;
+    word-spacing: 0em;
+    line-height: 1.2;
+}
+
+/* MAKE A BUNCH OF JURA FONT CLASSES */ 
+@for $i from 1 through 64 {
+    .jura_#{$i} {
+        @include jura(#{$i}, 300);
+    }
+}
+
+/** MAKE A BUNCH OF GRID SPACES **/
+@for $i from 1 through 12 {
+    .margin_top_#{$i} {
+        margin-top:#{$i*60}px
+    }
+    .margin_bottom_#{$i} {
+        margin-top:#{$i*60}px
+    }
+
+    .padding_top_#{$i} {
+        padding-top:#{$i*60}px
+    }
+    .padding_bottom_#{$i} {
+        padding-bottom:#{$i*60}px
+    }
+}
+
+body {
+    background: #FDFDFD;
+    color: $gray;
+    height: auto;
+    padding-bottom: 20px;
+}
+
+h1 {
+    @include jura(48, 700);
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+h2 {
+    padding-top: 20px;
+    text-align: center;
+}
+
+a {
+	font-weight: 300;
+    text-decoration: none;
+    color: $gray;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+
+:focus {
+    outline: 0;
+}
+
+
+.container_12,
+.container_16,
+.container_24 {
+    background-repeat: repeat-y;
+    margin-bottom: 20px;
+}
+
+.user_nav {
+    @include jura(16, 300);
+    text-align: center;
+    margin-top:25px;
+}
+
+.user_nav_disabled {
+    @extend .user_nav;
+    opacity: 0.75;
+}
+
+.grayBorder {
+	@include lineBorder(adjust-color($gray, $lightness: 30%));
+    padding: 5px 0;
+}
+
+.headerGrid {
+	height: 2px;
+	margin-bottom: 20px;
+}
+
+.magentaBorder {
+    @include lineBorder(#FF0000);
+    padding: 5px 0;
+}
+
+.levelThumbnail {
+    border: 1px solid $darkGray;
+    margin-left: -1px;
+    margin-right: 19px;
+	margin-bottom: 20px;
+    width: 19px;
+    height: 80px;
+    font-size: 16px;
+    cursor: pointer;
+    @include jura(16, normal);
+    p {
+        position:relative;
+        margin-top:-10px;
+        padding: 0;
+        width:100%;
+        height:82px;
+        top:50%;
+        border: none;
+        text-align:center;
+    }
+}
+
+.levelThumbnailOmega {
+    @extend .levelThumbnail;
+    margin-right: 0;
+    margin-left: -2px;
+}
+
+.levelCurrent {
+
+}
+
+.levelCompleted {
+
+}
+
+.levelAvailable {
+	background-image: url(../images/page/12_col_stripes.gif);
+}
+
+.levelUnavailable {
+
+}
+
+.doMore {
+    @include jura(12, 300);
+}
+
+.flash_notice {
+	@include jura(13, 300);
+	text-align: left;
+	margin-left: -225px;
+	margin-top: 72px;
+	height: 60px;
+	width: 280px;
+	position: absolute;
+	@include lineBorder($darkGray);
+	padding-left: 5px;
+}
+#gameContainer {
+    width: 1000px;
+	height: 500px;
+    @include lineBorder($darkGray);
+    margin-left: -20px;
+}
+
+#editorContainer {
+    width: 1000px;
+    @include lineBorder($darkGray);
+    margin-left: -20px;
+    margin-top: 2px;
+    margin-bottom: 20px;
+}
+
+#HUDTime {
+    @include lineBorder($darkGray);
+    padding: 5px 0;
+    text-align: center;
+}

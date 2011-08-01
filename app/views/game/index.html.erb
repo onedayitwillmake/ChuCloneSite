@@ -16,34 +16,34 @@
 
 	<%# Logged in version  %>
 	<% if current_user %>
-		<div class="push_1 grid_2 grayBorder" style="text-align: center; font-size: 16px;  margin-top:25px; " id='user_nav'>
+		<div class="push_1 grid_2 grayBorder user_nav">
 			<a href="/editor">Level Creator</a>
 		</div>
-		<div class="push_1 grid_2 grayBorder" style="text-align: center; font-size: 16px;  margin-top:25px; " id='user_nav'>
+		<div class="push_1 grid_2 grayBorder user_nav">
 			<%= link_to "Ones I Made", levels_path %>
 		</div>
 		<div class="push_1 grid_3 grayBorder omega" style="text-align: center; font-size: 16px;  margin-top:25px; padding: 5px 0 5px 0; margin-right:0" id='user_nav'>
 			<%= link_to "#{current_user.name} - Sign Out", signout_path %>
 		</div>
 	<% else %>
-		<div class="push_1 grid_2 grayBorder" style="opacity: 0.5; text-align: center; font-size: 16px;  margin-top:25px; " id='user_nav'>
+		<div class="push_1 grid_2 grayBorder user_nav_disabled">
 			Level Creator
 		</div>
-		<div class="push_1 grid_2 grayBorder" style="text-align: center; font-size: 16px;  margin-top:25px; padding: 5px 0 5px 0; margin-right:0" id='user_nav'>
+		<div class="push_1 grid_2 grayBorder user_nav_disabled">
 			Ones I Made
 		</div>
-		<div class="push_1 grid_3 grayBorder omega" style="text-align: center; font-size: 16px;  margin-top:25px; padding: 5px 0 5px 0; margin-right:0" id='user_nav'>
+		<div class="push_1 grid_3 grayBorder user_nav">
 			<%= link_to "Sign in with twitter", "/auth/twitter" %>
 		</div>
 	<% end %>
 
     <div class="clear"></div>
 	<%= render :partial => "game/colored_rectangles" %>
-    <div class="JURA_normal_36 grid_4">
+    <div class="jura_36 grid_4">
         <p class="grayBorder"> Level Name </p>
     </div>
 
-    <div class="grid_4 push_4 lineBorder omega" id="HUDTime">00.0 secs</div>
+    <div class="grid_4 push_4 omega" id="HUDTime">00.0 secs</div>
     <div class="clear"></div>
     <div id="gameContainer" class="grid_12"></div>
     <div id="editorContainer" class="grid_12" style="height: 540px;"></div>
@@ -51,7 +51,7 @@
     <div class="grid_12" style="height: 20px"></div>
     <div class="clear"></div>
     <div class="grid_6">
-        <p class="grayBorder JURA_normal_36">
+        <p class="grayBorder jura_36">
             Select Level
         </p>
         <!--    BEGIN LEVEL LIST -->
@@ -60,27 +60,27 @@
         <% perRow = 3 %>
 		<% @levels.each do |level| %>
 			<% count = count + 1 %>
-			<% extraClass = count % perRow == 0 ? " levelThumbnailEOL" : "" %>
-			<%= "\t<div data-location='' data-id='#{level.id}' class='grid_2 levelThumbnail#{extraClass}'><p>#{level.title}</p></div>".html_safe %>
+			<% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
+			<%= "\t<div data-location='' data-id='#{level.id}' class='grid_2 #{css_class}'><p>#{level.title}</p></div>".html_safe %>
 		<% end %>
         <!--    END LEVEL LIST -->
     </div>
 	<div class="grid_6">
 		<div class="grid_6">
-			<p class="grayBorder JURA_normal_36">Level Information </p>
+			<p class="grayBorder jura_36">Level Information </p>
 		</div>
 
 		<div class="grid_6">
-			<div class="grid_2 grayBorder alpha" style="text-align: center;">AUTHOR</div>
-			<div class="grid_4 grayBorder alpha omega" style="text-align: center;padding-right:6px">1dayitwillmake</div>
+			<div class="grid_2 grayBorder alpha jura_13" style="text-align: center;">AUTHOR</div>
+			<div class="grid_4 grayBorder alpha jura_13 omega" style="text-align: center;padding-right:6px">1dayitwillmake</div>
 		</div>
 		<div class="clear"></div>
 		<div class="grid_6" style="margin-top:10px">
-			<div class="grid_2 grayBorder alpha" style="text-align: center;">COMPLETION RATE</div>
-			<div class="grid_4 grayBorder alpha omega" style="text-align: center;padding-right:6px">85% Completion rate</div>
+			<div class="grid_2 grayBorder alpha jura_13" style="text-align: center;">COMPLETION RATE</div>
+			<div class="grid_4 grayBorder alpha jura_13 omega" style="text-align: center;padding-right:6px">85% Completion rate</div>
 		</div>
 		<div class="grid_6" style="margin-top:38px">
-			<p class="grayBorder JURA_normal_36">Best Times</p>
+			<p class="grayBorder jura_36">Best Times</p>
 		</div>
 
 		<div class="grid_6" style="margin-top:0px">
@@ -88,8 +88,8 @@
 		<% 10.times do |i| %>
 			<% levelTime = rand(60.0*3.0)/4.0 %>
 			<% color = rand(360) %>
-			<%= "<div class='grid_2 grayBorder alpha' style='text-align: center; margin-top:-10px'>UserName #{color} </div>".html_safe %>
-			<%= "<div class='grid_4 grayBorder alpha omega' id='time_#{i}' style='text-align:center; margin-top:-10px; margin-bottom:20px; padding-right:6px'> #{levelTime} seconds</div>".html_safe %>
+			<%= "<div class='grid_2 grayBorder alpha jura_13' style='text-align: center; margin-top:-10px'>UserName #{color} </div>".html_safe %>
+			<%= "<div class='grid_4 grayBorder alpha jura_13 omega' id='time_#{i}' style='text-align:center; margin-top:-10px; margin-bottom:20px; padding-right:6px'> #{levelTime} seconds</div>".html_safe %>
 		<% end %>
 			</div>
 	</div>
@@ -99,7 +99,4 @@
 
 <div class="grid_1 doMore prefix_1">
 	<p><a href="https://github.com/onedayitwillmake/ChuClone">Fork on Github</a></p>
-</div>
-<div class="grid_1 doMore suffix_1">
-	<p><a href="?editMode=true">Switch to Edit Mode</a></p>
 </div>
