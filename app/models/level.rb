@@ -22,6 +22,13 @@ class Level < ActiveRecord::Base
 		end
 	end
 
+  	def self.find_all_playable_levels
+		  Level.all(:select => 'title,id', :conditions => ["playable = true"], :order => "order_index")
+  	end
+
+  	###############
+  	# VALIDATIONS #
+  	##############
 	def must_have_valid_level
 		# Check for valid json
 		begin

@@ -5,6 +5,7 @@ class LevelsController < ApplicationController
 	# GET /levels.xml
 	def index
 		@levels = Level.find(:all, :order => 'order_index')
+
 		respond_to do |format|
 			format.html # index.html.erb
 			format.json { render :json => @levels }
