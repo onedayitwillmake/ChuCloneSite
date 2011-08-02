@@ -28,12 +28,16 @@
     <%= f.text_field :times_completed %>
   </div>
   <div class="field">
-    <%= f.label :json %><br />
-    <%= f.text_area :json %>
-  </div>
-  <div class="field">
     <%= f.label :order_index %><br />
     <%= f.text_field :order_index %>
+  </div>
+	<div class="field">
+    <%= f.label :playable %><br />
+    <%= f.check_box :playable %>
+  </div>
+	 <div class="field">
+    <%= f.label :json %><br />
+    <%= f.text_area :json %>
   </div>
   <div class="actions">
     <%= f.submit %>

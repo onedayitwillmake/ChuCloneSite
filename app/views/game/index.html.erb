@@ -22,7 +22,7 @@
 		<div class="push_1 grid_2 grayBorder user_nav">
 			<%= link_to "Ones I Made", levels_path %>
 		</div>
-		<div class="push_1 grid_3 grayBorder omega" style="text-align: center; font-size: 16px;  margin-top:25px; padding: 5px 0 5px 0; margin-right:0" id='user_nav'>
+		<div class="push_1 grid_3 grayBorder user_nav omega" style="text-align: center; font-size: 16px;  margin-top:25px; padding: 5px 0 5px 0; margin-right:0" id='user_nav'>
 			<%= link_to "#{current_user.name} - Sign Out", signout_path %>
 		</div>
 	<% else %>
@@ -55,14 +55,15 @@
             Select Level
         </p>
         <!--    BEGIN LEVEL LIST -->
-
-		<% count = 0 %>
-        <% perRow = 3 %>
-		<% @levels.each do |level| %>
-			<% count = count + 1 %>
-			<% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
-			<%= "\t<div data-location='' data-id='#{level.id}' class='grid_2 #{css_class}'><p>#{level.title}</p></div>".html_safe %>
-		<% end %>
+       <div id="levellisting">
+            <% count = 0 %>
+            <% perRow = 3 %>
+            <% @levels.each do |level| %>
+                <% count = count + 1 %>
+                <% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
+                <%= "\t<div data-location='' data-id='#{level.id}' class='grid_2 #{css_class}'><p>#{level.title}</p></div>".html_safe %>
+            <% end %>
+       </div>
         <!--    END LEVEL LIST -->
     </div>
 	<div class="grid_6">
