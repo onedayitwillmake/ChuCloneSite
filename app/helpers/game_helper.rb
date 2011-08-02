@@ -35,11 +35,14 @@ module GameHelper
 		embed("js/ChuClone/components/GoalPadComponent.js");
 		embed("js/ChuClone/components/DeathPadComponent.js");
 		embed("js/ChuClone/components/CheckIsJumpingComponent.js");
-		embed("js/ChuClone/components/KeyboardInputComponent.js");
 		embed("js/ChuClone/components/AutoRotationComponent.js");
 		embed("js/ChuClone/components/effect/ParticleEmitterComponent.js");
 		embed("js/ChuClone/components/effect/BirdEmitterComponent.js");
+
+    embed("js/ChuClone/components/KeyboardInputComponent.js");
+    embed("js/ChuClone/components/RemoteJoystickInputComponent.js");
 		embed("js/ChuClone/components/CharacterControllerComponent.js");
+
 		embed("js/ChuClone/components/PhysicsVelocityLimitComponent.js");
 		embed("js/ChuClone/components/BoundsYCheckComponent.js");
 		embed("js/ChuClone/components/camera/CameraFocusRadiusComponent.js");
