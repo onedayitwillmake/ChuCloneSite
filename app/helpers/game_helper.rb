@@ -23,6 +23,7 @@ module GameHelper
 		embed("js/ChuClone/namespace.js");
 		embed("js/ChuClone/model/Constants.js");
 		embed("js/ChuClone/Utils.js");
+		embed("js/ChuClone/utils/TextureUtils.js");
 
 		embed("js/ChuClone/gui/LevelListing.js");
 		embed("js/ChuClone/gui/HUDController.js");
