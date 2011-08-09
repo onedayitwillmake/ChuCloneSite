@@ -3,7 +3,13 @@ class GameController < ApplicationController
 		@levels = Level.find_all_playable_levels
 		# Load the title screen by default
 		@level = Level.find_all_by_title( APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"] ).first
-	end
+  end
+
+  def pure
+		@levels = Level.find_all_playable_levels
+		# Load the title screen by default
+		@level = Level.find_all_by_title( APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"] ).first
+  end
 
 	def edit
 		if not params[:id].nil?
