@@ -4,27 +4,13 @@
 
     <meta charset="utf-8"/>
     <title>ChuClone - Alpha</title>
-	<link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="stylesheet" href="<%= root_url %>game/assets/css/960/reset.css"/>
-    <link rel="stylesheet" href="<%= root_url %>game/assets/css/960/text.css"/>
-    <link rel="stylesheet" href="<%= root_url %>game/assets/css/960/960.css"/>
-
-    <%= stylesheet_link_tag "ChuClone", :cache => false %>
-
-    
-    <% if false %><!-- start erb comment -->
-         <link rel="stylesheet" href="<%= root_url %>game/assets/css/ChuClone.css"/>
-        <!-- end erb comment --><% end %>
-
-	<link href="http://fonts.googleapis.com/css?family=Jura:300,400,500,600&v1" rel="stylesheet" type="text/css">
-	<style>
-	</style>
+	
     <% if false  %>
-    <script type="text/javascript" src="http://benvanik.github.com/WebGL-Inspector/core/embed.js"></script>
+        <%= '<script type="text/javascript" src="http://benvanik.github.com/WebGL-Inspector/core/embed.js"></script>' %>
         <% end %>
     <%= embed_all.html_safe %>
 	<%= yield :game_start %>
-
+    <%= yield :game_style %>
 </head>
 <body>
 	<%= yield %>
