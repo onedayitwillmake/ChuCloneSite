@@ -9,7 +9,7 @@ module GameHelper
 	def embed_all()
 		embed("js/lib/DAT.GUI.js");
 		embed("js/lib/Stats.js");
-		embed("js/lib/three.js/build/Three.js");
+		embed("js/lib/three.js/build/custom/ThreeDebug.js");
 		embed("js/lib/three.js/examples/js/RequestAnimationFrame.js");
 		embed("js/lib/three.js/examples/js/Stats.js");
 		embed("js/lib/Tween.js");
@@ -23,6 +23,7 @@ module GameHelper
 		embed("js/ChuClone/namespace.js");
 		embed("js/ChuClone/model/Constants.js");
 		embed("js/ChuClone/Utils.js");
+		embed("js/ChuClone/utils/TextureUtils.js");
 
 		embed("js/ChuClone/gui/LevelListing.js");
 		embed("js/ChuClone/gui/HUDController.js");
@@ -40,7 +41,7 @@ module GameHelper
 		embed("js/ChuClone/components/effect/BirdEmitterComponent.js");
 
     embed("js/ChuClone/components/KeyboardInputComponent.js");
-    embed("js/ChuClone/components/RemoteJoystickInputComponent.js");
+    #embed("js/ChuClone/components/RemoteJoystickInputComponent.js");
 		embed("js/ChuClone/components/CharacterControllerComponent.js");
 
 		embed("js/ChuClone/components/PhysicsVelocityLimitComponent.js");

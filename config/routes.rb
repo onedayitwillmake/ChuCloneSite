@@ -14,9 +14,10 @@ ChuCloneSite::Application.routes.draw do
 	match "levels/create_from_editor" => "levels#create_from_editor"
 
 	# GAME
-	get "game/index"
-  	match "editor/:id" => "game#edit", :as => :editor
-  	match "editor" => "game#edit"
+  match "editor/:id" => "game#edit", :as => :editor
+  match "editor" => "game#edit"
+  match "pure/:id" => "game#pure"
+  match "remoteplay/:id" => "game#remoteplay"
 
 	# RESOURCE MAPPING
 	# resources :users

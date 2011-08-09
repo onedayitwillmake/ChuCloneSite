@@ -1,0 +1,60 @@
+body {
+	background-color: #EEEEEE;
+}
+
+.thumb_stick_container,
+.thumb_stick_touch_area
+{
+    position: absolute;
+	background: #ded7ce;
+	border-radius: 60px;
+    /*top: 215px;*/
+    /*left: 22px;*/
+    width: 118px;
+    height: 118px;
+}
+
+.thumb_stick_touch_area {
+	border-radius: 0;
+	background-color: transparent;
+}
+
+.thumb_stick_nub {
+    position: absolute;
+	background-image: url("../images/joystick/thumb.png");
+	/*opacity: 0.5;*/
+    width: 50px;
+    height: 50px;
+}
+
+#controller_container {
+    /*-webkit-transform: translate(75px, -185px) rotate(-90deg);*/
+    position:relative;
+    width: 320px;
+    height: 356px;
+    background-image: url("../images/joystick/joystick-mini.png");
+    /*overflow: hidden;*/
+}
+
+#controller_image {
+    position: absolute;
+}
+
+
+/*PORTRAIT MODE*/
+@media screen and (max-width: 320px) {
+	body {
+		background-color: #00FF00;
+	}
+
+}
+
+/*LANDSCAPE*/
+@media screen and (min-width: 321px) {
+	#controller_container {
+		position: relative;
+		width: 480px;
+		height: 208px;
+		background-image: url("../images/joystick/joystick-mini_landscape.png");
+	}
+}
