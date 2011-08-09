@@ -17,6 +17,7 @@ ChuCloneSite::Application.routes.draw do
   match "editor/:id" => "game#edit", :as => :editor
   match "editor" => "game#edit"
   match "pure/:id" => "game#pure"
+  match "remoteplay/:id" => "game#remoteplay"
 
 	# RESOURCE MAPPING
 	# resources :users

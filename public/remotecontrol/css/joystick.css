@@ -1,0 +1,81 @@
+body {
+	background-color: #EEEEEE;
+}
+
+.dpad_button {
+    width: 27px;
+    height: 25px;
+    position: absolute;
+    background-image: url("../images/joystick/down.png");
+    opacity: 0.25;
+}
+
+#dpad_touch_area {
+    width: 190px;
+    height: 180px;
+}
+
+#dpad_up {
+    left: 112px;
+    top: 66px;
+}
+#dpad_down {
+    left: 32px;
+    top: 66px;
+}
+#dpad_left {
+	left: 72px;
+	top: 26px;
+}
+#dpad_right {
+    left: 72px;
+    top: 106px;
+}
+
+.thumb_stick {
+    position: absolute;
+    top: 215px;
+    left: 22px;
+    width: 118px;
+    height: 118px;
+}
+
+#thumb_stick_nub {
+    position: absolute;
+    background-image: url("../images/joystick/thumb.png");
+    width: 53px;
+    height: 53px;
+    opacity: 0.5;
+}
+
+#controller_container {
+    /*-webkit-transform: translate(75px, -185px) rotate(-90deg);*/
+    position:relative;
+    width: 320px;
+    height: 356px;
+    background-image: url("../images/joystick/joystick-mini.png");
+    /*overflow: hidden;*/
+}
+
+#controller_image {
+    position: absolute;
+}
+
+
+/*PORTRAIT MODE*/
+@media screen and (max-width: 320px) {
+	body {
+		background-color: #00FF00;
+	}
+
+}
+
+/*LANDSCAPE*/
+@media screen and (min-width: 321px) {
+	#controller_container {
+		position: relative;
+		width: 480px;
+		height: 208px;
+		background-image: url("../images/joystick/joystick-mini_landscape.png");
+	}
+}
