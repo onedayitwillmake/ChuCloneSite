@@ -3,19 +3,15 @@
 		ChuClone.model.Constants.GAME_WIDTH = 800;
 		ChuClone.model.Constants.GAME_HEIGHT = 400;
 		ChuClone.model.Constants.INITIAL_STATE = 'Edit';
-
-
-		<%#= render :partial => "game_init", :locals => { :level => @level } %>
 		ChuClone.model.Constants.SERVER.ASSET_PREFIX = "<%= root_url.html_safe %>" + "game/";
-		var game = new ChuClone.ChuCloneGame( <%= @level.nil? ? "" : "\"#{level_path(@level,  :format => :js)}\"".html_safe %> );
-
-
-		window.addEventListener('DOMContentLoaded', function callback(e){
-                window.removeEventListener('DOMContentLoaded', callback, false);
-            }, false);
+        
+		new ChuClone.ChuCloneGame( <%= @level.nil? ? "" : "\"#{level_path(@level,  :format => :js)}\"".html_safe %> );
 	</script>
 <% end %>
-                                          h
+
+<% content_for :game_style do %>
+    <%= render :partial => "game/style" %>
+<% end %>
 
 <div class="container_12">
 	<div class="flash_notice" id="flash_notice">
@@ -23,25 +19,17 @@
 	</div>
 	<%= render :partial => "title" %>
 	<%# Logged in version  %>
-	<% if current_user %>
-		<div class="push_2 grid_2 magentaBorder" style="text-align: center; font-size: 16px; font-weight: bold; margin-top:25px; " id='user_nav'>
-			<a href="/EditMode">Level Creator</a>
-		</div>
-		<div class="push_2 grid_3 grayBorder omega" style="text-align: center; font-size: 16px; font-weight: bold; margin-top:25px; padding: 5px 0 5px 0; margin-right:0" id='user_nav'>
-			<%= link_to "#{current_user.name} - Sign Out", signout_path %>
-		</div>
-	<% else %>
-		<div class="push_2 grid_2 magentaBorder" style="opacity: 0.5; text-align: center; font-size: 16px; font-weight: bold; margin-top:25px; " id='user_nav'>
-			Level Creator
-		</div>
-		<div class="push_2 grid_3 grayBorder omega" style="text-align: center; font-size: 16px; font-weight: bold; margin-top:25px; padding: 5px 0 5px 0; margin-right:0" id='user_nav'>
-			<%= link_to "Sign in with twitter", "/auth/twitter" %>
-		</div>
-	<% end %>
+	
+    <div class="jura_36 push_2 grid_2 magentaBorder" style="text-align: center; font-size: 16px; font-weight: bold; margin-top:25px; " id='user_nav'>
+        <a href="/EditMode">Level Creator</a>
+    </div>
+    <div class="jura_36 push_2 grid_3 grayBorder omega" style="text-align: center; font-size: 16px; font-weight: bold; margin-top:25px; padding: 5px 0 5px 0; margin-right:0" id='user_nav'>
+        <%= link_to "#{current_user.name} - Sign Out", signout_path %>
+    </div>
 
 	<div id="gameContainer" class="push_1 grid_12" style="width:800px; height:400px;"></div>
 	<div id="editorContainer" class="push_1 grid_12" style="width:800px; height: 400px;"></div>
 
 	<div class="grid_4 push_1 lineBorder" id="HUDTime">00.0 secs</div>
-	<div class="JURA_normal_36 grid_4"><p class="grayBorder push_1" id="levelName"> Level Name </p></div>
+	<div class="jura_36 grid_4"><p class="grayBorder push_1" id="levelName"> Level Name </p></div>
 </div>

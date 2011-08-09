@@ -6,6 +6,9 @@
 	</script>
 <% end %>
 
+<% content_for :game_style do %>
+    <%= render :partial => "game/style" %>
+<% end %>
 
 <div class="container_12">
 	<%= render :partial => "game/title" %>

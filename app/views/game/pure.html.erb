@@ -1,0 +1,11 @@
+<% content_for :game_start do %>
+	<script type="text/javascript">
+		ChuClone.model.Constants.SERVER.ASSET_PREFIX = "game/";
+		<%= render :partial => "game/game_init", :locals => { :level => @level } %>
+
+	</script>
+<% end %>
+
+
+<div id="gameContainer" style="position:"></div>
+<div id="editorContainer" class="" style="height: 540px;"></div>
