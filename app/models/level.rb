@@ -2,7 +2,7 @@ class Level < ActiveRecord::Base
   has_many :highscores
   
 	include LevelsHelper
-	#validate :must_be_logged_in
+#	validate :must_be_logged_in
 	validate :must_have_valid_level
 
 	# TODO: REMOVE NEED FOR INSTANCE VARIABLE IN MODEL

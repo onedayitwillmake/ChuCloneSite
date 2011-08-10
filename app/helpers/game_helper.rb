@@ -43,6 +43,8 @@ module GameHelper
     embed("js/ChuClone/components/KeyboardInputComponent.js");
     #embed("js/ChuClone/components/RemoteJoystickInputComponent.js");
 		embed("js/ChuClone/components/CharacterControllerComponent.js");
+		embed("js/ChuClone/components/PlayerRecordComponent.js");
+		embed("js/ChuClone/components/PlayerPlaybackComponent.js");
 
 		embed("js/ChuClone/components/PhysicsVelocityLimitComponent.js");
 		embed("js/ChuClone/components/BoundsYCheckComponent.js");
