@@ -48,8 +48,14 @@ class LevelsController < ApplicationController
 
 		respond_to do |format|
 			format.html # show.html.erb
-			format.xml { render :xml => @level }
-			format.js { render :json => @level.json }
+			format.js {
+        unless current_user.nil?
+            key = EzCrypto::Key.with_password(APP_CONFIG["SECRET"]["TOKEN"], APP_CONFIG["SECRET"]["SALT"], :algorithm => 'blowfish')
+            current_user.ScoreHash = key.encrypt64(Time.now.to_i.to_s)
+            current_user.save
+        end
+        render :json => @level.json
+      }
 		end
 	end
 
@@ -58,7 +64,6 @@ class LevelsController < ApplicationController
 	# get /levels/data/1.json
 	def data
 		@levels = (params[:id].nil?) ? Level.all(:select => 'title,id') : Level.find(params[:id], :select => 'title,id')
-
 		respond_to do |format|
 			format.xml { render :xml => @levels }
 			format.json { render :json => @levels }
