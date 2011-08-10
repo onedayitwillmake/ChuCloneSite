@@ -34,6 +34,7 @@ GEM
     columnize (0.3.4)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    ezcrypto (0.7.2)
     faraday (0.6.1)
       addressable (~> 2.2.4)
       multipart-post (~> 1.1.0)
@@ -138,6 +139,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ezcrypto
   mysql2 (~> 0.2.6)
   omniauth
   rails (= 3.0.9)
