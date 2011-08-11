@@ -22,7 +22,7 @@
 
         setup: function() {
             this.gameClockReal = new Date().getTime();
-		    this.netChannel = new RealtimeMultiplayerGame.ClientNetChannel( this, "10.29.132.143", "8081" );
+		    this.netChannel = new RealtimeMultiplayerGame.ClientNetChannel( this, "10.29.62.170", "8081" );
 
             this._thumbStickControllerLeft = new JoystickDemo.controls.ThumbStickController("left");
 			this._button = new JoystickDemo.controls.ButtonController( document.getElementById('dpad_button_right'), true )

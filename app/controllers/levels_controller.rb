@@ -19,7 +19,7 @@ class LevelsController < ApplicationController
 			flash[:notice] = params[:type]
 		end
 
-		@levels = Level.all
+		@levels = Level.find_all_playable_levels
 		respond_to do |format|
 			format.html # reoder.html.erb
 			format.js { render :json => @levels }
@@ -63,7 +63,7 @@ class LevelsController < ApplicationController
 	# GET /levels/data.json
 	# get /levels/data/1.json
 	def data
-		@levels = (params[:id].nil?) ? Level.all(:select => 'title,id') : Level.find(params[:id], :select => 'title,id')
+		@levels = (params[:id].nil?) ? Level.all(:select => 'title,id', :order => 'order_index') : Level.find(params[:id], :select => 'title,id')
 		respond_to do |format|
 			format.xml { render :xml => @levels }
 			format.json { render :json => @levels }

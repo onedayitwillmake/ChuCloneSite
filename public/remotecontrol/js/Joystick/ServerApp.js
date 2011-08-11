@@ -27,6 +27,9 @@ Version:
 		targetFramerate			: 60,											// Try to call our tick function this often, intervalFramerate, is used to determin how often to call settimeout - we can set to lower numbers for slower computers
 		intervalGameTick		: null,											// setInterval reference
 
+        /**
+         * @type {RealtimeMultiplayerGame.network.ServerNetChannel}
+         */
 		netChannel				: null,
 		cmdMap					: {},					// Map the CMD constants to functions
 		nextEntityID			: 0,					// Incremented for everytime a new object is created
@@ -113,11 +116,7 @@ Version:
 
             // Try to add cabinate - 1 per game
             if( data.payload.type === "cabinet" ) {
-                if( this.cabinet ) {
-                    return false;
-                } else {
-                    entity = this.cabinet = new JoystickDemo.JoystickGameEntity( this.getNextEntityID(), aClientid );
-                }
+                entity = this.setCabinet(  new JoystickDemo.JoystickGameEntity( this.getNextEntityID(), aClientid ) )
             }
 
             entity.entityType = data.payload.type;
@@ -125,6 +124,32 @@ Version:
 
             return true;
 		},
+
+        /**
+         * Drops any existing cabinets
+         */
+        setCabinet: function( anEntity ) {
+            if( this.cabinet ) {
+                var client = this.netChannel.getClientWithID( anEntity.getClientID() );
+                this.netChannel.closeConnection( client.getConnection() );
+            }
+
+            this.cabinet = anEntity;
+            return this.cabinet;
+        },
+
+        /**
+         * Drops any existing joysticks
+         */
+        setJoystick: function( anEntity ) {
+            if( this.joystick ) {
+                var client = this.netChannel.getClientWithID( anEntity.getClientID() );
+                this.netChannel.closeConnection( client.getConnection() );
+            }
+
+            this.joystick = anEntity;
+            return this.joystick;
+        },
 
         /**
          * Called continuously by a connected joystick - contains information about the state of the joystick
@@ -141,7 +166,9 @@ Version:
          * @param {String} clientid Id of the disconnected client
          */
 		shouldRemovePlayer: function( clientid ) {
+
             var entity = this.entityController.getEntityWithid( clientid );
+            console.log("Drop player", entity);
             if( entity ) {
                 if(entity == this.joystick) this.joystick = null;
                 else if( entity == this.cabinet) this.cabinet = null;
