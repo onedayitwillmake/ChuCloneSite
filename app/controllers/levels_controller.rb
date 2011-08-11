@@ -50,7 +50,7 @@ class LevelsController < ApplicationController
 			format.html # show.html.erb
 			format.js {
         unless current_user.nil?
-            key = EzCrypto::Key.with_password(APP_CONFIG["SECRET"]["TOKEN"], APP_CONFIG["SECRET"]["SALT"], :algorithm => 'blowfish')
+            key = EzCrypto::Key.with_password(APP_CONFIG["SECRET"]["TOKEN"], params[:id], :algorithm => 'blowfish')
             current_user.ScoreHash = key.encrypt64(Time.now.to_i.to_s)
             current_user.save
         end
