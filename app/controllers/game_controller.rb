@@ -8,13 +8,13 @@ class GameController < ApplicationController
   def pure
 		@levels = Level.find_all_playable_levels
 		# Load the title screen by default
-		@level = Level.find_all_by_title( APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"] ).first
+    @level = Level.find(params[:id])
   end
 
   def remoteplay
 		@levels = Level.find_all_playable_levels
 		# Load the title screen by default
-		@level = Level.find_all_by_title( APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"] ).first
+    @level = Level.find(params[:id])
   end
 
 	def edit
