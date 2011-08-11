@@ -11,47 +11,94 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 	<meta name="viewport" content="user-scalable=no, width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
-	<link rel="apple-touch-icon" href="remotecontrol/images/apple-touch-icon.png"/>
+	<link rel="apple-touch-icon" href="./images/apple-touch-icon.png"/>
 
-	<link rel="stylesheet" href="remotecontrol/css/style.css?v=2">
-	<link rel="stylesheet" href="remotecontrol/css/joystick_singleanalog.css?v=2">
-
-	<!--lib-->
-	<script src="remotecontrol/js/lib/Stats.js"></script>
-	<script src="remotecontrol/js/lib/socket.io.js"></script>
-	<script src="remotecontrol/js/lib/SortedLookupTable.js"></script>
-
-
-	<!-- RealtimeMultiplayerNodeJs -->
-	<script src="remotecontrol/js/core/RealtimeMutliplayerGame.js"></script>
-    <script src="remotecontrol/js/model/Point.js"></script>
-	<script src="remotecontrol/js/model/Constants.js"></script>
-	<script src="remotecontrol/js/model/NetChannelMessage.js"></script>
-	<script src="remotecontrol/js/network/ClientNetChannel.js"></script>
-	<script src="remotecontrol/js/model/GameEntity.js"></script>
-
-  	<!--DemoApp-->
-	<script src="remotecontrol/js/Joystick/JoystickNamespace.js"></script>
-	<script src="remotecontrol/js/Joystick/JoystickConstants.js"></script>
-	<script src="remotecontrol/js/Joystick/controls/Control.js"></script>
-	<script src="remotecontrol/js/Joystick/controls/ThumbStickController.js"></script>
-	<script src="remotecontrol/js/Joystick/controls/ButtonController.js"></script>
-	<script src="remotecontrol/js/Joystick/controls/DirectionalPadController.js"></script>
-	<script src="remotecontrol/js/Joystick/ClientApp.js"></script>
-	<script src="remotecontrol/js/Joystick/clientscript.js"></script>
+    <link href="http://fonts.googleapis.com/css?family=Jura:300,400,500,600&v1" rel="stylesheet" type="text/css">     
+    <link rel="stylesheet" href="./css/960/reset.css"/>
+    <link rel="stylesheet" href="./css/960/text.css"/>
+    <link rel="stylesheet" href="./css/960/960.css"/>
+    <link rel="stylesheet" href="./css/chuclone.css">
+    <style>
+         body {
+            min-width: 320px;
+            /*width:320px;*/
+        }
+        #level_selection_container {
+            margin: 0 auto;
+            width: 320px;
+            /*background-color: #FF0000*/
+        }
+        .title {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
 <script>
-</script>
-<div id="controller_container">
-	<div id="dpad_button_right" class="dpad_button"></div>
+    (function(){
+        var URLS = {
+            USER_LEVELS_LOCATION: "/levels/data.json"
+        };
 
-	<div id="thumb_stick_left" class="thumb_stick_container" style="left:45px; top:50px">
-        <div id="thumb_stick_nub_left" class="thumb_stick_nub"></div>
-		<div id="thumb_stick_touch_area_left" class="thumb_stick_touch_area"></div>
-    </div>
+        var onLoad = function() {
+            loadLevelList();
+        };
+
+        var loadLevelList = function() {
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (request.readyState == 4) {
+                    //console.log(request)
+                    //that.populateServerLevelList(request);
+                    try {
+                    createLevelList( JSON.parse(request.responseText) )
+                    } catch(e) {
+                        console.log("Error loading levels, defaulting to hardcoded JSON string");
+                        createLevelList( JSON.parse('[{"level":{"title":"Intro","id":47}},{"level":{"title":"First Wall","id":46}},{"level":{"title":"PinDrop","id":48}},{"level":{"title":"PondSkip","id":49}},{"level":{"title":"SignedWave","id":50}},{"level":{"title":"SpeedUp","id":51}},{"level":{"title":"TheMigs","id":52}},{"level":{"title":"TitleScreen","id":53}},{"level":{"title":"Tower","id":54}},{"level":{"title":"Trifecta","id":55}},{"level":{"title":"WalkTall","id":56}},{"level":{"title":"VertexFader","id":58}},{"level":{"title":"CubonicPlague","id":45}},{"level":{"title":"Joystick","id":59}},{"level":{"title":"SunsetMountain","id":60}}]') );
+                    }
+                }
+            };
+            request.open("GET", URLS.USER_LEVELS_LOCATION);
+            request.send(null);
+        };
+
+        /**
+         * Creates a bunch of divs for a level listing
+         * @param {Array} levelList
+         */
+        var createLevelList = function( levelList ) {
+            var baseTemplate = '<div data-location="" data-id="#{id}" class="grid_2 levelThumbnail"><p>#{title}</p></div>'
+            var parentContainer = document.getElementById('container');
+
+            for(var i = 0; i < levelList.length; i++) {
+                var levelObject = levelList[i];
+                // Replace the id and title
+                template = baseTemplate.replace("#{id}", levelObject.level.id).replace("#{title}", levelObject.level.title);
+
+                var div = document.createElement('div');
+                div.innerHTML = template;
+                parentContainer.appendChild( div );
+            }
+        };
+
+
+        window.addEventListener('DOMContentLoaded', onLoad, true);
+    })();
+
+</script>
+<div id="level_selection_container" class="container_12">
+    <div class="title jura_64 grid_4">ChuClone</div>
+    <div class="clear"></div>
+    <div class='grid_1 headerGrid' style='background-color: hsl(342,50%, 90%);'></div>
+    <div class='grid_1 headerGrid' style='background-color: hsl(270,50%, 90%);'></div>
+    <div class='grid_1 headerGrid' style='background-color: hsl(195,50%, 90%);'></div>
+    <div class='grid_1 headerGrid' style='background-color: hsl(257,50%, 90%);'></div>
+    <!--<div class='grid_1 headerGrid' style='background-color: hsl(353,50%, 90%);'></div>-->
+    <div class="clear"></div>
+    <div class="title jura_32 grid_4">LevelSelect</div>
+    <div class="clear"></div>
+    <div id="container" class="grid_6" style="padding-top: 20px;"></div>
 </div>
-<!--<div id="touchArea"></div>-->
 </body>
 </html>

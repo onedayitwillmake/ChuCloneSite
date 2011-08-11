@@ -129,8 +129,13 @@ Version:
          * @param clientConnection
          */
         closeConnection: function( clientConnection ) {
-            this.socketio.clients[clientConnection.sessionId].send({ event: 'disconnect' });
-            this.socketio.clients[clientConnection.sessionId].connection.end();
+            try {
+                this.socketio.clients[clientConnection.sessionId].send({ event: 'disconnect' });
+                this.socketio.clients[clientConnection.sessionId].connection.end();
+                this.clients.remove(clientConnection.sessionId);
+            } catch( e ) {
+                console.log("ServerNetChannel::closeConnection - Tried to drop client, but was an error. Client already removed");
+            }
         },
 
 		/**
@@ -205,6 +210,16 @@ Version:
 
 	// Accessors
 		getNextClientID: function() { return ++nextClientID },
+        getClientWithID: function( aClientID ) {
+
+            var foundClient = null;
+            this.clients.forEach( function(key, client) {
+                if( client.getClientid() == aClientID )
+                    foundClient = client;
+            });
+
+            return foundClient;
+        },
 		/**
 		 * Checks that an object contains the required methods and sets it as the delegate for this ServerNetChannel instance
 		 * @param {RealtimeMultiplayerGame.network.ServerNetChannelDelegateProtocol} aDelegate A delegate that conforms to RealtimeMultiplayerGame.network.ServerNetChannelDelegateProtocol

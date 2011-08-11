@@ -143,11 +143,25 @@ Version:
 				return;
 			}
 
+            /*
+             else if (this.delegate.cmdMap[data.cmd]) { // See if delegate has function mapped
+				this.delegate.cmdMap[data.cmd].call(this.delegate, client, data);
+
+				// If it was a 'reliable' message, send it back to the player to acknowledge that it was received
+				if(data.isReliable) {
+					client.getConnection().send( data );
+				}
+
+			} else { // Display error
+				console.log("(NetChannel)::onSocketMessage could not map '" + data.cmd + "' to function!");
+			}*/
+
 			// Call the mapped function
-			if( this.cmdMap[aNetChannelMessage.cmd] )
+			if( this.cmdMap[aNetChannelMessage.cmd] ) {
 				this.cmdMap[aNetChannelMessage.cmd].call(this, aNetChannelMessage);
-			else
+            } else if (this.delegate.cmdMap[data.cmd]) {
 				console.log("(NetChannel)::onSocketMessage could not map '" + aNetChannelMessage.cmd + "' to function!");
+            }
 		},
 
 		onSocketDisconnect: function( ) {
