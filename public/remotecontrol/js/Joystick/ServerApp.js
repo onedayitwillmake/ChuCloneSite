@@ -63,8 +63,12 @@ Version:
 		 * If it is set, it will call that CMD on its delegate
 		 */
 		setupCmdMap: function() {
-			this.cmdMap[RealtimeMultiplayerGame.Constants.CMDS.PLAYER_UPDATE] = this.shouldUpdatePlayer;
+            this.cmdMap = {};
+			//this.cmdMap[RealtimeMultiplayerGame.Constants.CMDS.PLAYER_UPDATE] = this.shouldUpdatePlayer;
+            this.cmdMap[RealtimeMultiplayerGame.Constants.CMDS.JOYSTICK_UPDATE] = this.joystickUpdate;
+            this.cmdMap[RealtimeMultiplayerGame.Constants.CMDS.JOYSTICK_SELECT_LEVEL] = this.joystickSelectLevel;
 		},
+
 
 		/**
 		 * Updates the gameworld
@@ -73,28 +77,22 @@ Version:
 		update: function() {
 			this.updateClock();
 			// Create a new world-entity-description,
-			var worldEntityDescription = new JoystickDemo.WorldEntityDescription( this, this.entityController.getEntities() );
+			var worldEntityDescription = new JoystickDemo.WorldEntityDescription( this, new SortedLookupTable() );
 			this.netChannel.tick( this.gameClock, worldEntityDescription );
+
+            //console.log( this.cabinet == null );
+
+            console.log("Joystick: " + (this.joystick != null) + " | Cabinet: " + (this.cabinet != null))
+            if (!this.cabinet || !this.joystick ) {
+                //console.log("Joystick: " + (this.joystick != null) + " | Cabinet: " + (this.cabinet != null))
+            }
+
+            //console.log(this.joystick);
+            if( this.cabinet && this.joystick ) {
+
+            }
 		},
 
-        /**
-		 * Updates the gameclock and sets the current
-		 */
-		updateClock: function() {
-			// Store previous time and update current
-			var oldTime = this.gameClockReal;
-			this.gameClockReal = new Date().getTime();
-
-			// Our clock is zero based, so if for example it says 10,000 - that means the game started 10 seconds ago
-			var delta = this.gameClockReal - oldTime;
-			this.gameClock += delta;
-			this.gameTick++;
-
-			// Framerate Independent Motion -
-			// 1.0 means running at exactly the correct speed, 0.5 means half-framerate. (otherwise faster machines which can update themselves more accurately will have an advantage)
-			this.speedFactor = delta / ( 1000/this.targetFramerate );
-			if (this.speedFactor <= 0) this.speedFactor = 1;
-		},
 
         /**
          * Called after a connection has been established.
@@ -103,7 +101,7 @@ Version:
          * @param {Object} data
          */
 		shouldAddPlayer: function( aClientid, data ) {
-			console.log("ServerApp::shouldAddPlayer - Adding player, playerCount:" + this.entityController.getEntities().count() )
+			console.log("ServerApp::shouldAddPlayer - Adding entity, entityCount: " + this.entityController.getEntities().count() );
             var entity = null;
 
             // Try to add joystick - 1 active per game
@@ -130,6 +128,8 @@ Version:
          * Drops any existing cabinets
          */
         setCabinet: function( anEntity ) {
+            console.log("setting cabinet")
+
             if( this.cabinet ) {
                 var client = this.netChannel.getClientWithID( anEntity.getClientID() );
                 this.netChannel.closeConnection( client.getConnection() );
@@ -167,19 +167,65 @@ Version:
 		},
 
         /**
+         * Called continuously by a connected joystick - contains information about the state of the joystick
+         * @param {RealtimeMultiplayerGame.network.Client} client
+         * @param {Object} data
+         */
+		joystickSelectLevel: function( client, data ) {
+            if( this.cabinet ) {
+                var cabinetConnection = this.netChannel.getClientWithID( this.cabinet.clientid );
+                cabinetConnection.sendMessage( data, this.getGameClock() );
+            }
+		},
+
+        /**
+         * Pass joystick data off to the client
+         * @param client
+         * @param data
+         */
+        joystickUpdate: function( client, data) {
+            if( this.cabinet ) {
+
+                console.log("Sending msg to cabinet")
+                var cabinetConnection = this.netChannel.getClientWithID( this.cabinet.clientid );
+                cabinetConnection.sendMessage( data, this.getGameClock() );
+            }
+        },
+
+        /**
          * Called when a connected client has disconnected
          * @param {String} clientid Id of the disconnected client
          */
 		shouldRemovePlayer: function( clientid ) {
 
             var entity = this.entityController.getEntityWithid( clientid );
-            console.log("Drop player", entity);
+            console.log("Drop player - ", entity != null);
+            
             if( entity ) {
                 if(entity == this.joystick) this.joystick = null;
                 else if( entity == this.cabinet) this.cabinet = null;
-                
                 this.entityController.removePlayer( clientid );
             }
+		},
+
+
+        /**
+		 * Updates the gameclock and sets the current
+		 */
+		updateClock: function() {
+			// Store previous time and update current
+			var oldTime = this.gameClockReal;
+			this.gameClockReal = new Date().getTime();
+
+			// Our clock is zero based, so if for example it says 10,000 - that means the game started 10 seconds ago
+			var delta = this.gameClockReal - oldTime;
+			this.gameClock += delta;
+			this.gameTick++;
+
+			// Framerate Independent Motion -
+			// 1.0 means running at exactly the correct speed, 0.5 means half-framerate. (otherwise faster machines which can update themselves more accurately will have an advantage)
+			this.speedFactor = delta / ( 1000/this.targetFramerate );
+			if (this.speedFactor <= 0) this.speedFactor = 1;
 		},
 
 	   	log: function() { console.log.apply(console, arguments); },
