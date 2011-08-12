@@ -12,18 +12,17 @@ Basic Usage:
 Version:
 	1.0
 */
-require("../lib/SortedLookupTable.js");
-require("../core/RealtimeMutliplayerGame.js");
-require("../model/Point.js");
-require("../model/Constants.js");
-require("../model/NetChannelMessage.js");
-require("../core/EntityController.js");
-require("../network/Client.js");
-require("../network/ServerNetChannel.js");
-require("../model/GameEntity.js");
+require("../../../game/js/lib/NoBarrierOSC/SortedLookupTable.js");
+require("../../../game/js/lib/NoBarrierOSC/RealtimeMutliplayerGame.js");
+require("../../../game/js/lib/NoBarrierOSC/Point.js");
+require("../../../game/js/lib/NoBarrierOSC/Constants.js");
+require("../../../game/js/lib/NoBarrierOSC/NetChannelMessage.js");
+require("../../../game/js/lib/NoBarrierOSC/EntityController.js");
+require("../../../game/js/lib/NoBarrierOSC/Client.js");
+require("../../../game/js/lib/NoBarrierOSC/ServerNetChannel.js");
+require("../../../game/js/lib/NoBarrierOSC/GameEntity.js");
 
 require("./JoystickNamespace.js");
-require("./JoystickConstants.js");
 require("./JoystickGameEntity.js");
 require("./JoystickWorldEntityDescription.js");
 require("./ServerApp.js");
