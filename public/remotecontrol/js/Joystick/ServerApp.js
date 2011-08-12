@@ -80,49 +80,14 @@ Version:
 			var worldEntityDescription = new JoystickDemo.WorldEntityDescription( this, new SortedLookupTable() );
 			this.netChannel.tick( this.gameClock, worldEntityDescription );
 
-            //console.log( this.cabinet == null );
 
-            console.log("Joystick: " + (this.joystick != null) + " | Cabinet: " + (this.cabinet != null))
             if (!this.cabinet || !this.joystick ) {
                 //console.log("Joystick: " + (this.joystick != null) + " | Cabinet: " + (this.cabinet != null))
             }
 
-            //console.log(this.joystick);
-            if( this.cabinet && this.joystick ) {
-
-            }
 		},
 
 
-        /**
-         * Called after a connection has been established.
-         * Return true to allow the client to connect, or false to prevent the client from joining
-         * @param {String} aClientid
-         * @param {Object} data
-         */
-		shouldAddPlayer: function( aClientid, data ) {
-			console.log("ServerApp::shouldAddPlayer - Adding entity, entityCount: " + this.entityController.getEntities().count() );
-            var entity = null;
-
-            // Try to add joystick - 1 active per game
-            if( data.payload.type === "joystick" ) {
-                if( this.joystick ) {
-                    return false;
-                } else {
-                    entity = this.joystick = new JoystickDemo.JoystickGameEntity( this.getNextEntityID(), aClientid );
-                }
-            }
-
-            // Try to add cabinate - 1 per game
-            if( data.payload.type === "cabinet" ) {
-                entity = this.setCabinet(  new JoystickDemo.JoystickGameEntity( this.getNextEntityID(), aClientid ) )
-            }
-
-            entity.entityType = data.payload.type;
-			this.entityController.addPlayer( entity );
-
-            return true;
-		},
 
         /**
          * Drops any existing cabinets
@@ -172,6 +137,7 @@ Version:
          * @param {Object} data
          */
 		joystickSelectLevel: function( client, data ) {
+            console.log("ChangeLevel!", data.payload)
             if( this.cabinet ) {
                 var cabinetConnection = this.netChannel.getClientWithID( this.cabinet.clientid );
                 cabinetConnection.sendMessage( data, this.getGameClock() );
@@ -184,22 +150,58 @@ Version:
          * @param data
          */
         joystickUpdate: function( client, data) {
+            console.log(data.payload.analog);
             if( this.cabinet ) {
-
-                console.log("Sending msg to cabinet")
+                //console.log("Sending msg to cabinet")
                 var cabinetConnection = this.netChannel.getClientWithID( this.cabinet.clientid );
                 cabinetConnection.sendMessage( data, this.getGameClock() );
             }
         },
 
         /**
+        * Called after a connection has been established.
+        * Return true to allow the client to connect, or false to prevent the client from joining
+        * @param {String} aClientid
+        * @param {Object} data
+        */
+       shouldAddPlayer: function( aClientid, data ) {
+           console.log("ServerApp::shouldAddPlayer - Adding entity, entityCount: " + this.entityController.getEntities().count() );
+           var entity = null;
+
+           // Try to add joystick - 1 active per game
+           if( data.payload.type === "joystick" ) {
+               if( this.joystick ) {
+                   console.log("Setting Joystick...denied");
+                   return false;
+               } else {
+                   console.log("Setting Joystick...approved");
+                   entity = this.joystick = new JoystickDemo.JoystickGameEntity( this.getNextEntityID(), aClientid );
+               }
+           }
+
+           // Try to add cabinate - 1 per game
+           if( data.payload.type === "cabinet" ) {
+               entity = this.setCabinet(  new JoystickDemo.JoystickGameEntity( this.getNextEntityID(), aClientid ) )
+           }
+
+           entity.entityType = data.payload.type;
+           this.entityController.addPlayer( entity );
+
+           return true;
+       },
+
+
+        /**
          * Called when a connected client has disconnected
          * @param {String} clientid Id of the disconnected client
          */
 		shouldRemovePlayer: function( clientid ) {
-
-            var entity = this.entityController.getEntityWithid( clientid );
-            console.log("Drop player - ", entity != null);
+            var entity = this.entityController.getPlayerWithid( clientid );
+            if(!entity) {
+                console.log('clientid:', clientid)
+                console.log("all", this.entityController.entities)
+            }
+            console.log("Drop player - ", entity );
             
             if( entity ) {
                 if(entity == this.joystick) this.joystick = null;
