@@ -22,10 +22,14 @@
 
         setup: function() {
             this.gameClockReal = new Date().getTime();
-		    this.netChannel = new RealtimeMultiplayerGame.ClientNetChannel( this, RealtimeMultiplayerGame.Constants.SERVER_SETTING.SOCKET_ADDRESS, RealtimeMultiplayerGame.Constants.SERVER_SETTING.SOCKET_PORT, ['websocket']);
+		    this.netChannel = new RealtimeMultiplayerGame.ClientNetChannel( this, RealtimeMultiplayerGame.Constants.SERVER_SETTING.SOCKET_ADDRESS, RealtimeMultiplayerGame.Constants.SERVER_SETTING.SOCKET_PORT, ['websocket'], false);
 
             this._thumbStickControllerLeft = new JoystickDemo.controls.ThumbStickController("left");
-			this._button = new JoystickDemo.controls.ButtonController( document.getElementById('dpad_button_right'), true )
+			this._button = new JoystickDemo.controls.ButtonController( document.getElementById('dpad_button_right'), true );
+
+            //this.netChannel.addMessageToQueue( true, RealtimeMultiplayerGame.Constants.CMDS.JOYSTICK_SELECT_LEVEL, {
+            //    level_id: 51,
+            //} );
 
             // Cancel
             document.addEventListener("touchstart", function(e) { e.preventDefault()}, true);
@@ -38,7 +42,7 @@
 		update: function() {
 			this.updateClock();
 
-			this.netChannel.addMessageToQueue( false, RealtimeMultiplayerGame.Constants.CMDS.PLAYER_UPDATE, {
+			this.netChannel.addMessageToQueue( false, RealtimeMultiplayerGame.Constants.CMDS.JOYSTICK_UPDATE, {
                 analog: this._thumbStickControllerLeft.getAngle360(),
 				button: this._button.getIsDown()
             } );
@@ -46,8 +50,6 @@
 		},
 
         netChannelDidConnect: function() {
-//            console.log("this.netChannel.getClientid()", this.netChannel.getClientid())
-//            console.log("ABC")
 			this.joinGame( "user" + this.netChannel.getClientid() );
 		},
 
