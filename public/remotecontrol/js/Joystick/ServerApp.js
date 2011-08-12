@@ -103,6 +103,7 @@ Version:
          * @param {Object} data
          */
 		shouldAddPlayer: function( aClientid, data ) {
+			console.log("ServerApp::shouldAddPlayer - Adding player, playerCount:" + this.entityController.getEntities().count() )
             var entity = null;
 
             // Try to add joystick - 1 active per game
@@ -158,6 +159,10 @@ Version:
          */
 		shouldUpdatePlayer: function( client, data ) {
 			var player = this.entityController.getPlayerWithid( client.clientid );
+			if(!player) {
+				console.log("ServerApp::shouldUpdatePlayer - Player not found (clientid = "+client.clientid+")");
+				return;
+			}
             player.parseJoystickData( data.payload );
 		},
 

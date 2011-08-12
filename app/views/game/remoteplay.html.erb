@@ -4,6 +4,10 @@
     <script type="text/javascript">
 		ChuClone.model.Constants.SERVER.ASSET_PREFIX = "game/";
 		<%= render :partial => "game/game_init", :locals => { :level => @level } %>
+
+		window.addEventListener('DOMContentLoaded', function callback(e){
+			console.log(game._gameView.setFullscreen( true ) )
+		}, false);
 	</script>
 <% end %>
 
@@ -11,10 +15,12 @@
     <style>
         body {
             background-color: #333333;
+			margin:  0;
+			overflow:  hidden;
         }
         :focus { outline: 0; }
     </style>
 
 <% end %>
-<div id="gameContainer" style="padding-left: 100px;"></div>
+<div id="gameContainer" style=""></div>
 <div id="editorContainer" class="" style="height: 540px;"></div>
