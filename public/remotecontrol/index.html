@@ -78,10 +78,18 @@
 
                 var div = document.createElement('div');
                 div.innerHTML = template;
+                div.firstChild.addEventListener('click', onLevelSelected, false);
                 parentContainer.appendChild( div );
             }
         };
 
+
+        /**
+         * @param {MouseEvent} divElement
+         */
+        var onLevelSelected = function( divElement ) {
+            window.location.href = "./play.html?id="+divElement.currentTarget.getAttribute('data-id');
+        }
 
         window.addEventListener('DOMContentLoaded', onLoad, true);
     })();
