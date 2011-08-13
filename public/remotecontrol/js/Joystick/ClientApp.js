@@ -19,6 +19,7 @@
         _thumbStickControllerLeft   : null,
 		_mousePosition			: {},		// Actual mouse position
 		_mousePositionNormalized: {},		// Mouse position 0-1
+        _accelX                 : 0,
         _accelY                 : 0,
 
         setup: function() {
@@ -29,16 +30,7 @@
 			this._button = new JoystickDemo.controls.ButtonController( document.getElementById('dpad_button_right'), true );
 
 
-            // Load a level if one is provided via query string
-            if( window.location.href.indexOf("?id=") != -1 ) {
-                var needle = "?id=";
-                var needleIndex = window.location.href.indexOf(needle);
-                var level_id = window.location.href.substring( needleIndex + needle.length )
-
-                this.netChannel.addMessageToQueue( false, RealtimeMultiplayerGame.Constants.CMDS.JOYSTICK_SELECT_LEVEL, {
-                    level_id: level_id
-                } );
-            }
+            
 
             // Cancel
             document.addEventListener("touchstart", function(e) { e.preventDefault()}, true);
@@ -50,17 +42,20 @@
             var kFilter = 0.5;
             var that = this;
             window.ondevicemotion = function(event) {
+                var rawX = event.accelerationIncludingGravity.x;
                 var rawY = event.accelerationIncludingGravity.y;
+                that._accelX = rawX * kFilter + that._accelX * (1.0 - kFilter);
                 that._accelY = rawY * kFilter + that._accelY * (1.0 - kFilter);
             }
         },
 
-		count: 0,
+		update_count: 0,
 		update: function() {
 			this.updateClock();
 
             this.netChannel.addMessageToQueue( false, RealtimeMultiplayerGame.Constants.CMDS.JOYSTICK_UPDATE, {
                 analog: this._thumbStickControllerLeft.getAngle360(),
+                accelX: this._accelX,
                 accelY: this._accelY,
 				button: this._button.getIsDown()
             } );
@@ -129,6 +124,17 @@
 		 * @param aNickname
 		 */
 		joinGame: function(aNickname) {
+		
+		// Load a level if one is provided via query string
+            if( window.location.href.indexOf("?id=") != -1 ) {
+                var needle = "?id=";
+                var needleIndex = window.location.href.indexOf(needle);
+                var level_id = window.location.href.substring( needleIndex + needle.length )
+
+                this.netChannel.addMessageToQueue( true, RealtimeMultiplayerGame.Constants.CMDS.JOYSTICK_SELECT_LEVEL, {
+                    level_id: level_id
+                } );
+            }
 			// Create a 'join' message and queue it in ClientNetChannel
 			this.netChannel.addMessageToQueue( true, RealtimeMultiplayerGame.Constants.CMDS.PLAYER_JOINED, { nickname: aNickname, type: "joystick" } );
 		},

@@ -149,8 +149,12 @@ Version:
          * @param client
          * @param data
          */
+         joystickUpdate_counter: 0,
         joystickUpdate: function( client, data) {
-            console.log(data.payload.analog);
+        
+        	if(++this.joystickUpdate_counter % 10 == 0)
+	            console.log(data.payload.analog);
+	            
             if( this.cabinet ) {
                 //console.log("Sending msg to cabinet")
                 var cabinetConnection = this.netChannel.getClientWithID( this.cabinet.clientid );
