@@ -1,5 +1,6 @@
 class Level < ActiveRecord::Base
   has_many :highscores
+  belongs_to :user
   
 	include LevelsHelper
 #	validate :must_be_logged_in
@@ -8,6 +9,9 @@ class Level < ActiveRecord::Base
 	# TODO: REMOVE NEED FOR INSTANCE VARIABLE IN MODEL
 	attr_accessor :current_user
 
+	##################
+	# CLASS METHODS #
+	################
 	def self.createFromJSON( level_json )
 		create! do |level|
 			level.title = level_json['editingInfo']['levelName']
@@ -15,8 +19,9 @@ class Level < ActiveRecord::Base
 		end
 	end
 
-	def self.create_from_editor( title, level_json_string )
+	def self.create_from_editor( theuser, title, level_json_string )
 		create! do |level|
+			level.user = theuser
 			level.title = title
 			level.json = level_json_string
 		end
@@ -26,6 +31,18 @@ class Level < ActiveRecord::Base
 		  Level.all(:select => 'title,id', :conditions => ["playable = true"], :order => "order_index")
   	end
 
+	###############
+	#   METHODS   #
+	###############
+	def increment_times_played
+		self[:times_played] = self[:times_played] + 1
+	end
+	def increment_times_completed
+		self[:times_completed] = self[:times_completed] + 1
+	end
+	def get_completion_rate
+		self.times_played / self.times_completed
+	end
   	###############
   	# VALIDATIONS #
   	##############

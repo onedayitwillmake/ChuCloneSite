@@ -2,7 +2,6 @@
 	<script type="text/javascript">
 		ChuClone.model.Constants.SERVER.ASSET_PREFIX = "game/";
 		<%= render :partial => "game/game_init", :locals => { :level => @level } %>
-
 	</script>
 <% end %>
 
@@ -52,7 +51,7 @@
 
 		<div class="grid_6">
 			<div class="grid_2 grayBorder alpha jura_13" style="text-align: center;">AUTHOR</div>
-			<div class="grid_4 grayBorder alpha jura_13 omega" style="text-align: center;padding-right:6px">1dayitwillmake</div>
+			<div class="grid_4 grayBorder alpha jura_13 omega" style="text-align: center;padding-right:6px" id="author"><%= @level.user.name %></div>
 		</div>
 		<div class="clear"></div>
 		<div class="grid_6" style="margin-top:10px">
