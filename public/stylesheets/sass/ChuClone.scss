@@ -189,5 +189,6 @@ a {
 #HUDTime {
     @include lineBorder($darkGray);
     padding: 5px 0;
+    margin-left: 15px;
     text-align: center;
 }

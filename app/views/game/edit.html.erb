@@ -18,18 +18,11 @@
 		<a href="/EditMode">Notices:</a>
 	</div>
 	<%= render :partial => "title" %>
-	<%# Logged in version  %>
-	
-    <div class="jura_36 push_2 grid_2 magentaBorder" style="text-align: center; font-size: 16px; font-weight: bold; margin-top:25px; " id='user_nav'>
-        <a href="/EditMode">Level Creator</a>
-    </div>
-    <div class="jura_36 push_2 grid_3 grayBorder omega" style="text-align: center; font-size: 16px; font-weight: bold; margin-top:25px; padding: 5px 0 5px 0; margin-right:0" id='user_nav'>
-        <%= link_to "#{current_user.name} - Sign Out", signout_path %>
-    </div>
+	<%= render :partial => "game/login" %>
 
 	<div id="gameContainer" class="push_1 grid_12" style="width:800px; height:400px;"></div>
 	<div id="editorContainer" class="push_1 grid_12" style="width:800px; height: 400px;"></div>
 
-	<div class="grid_4 push_1 lineBorder" id="HUDTime">00.0 secs</div>
+	<div class="grid_4 push_1 lineBorder" id="HUDTime" style="margin-left:10px">00.0 secs</div>
 	<div class="jura_36 grid_4"><p class="grayBorder push_1" id="levelName"> Level Name </p></div>
 </div>

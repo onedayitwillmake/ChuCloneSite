@@ -12,41 +12,17 @@
 
 <div class="container_12">
 	<%= render :partial => "game/title" %>
-	<%# <div class="grid_1 doMore prefix_1">  %>
-	<%# <p><a href="https://github.com/onedayitwillmake/ChuClone">Fork on Github</a></p>  %>
-	<%# </div>  %>
-
-
-	<%# Logged in version  %>
-	<% if current_user %>
-		<div class="push_1 grid_2 grayBorder user_nav">
-			<a href="/editor">Level Creator</a>
-		</div>
-		<div class="push_1 grid_2 grayBorder user_nav">
-			<%= link_to "Ones I Made", levels_path %>
-		</div>
-		<div class="push_1 grid_3 grayBorder user_nav omega" style="text-align: center; font-size: 16px;  margin-top:25px; padding: 5px 0 5px 0; margin-right:0" id='user_nav'>
-			<%= link_to "#{current_user.name} - Sign Out", signout_path %>
-		</div>
-	<% else %>
-		<div class="push_1 grid_2 grayBorder user_nav_disabled">
-			Level Creator
-		</div>
-		<div class="push_1 grid_2 grayBorder user_nav_disabled">
-			Ones I Made
-		</div>
-		<div class="push_1 grid_3 grayBorder user_nav">
-			<%= link_to "Sign in with twitter", "/auth/twitter" %>
-		</div>
-	<% end %>
-
+	<%= render :partial => "game/login" %>
     <div class="clear"></div>
 	<%= render :partial => "game/colored_rectangles" %>
-    <div class="jura_36 grid_4">
-        <p class="grayBorder"> Level Name </p>
-    </div>
 
-    <div class="grid_4 push_4 omega" id="HUDTime">00.0 secs</div>
+    <div class="jura_36 grid_4">
+        <p class="grayBorder" id="leveltitle"><%= @level.title == APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"] ? "LevelName" : @level.title %></p>
+    </div>
+	<div class="jura_16 push_1 grid_2" style="padding-top: 10px;" id="fullscreen_toggle">
+        <p class="grayBorder"> Full Screen </p>
+    </div>
+    <div class="grid_4 push_2 omega" id="HUDTime">00.0 secs</div>
     <div class="clear"></div>
     <div id="gameContainer" class="grid_12"></div>
     <div id="editorContainer" class="grid_12" style="height: 540px;"></div>
