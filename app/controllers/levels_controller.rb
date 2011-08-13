@@ -45,17 +45,19 @@ class LevelsController < ApplicationController
 	# GET /levels/1.xml
 	def show
 		@level = Level.find(params[:id])
+		@level.increment_times_played
 
 		respond_to do |format|
 			format.html # show.html.erb
 			format.js {
-        unless current_user.nil?
-            key = EzCrypto::Key.with_password(APP_CONFIG["SECRET"]["TOKEN"], params[:id], :algorithm => 'blowfish')
-            current_user.ScoreHash = key.encrypt64(Time.now.to_i.to_s)
-            current_user.save
-        end
-        render :json => @level.json
-      }
+				# Make a key for the user to be able to submit a score once they're done
+				unless current_user.nil?
+					key = EzCrypto::Key.with_password(APP_CONFIG["SECRET"]["TOKEN"], params[:id], :algorithm => 'blowfish')
+					current_user.ScoreHash = key.encrypt64(Time.now.to_i.to_s)
+					current_user.save
+				end
+				render :json => @level.json
+			}
 		end
 	end
 
@@ -95,10 +97,8 @@ class LevelsController < ApplicationController
 		respond_to do |format|
 			if @level.save
 				format.html { redirect_to(@level, :notice => 'Level was successfully created.') }
-				format.xml { render :xml => @level, :status => :created, :location => @level }
 			else
 				format.html { render :action => "new" }
-				format.xml { render :xml => @level.errors, :status => :unprocessable_entity }
 			end
 		end
 	end
@@ -112,7 +112,7 @@ class LevelsController < ApplicationController
 
 		# Create or update
 		if @level.nil?
-			Level.create_from_editor(params[:levelName], params[:level_json])
+			Level.create_from_editor(current_user, params[:levelName], params[:level_json])
 		else
 			@level.current_user = current_user
 			@level.json = params[:level_json]
