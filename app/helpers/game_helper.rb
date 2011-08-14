@@ -24,9 +24,11 @@ module GameHelper
 		embed("js/ChuClone/model/Constants.js");
 		embed("js/ChuClone/Utils.js");
 		embed("js/ChuClone/utils/TextureUtils.js");
+		embed("js/ChuClone/utils/StyleMemoizer.js");
 
 		embed("js/ChuClone/gui/LevelListing.js");
 		embed("js/ChuClone/gui/HUDController.js");
+		embed("js/ChuClone/gui/LevelRecap.js");
 
 		embed("js/ChuClone/components/BaseComponent.js");
 		embed("js/ChuClone/components/JumpPadComponent.js");
@@ -40,18 +42,19 @@ module GameHelper
 		embed("js/ChuClone/components/effect/ParticleEmitterComponent.js");
 		embed("js/ChuClone/components/effect/BirdEmitterComponent.js");
 
-    embed("js/ChuClone/components/player/CharacterControllerComponent.js");
-    embed("js/ChuClone/components/player/CheckIsJumpingComponent.js");
-    embed("js/ChuClone/components/player/KeyboardInputComponent.js");
+		embed("js/ChuClone/components/player/CharacterControllerComponent.js");
+		embed("js/ChuClone/components/player/CheckIsJumpingComponent.js");
+		embed("js/ChuClone/components/player/KeyboardInputComponent.js");
 		embed("js/ChuClone/components/player/PlayerRecordComponent.js");
 		embed("js/ChuClone/components/player/PlayerPlaybackComponent.js");
-    embed("js/ChuClone/components/player/RemoteJoystickInputComponent.js");
+		embed("js/ChuClone/components/player/RemoteJoystickInputComponent.js");
 
 		embed("js/ChuClone/components/PhysicsVelocityLimitComponent.js");
 		embed("js/ChuClone/components/BoundsYCheckComponent.js");
 		embed("js/ChuClone/components/camera/CameraFocusRadiusComponent.js");
 		embed("js/ChuClone/components/camera/CameraFollowEditorComponent.js");
 		embed("js/ChuClone/components/camera/CameraFollowPlayerComponent.js");
+		embed("js/ChuClone/components/camera/CameraOrbitRadiusComponent.js");
 		embed("js/ChuClone/components/ComponentFactory.js");
 
 		embed("js/ChuClone/model/FSM/State.js");
@@ -70,6 +73,7 @@ module GameHelper
 		embed("js/ChuClone/GameViewController.js");
 		embed("js/ChuClone/GameEntity.js");
 
+		embed("js/ChuClone/states/ChuCloneBaseState.js");
 		embed("js/ChuClone/states/EditState.js");
 		embed("js/ChuClone/states/EndLevelState.js");
 		embed("js/ChuClone/states/PlayLevelState.js");

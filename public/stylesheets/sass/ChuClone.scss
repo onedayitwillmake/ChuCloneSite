@@ -156,6 +156,10 @@ a {
 
 }
 
+.level_recap_rectangle {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
 .doMore {
     @include jura(12, 300);
 }

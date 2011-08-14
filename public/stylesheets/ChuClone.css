@@ -956,6 +956,9 @@ a {
 .levelAvailable {
   background-image: url(../images/page/12_col_stripes.gif); }
 
+.level_recap_rectangle {
+  background-color: rgba(255, 255, 255, 0.5); }
+
 .doMore {
   font-size: 12px;
   font-family: 'Jura', serif;

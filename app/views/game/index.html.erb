@@ -18,12 +18,18 @@
     <div class="jura_36 grid_4">
         <p class="grayBorder" id="leveltitle"><%= @level.title == APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"] ? "LevelName" : @level.title %></p>
     </div>
-	<div class="jura_16 push_1 grid_2" style="padding-top: 10px;" id="fullscreen_toggle">
+	<div class="jura_16 grid_2" style="padding-top: 10px;" id="fullscreen_toggle">
         <p class="grayBorder"> Full Screen </p>
     </div>
-    <div class="grid_4 push_2 omega" id="HUDTime">00.0 secs</div>
+	<div class="jura_16 grid_2" style="padding-top: 10px;" id="instructions_toggle">
+        <p class="grayBorder"> Instructions </p>
+    </div>
+    <div class="grid_4 omega" id="HUDTime">00.0 secs</div>
     <div class="clear"></div>
+	<%#=render :partial => "game/level_recap" %>
+
     <div id="gameContainer" class="grid_12"></div>
+
     <div id="editorContainer" class="grid_12" style="height: 540px;"></div>
     <div class="clear"></div>
     <div class="grid_12" style="height: 20px"></div>
