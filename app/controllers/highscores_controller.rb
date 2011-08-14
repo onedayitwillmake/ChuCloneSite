@@ -29,7 +29,10 @@ class HighscoresController < ApplicationController
       if record['t'].to_i > score
         render :json => ['notice' => 'Error 503', 'status' => false] and return
       end
-    end
+	end
+
+	# Only 3 or less recording states - this is pretty impossible co
+	render(:json => ["notice" => "Error 505", "status" => false]) and return unless recording.length > 3
 
     # Check if the user already has a record for this level
     previous_score = Highscore.order('score').find_by_user_id_and_level_id( current_user.uid,  params[:level_id] ) # with dynamic finder
