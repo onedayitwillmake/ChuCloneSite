@@ -953,6 +953,9 @@ a {
   margin-right: 0;
   margin-left: -2px; }
 
+.levelCompleted {
+  background-image: url("/game/assets/images/page/completed_level_bg_0.png"); }
+
 .levelAvailable {
   background-image: url(../images/page/12_col_stripes.gif); }
 

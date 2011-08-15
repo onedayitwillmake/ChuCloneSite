@@ -1,6 +1,9 @@
 class GameController < ApplicationController
 	def index
 		@levels = Level.find_all_playable_levels
+
+		@user_scores = current_user.highscores if not current_user.nil?
+
 		# Load the title screen by default
 		@level = Level.find_all_by_title(APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"]).first
 	end
@@ -33,6 +36,7 @@ class GameController < ApplicationController
 		if not params[:id].nil?
 			@level = Level.find(params[:id])
 			@levels = Level.find_all_playable_levels
+			@user_scores = current_user.highscores if not current_user.nil?
 			render :template => "game/index"
 		end
 	end
