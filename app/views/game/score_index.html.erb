@@ -1,54 +1,32 @@
-<% content_for :game_start do %>
-	<script type="text/javascript">
-		ChuClone.model.Constants.SERVER.ASSET_PREFIX = "game/";
-		<%= render :partial => "game/game_init", :locals => { :level => @level } %>
-	</script>
-<% end %>
+<%# THIS TEMPLATE IS USED PURELY FOR DEVELOPMENT - TO SEE TEST RENDERING SCORE STUFF %>
 
-<% content_for :game_style do %>
-    <%= render :partial => "game/style" %>
-<% end %>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="stylesheet" href="<%= root_url %>game/assets/css/960/reset.css"/>
+<link rel="stylesheet" href="<%= root_url %>game/assets/css/960/text.css"/>
+<link rel="stylesheet" href="<%= root_url %>game/assets/css/960/960.css"/>
+<%= stylesheet_link_tag "ChuClone", :cache => false %>
+
+
+
+<link href="http://fonts.googleapis.com/css?family=Jura:300,400,500,600&v1" rel="stylesheet" type="text/css">
+<style>
+</style>
 
 <div class="container_12">
 	<%= render :partial => "game/title" %>
-	<%= render :partial => "game/login" %>
     <div class="clear"></div>
 	<%= render :partial => "game/colored_rectangles" %>
 
-    <div class="jura_36 grid_4">
-        <p class="grayBorder" id="leveltitle"><%= @level.title == APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"] ? "LevelName" : @level.title %></p>
-    </div>
-	<div class="jura_16 grid_2" style="padding-top: 10px;" id="fullscreen_toggle">
-        <p class="grayBorder"> Full Screen </p>
-    </div>
-	<div class="jura_16 grid_2" style="padding-top: 10px;" id="instructions_toggle">
-        <p class="grayBorder"> Instructions </p>
-    </div>
-    <div class="grid_4 omega" id="HUDTime">00.0 secs</div>
     <div class="clear"></div>
 	<%#=render :partial => "game/level_recap" %>
-
-    <div id="gameContainer" class="grid_12"></div>
-
-    <div id="editorContainer" class="grid_12" style="height: 540px;"></div>
     <div class="clear"></div>
     <div class="grid_12" style="height: 20px"></div>
     <div class="clear"></div>
     <div class="grid_6">
         <p class="grayBorder jura_36">
-            Select Level
+            <%= @level.title %>
         </p>
-        <!--    BEGIN LEVEL LIST -->
-       <div id="levellisting">
-            <% count = 0 %>
-            <% perRow = 3 %>
-            <% @levels.each do |level| %>
-                <% count = count + 1 %>
-                <% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
-                <%= "\t<div data-location='' data-id='#{level.id}' class='grid_2 #{css_class}'><p>#{level.title}</p></div>".html_safe %>
-            <% end %>
-       </div>
-        <!--    END LEVEL LIST -->
+
     </div>
 	<div class="grid_6">
 		<div class="grid_6">
@@ -68,7 +46,7 @@
 			<p class="grayBorder jura_36">Best Times</p>
 		</div>
 
-		<div class="grid_6" style="margin-top:0">
+		<div class="grid_6" style="margin-top:0px">
 			<% @level.highscores.each_with_index do |score, i|  %>
 				<%= "<div class='grid_2 grayBorder alpha jura_13' style='text-align: center; margin-top:-10px'>#{score.user.name} </div>".html_safe %>
 				<%= "<div class='grid_2 grayBorder alpha jura_13' id='time_#{i}' style='text-align:center; margin-top:-10px; margin-bottom:20px; width: 165px '> #{score.score/1000} seconds</div>".html_safe %>
@@ -76,18 +54,14 @@
 			<% end %>
 
 		<% # Some filler level times  %>
-		<% (9 - @level.highscores.length).times do |i| %>
-			<% levelTime = (999 + i - 10)*1000 %>
+		<% (10 - @level.highscores.length).times do |i| %>
+			<% levelTime = rand(60.0*3.0)/4.0 %>
 			<% color = rand(360) %>
 			<%= "<div class='grid_2 grayBorder alpha jura_13' style='text-align: center; margin-top:-10px'>UserName #{color} </div>".html_safe %>
-			<%= "<div class='grid_4 grayBorder alpha jura_13 omega' id='time_#{i}' style='text-align:center; margin-top:-10px; margin-bottom:20px; padding-right:6px'> #{levelTime/1000} seconds</div>".html_safe %>
+			<%= "<div class='grid_4 grayBorder alpha jura_13 omega' id='time_#{i}' style='text-align:center; margin-top:-10px; margin-bottom:20px; padding-right:6px'> #{levelTime} seconds</div>".html_safe %>
 		<% end %>
 			</div>
 	</div>
 
 	<div class="clear"></div>
-</div>
-
-<div class="grid_1 doMore prefix_1">
-	<p><a href="https://github.com/onedayitwillmake/ChuClone">Fork on Github</a></p>
 </div>

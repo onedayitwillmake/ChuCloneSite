@@ -22,6 +22,8 @@ module GameHelper
 
 		embed("js/ChuClone/namespace.js");
 		embed("js/ChuClone/model/Constants.js");
+		embed("js/ChuClone/model/AchievementTracker.js");
+
 		embed("js/ChuClone/Utils.js");
 		embed("js/ChuClone/utils/TextureUtils.js");
 		embed("js/ChuClone/utils/StyleMemoizer.js");
