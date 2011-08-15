@@ -1,5 +1,5 @@
 <% content_for :game_start do %>
-    <script type="text/javascript">ChuClone.model.Constants.JOYSTICK.ENABLED = true;</script>
+    <script type="text/javascript">ChuClone.model.Constants.JOYSTICK.ENABLED = false;</script>
     <script type="text/javascript" src="/game/js/ChuClone/components/player/RemoteJoystickInputComponent.js"></script>
     <script type="text/javascript">
 		ChuClone.model.Constants.SERVER.ASSET_PREFIX = "game/";
@@ -12,6 +12,7 @@
 <% end %>
 
 <% content_for :game_style do %>
+	<%= render :partial => "game/style" %>
     <style>
         body {
             background-color: #333333;
