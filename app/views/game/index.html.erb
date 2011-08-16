@@ -45,7 +45,7 @@
             <% @levels.each do |level| %>
                 <% count = count + 1 %>
                 <% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
-			   	<% style = 'style=\'background-image: url("/game/assets/images/page/completed_level_bg_' + rand(5).to_s + '.png");\''.html_safe if has_highscore(@user_scores, level.id) %>
+			   	<% style = 'style=\'background-image: url("/game/assets/images/page/completed_level_bg_0' + '.png");\''.html_safe if has_highscore(@user_scores, level.id) %>
 			   	<% style ||= "".html_safe %>
                 <%= "\t<div data-location='' data-id='#{level.id}' class='grid_2  #{css_class}' #{style}><p>#{level.title}</p></div>".html_safe %>
             <% end %>
