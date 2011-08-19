@@ -4,6 +4,8 @@ class LevelsController < ApplicationController
 	# GET /levels
 	# GET /levels.xml
 	def index
+		redirect_to(root_url) and return if current_user.nil? || current_user.id != 1
+
 		@levels = Level.find(:all, :order => 'order_index')
 
 		respond_to do |format|
@@ -14,6 +16,7 @@ class LevelsController < ApplicationController
 
 	# GET /levels/reorder
 	def reorder
+		redirect_to(root_url) and return if current_user.nil? || current_user.id != 1
 
 		if defined?(params[:type]) && params[:type] == "save" then
 			flash[:notice] = params[:type]
@@ -44,6 +47,8 @@ class LevelsController < ApplicationController
 	# GET /levels/1
 	# GET /levels/1.xml
 	def show
+		#redirect_to(root_url) and return if current_user.nil? || current_user.id != 1
+
 		@level = Level.find(params[:id])
 		@level.increment_times_played
 
@@ -106,6 +111,7 @@ class LevelsController < ApplicationController
 	# Save a level from the editor via POST
 	# POST /levels/create_from_editor
 	def create_from_editor
+		render(:json => ["status" => false, "notice" => @level]) and return if current_user.nil?
 
 		# Overwriting level?
 		@level = Level.find_by_title(params[:levelName])
@@ -114,6 +120,8 @@ class LevelsController < ApplicationController
 		if @level.nil?
 			Level.create_from_editor(current_user, params[:levelName], params[:level_json])
 		else
+			render(:json => ["status" => false, "notice" => [["Cannot save over another users level"]] ]) and return if @level.user.id != current_user.id
+
 			@level.current_user = current_user
 			@level.json = params[:level_json]
 			unless @level.save
@@ -150,6 +158,8 @@ class LevelsController < ApplicationController
 	# DELETE /levels/1
 	# DELETE /levels/1.xml
 	def destroy
+		redirect_to(root_url) and return if current_user.nil? || current_user.id != 1
+
 		@level = Level.find(params[:id])
 		@level.destroy
 
