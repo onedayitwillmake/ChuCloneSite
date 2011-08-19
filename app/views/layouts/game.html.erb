@@ -8,7 +8,9 @@
     <% if false  %>
         <%= '<script type="text/javascript" src="http://benvanik.github.com/WebGL-Inspector/core/embed.js"></script>' %>
         <% end %>
-    <%= embed_all.html_safe %>
+
+
+<%= render :partial => "game/imports" %>
 	<%= yield :game_start %>
     <%= yield :game_style %>
 </head>
