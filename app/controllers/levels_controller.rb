@@ -4,9 +4,12 @@ class LevelsController < ApplicationController
 	# GET /levels
 	# GET /levels.xml
 	def index
-		redirect_to(root_url) and return if current_user.nil? || current_user.id != 1
+		redirect_to(root_url) and return if current_user.nil?
 
-		@levels = Level.find(:all, :order => 'order_index')
+		@levels = current_user.levels.all(:order => 'created_at DESC')
+
+		#
+		#@levels = Level.find(:all, :order => 'order_index')
 
 		respond_to do |format|
 			format.html # index.html.erb
@@ -16,13 +19,13 @@ class LevelsController < ApplicationController
 
 	# GET /levels/reorder
 	def reorder
-		redirect_to(root_url) and return if current_user.nil? || current_user.id != 1
+		redirect_to(root_url) and return if current_user.nil?
 
 		if defined?(params[:type]) && params[:type] == "save" then
 			flash[:notice] = params[:type]
 		end
 
-		@levels = Level.find_all_playable_levels
+		@levels = current_user.levels.find_all_playable_levels
 		respond_to do |format|
 			format.html # reoder.html.erb
 			format.js { render :json => @levels }
@@ -47,7 +50,6 @@ class LevelsController < ApplicationController
 	# GET /levels/1
 	# GET /levels/1.xml
 	def show
-		#redirect_to(root_url) and return if current_user.nil? || current_user.id != 1
 
 		@level = Level.find(params[:id])
 		@level.increment_times_played
@@ -81,17 +83,13 @@ class LevelsController < ApplicationController
 	# GET /levels/new
 	# GET /levels/new.xml
 	def new
-		@level = Level.new
-
-		respond_to do |format|
-			format.html # new.html.erb
-			format.xml { render :xml => @level }
-		end
+		redirect_to root_url and return
 	end
 
 	# GET /levels/1/edit
 	def edit
 		@level = Level.find(params[:id])
+		redirect_to(root_url) and return if current_user.nil? || @level.user.id != current_user.id
 	end
 
 	# POST /levels
@@ -111,7 +109,7 @@ class LevelsController < ApplicationController
 	# Save a level from the editor via POST
 	# POST /levels/create_from_editor
 	def create_from_editor
-		render(:json => ["status" => false, "notice" => @level]) and return if current_user.nil?
+		render(:json => ["status" => false, "notice" => [ ["Not signed in"] ]]) and return if current_user.nil?
 
 		# Overwriting level?
 		@level = Level.find_by_title(params[:levelName])
@@ -143,6 +141,7 @@ class LevelsController < ApplicationController
 	# PUT /levels/1.xml
 	def update
 		@level = Level.find(params[:id])
+		redirect_to(root_url) and return if current_user.nil? || @level.user.id != current_user.id
 
 		respond_to do |format|
 			if @level.update_attributes(params[:level])
@@ -158,9 +157,14 @@ class LevelsController < ApplicationController
 	# DELETE /levels/1
 	# DELETE /levels/1.xml
 	def destroy
-		redirect_to(root_url) and return if current_user.nil? || current_user.id != 1
-
 		@level = Level.find(params[:id])
+		redirect_to(root_url) and return if current_user.nil? || @level.user.id != current_user.id
+		puts @level.user.id
+		#puts current_user.id
+		format.html { redirect_to(levels_url) }
+		return
+		#redirect_to(root_url) and return if current_user.nil? || @level.user.id != current_user.id
+
 		@level.destroy
 
 		respond_to do |format|

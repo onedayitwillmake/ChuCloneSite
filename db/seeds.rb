@@ -24,25 +24,19 @@ def scrub_levels
     @level = Level.find(:first, :conditions => ["title = :u", {:u => levelname}])
 
 
-    #raise @level.to_yaml
-    #		  Alternative way of searching for file in DB - returns only the first
-    ##		  @level = Level.find(:first, :conditions => ["title = :u", {:u => levelName}]);
-
-    #puts @level.to_yaml
     if not @level.nil? then # Update
-      #puts @level.to_yaml
       puts "Found: #{@level.title.html_safe}...".html_safe
-      
-      # Save if record is different
+
+	  # Save if record is different
       if not leveljson.to_json == @level.json then # Create new
         puts "Updated: " << @level.title
-        @level.json = leveljson.to_json
+        @level.json = @level.json.gsub(APP_CONFIG["SPECIAL_STRINGS"]["LEVEL_JSON"]["USER_NAME_MASK"], "1dayitwillmake")
         @level.save
       end
     else # Does not exist create it from the DB
       begin
-        @newLevel = Level.createFromJSON(leveljson)
-        puts "Created:" << @newLevel.title
+        @new_level = Level.createFromJSON(leveljson)
+        puts "Created:" << @new_level.title
       rescue Exception => e
         puts "FAILED: '#{levelname}':" << e.message
         #puts e.message
