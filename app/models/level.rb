@@ -1,7 +1,7 @@
 class Level < ActiveRecord::Base
-  has_many :highscores
-  belongs_to :user
-  
+	has_many :highscores
+	belongs_to :user
+
 	include LevelsHelper
 #	validate :must_be_logged_in
 	validate :must_have_valid_level
@@ -12,24 +12,25 @@ class Level < ActiveRecord::Base
 	##################
 	# CLASS METHODS #
 	################
-	def self.createFromJSON( level_json )
+	def self.createFromJSON(level_json)
 		create! do |level|
 			level.title = level_json['editingInfo']['levelName']
 			level.json = level_json.to_json
 		end
 	end
 
-	def self.create_from_editor( theuser, title, level_json_string )
+	def self.create_from_editor(the_user, title, level_json_string)
 		create! do |level|
-			level.user = theuser
+			level.user = the_user
 			level.title = title
-			level.json = level_json_string
+			level.json = level_json_string.gsub(APP_CONFIG["SPECIAL_STRINGS"]["LEVEL_JSON"]["USER_NAME_MASK"], the_user.name)
+
 		end
 	end
 
-  	def self.find_all_playable_levels
-		  Level.all(:select => 'title,id', :conditions => ["playable = true"], :order => "order_index")
-  	end
+	def self.find_all_playable_levels
+		Level.all(:select => 'title,id', :conditions => ["playable = true"], :order => "order_index")
+	end
 
 	###############
 	#   METHODS   #
@@ -37,15 +38,18 @@ class Level < ActiveRecord::Base
 	def increment_times_played
 		self[:times_played] = self[:times_played] + 1
 	end
+
 	def increment_times_completed
 		self[:times_completed] = self[:times_completed] + 1
 	end
+
 	def get_completion_rate
 		self.times_played / self.times_completed
 	end
-  	###############
-  	# VALIDATIONS #
-  	##############
+
+	###############
+	# VALIDATIONS #
+	##############
 	def must_have_valid_level
 		# Check for valid json
 		begin
