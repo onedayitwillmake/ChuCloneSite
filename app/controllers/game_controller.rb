@@ -14,6 +14,12 @@ class GameController < ApplicationController
 		@level = Level.find(params[:id])
 	end
 
+	def temp
+		@levels = Level.find_all_playable_levels
+		# Load the title screen by default
+		@level = Level.find_all_by_title(APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"]).first
+	end
+
 	def remoteplay
 		# Load the title screen by default if id is nil
 		@level = Level.find_all_by_title(APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"]).first if params[:id].nil?
