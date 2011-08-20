@@ -1,5 +1,9 @@
 <div class="container_12" >
-	<div class="grid_12 alpha"><h2>All Levels</h2></div>
+
+	<%= render :partial => "game/login" %>
+	<div class="clear"></div>
+	<div class="grid_10 alpha"><h2>All Levels</h2></div>
+
 
 
 	<div class="clear"></div>
@@ -8,8 +12,9 @@
 	<div class="grid_2 grayBorder">Created at</div>
 	<%# <div class="grid_1 grayBorder">playable</div> %>
 	<%# <div class="grid_1 grayBorder">comp.</div> %>
-	<div class="grid_1 grayBorder">Active</div>
+	<div class="grid_1 grayBorder">Playable</div>
 	<div class="grid_1 grayBorder" style="margin-bottom:5px;">Order</div>
+	<div class="grid_2 grayBorder" style="margin-bottom:5px;">Actions</div>
 	<div class="clear"></div>
 	<% @levels.each do |level| %>
 		<% ampm = level.created_at.hour < 12 ? "am" : "pm"  %>
@@ -26,15 +31,13 @@
 			<% end %>
 		</div>
 			<div class="grid_1 grayBorder"><%= level.order_index  %></div>
-			<div class="grid_4 grayBorder omega" style="position:relative;">
-				<%= link_to 'Play', game_path(level) %> | <%= link_to 'Editor', editor_path(level) %> | <%= link_to 'Modify', edit_level_path(level) %> | <%= link_to 'Destroy', level, :confirm => 'Are you sure?', :method => :delete %>
+			<div class="grid_2 grayBorder omega" style="position:relative;">
+				<%= link_to 'Play', game_path(level) %> | <%= link_to 'Edit', editor_path(level) %> | <%= link_to 'Delete', level, :confirm => 'Are you sure?', :method => :delete %>
 			</div>
 		<div class="clear"></div>
 	<% end  %>
 		<div class="clear"></div>
-		<div class="grid_2 grayBorder omega margin_top_1"><p><%= link_to 'New Level', "editor/" %><p></div>
-		<div class="grid_2 grayBorder omega margin_top_1"><p><%= link_to 'Order Levels', reorder_path %><p></div>
-
+		<div class="grid_2 grayBorder alpha omega margin_top_1"><p><%= link_to 'Order Levels', reorder_path %><p></div>
 	</div>
  </div>
 
