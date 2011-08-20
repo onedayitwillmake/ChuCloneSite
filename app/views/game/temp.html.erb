@@ -1,0 +1,96 @@
+<% content_for :game_start do %>
+<% end %>
+
+<% content_for :game_style do %>
+    <%= render :partial => "game/style" %>
+<% end %>
+
+<div class="container_12">
+	<%= render :partial => "game/title" %>
+	<div class="push_4 grid_2 grayBorder user_nav_disabled">
+		Level Creator
+	</div>
+	<div class="push_4 grid_2 grayBorder user_nav_disabled">
+		Ones I Made
+	</div>
+    <div class="clear"></div>
+	<%= render :partial => "game/colored_rectangles" %>
+
+    <div class="jura_36 push_4 grid_4">
+        <p class="grayBorder" id="leveltitle">Coming Soon</p>
+    </div>
+
+    <div class="clear"></div>
+	<%#=render :partial => "game/level_recap" %>
+
+	<div id="youtube" class="grid_12">
+		<object style="height: 585px; width: 960px">
+			<param name="movie" value="http://www.youtube.com/v/UkW6jJq55zs?version=3">
+			<param name="allowFullScreen" value="true">
+			<param name="allowScriptAccess" value="always">
+			<embed src="http://www.youtube.com/v/UkW6jJq55zs?version=3" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="960" height="585">
+		</object>
+	</div>
+
+    <div class="clear"></div>
+    <div class="grid_12" style="height: 20px"></div>
+    <div class="clear"></div>
+    <div class="grid_6">
+        <p class="grayBorder jura_36">
+            Select Level
+        </p>
+        <!--    BEGIN LEVEL LIST -->
+       <div id="levellisting">
+            <% count = 0 %>
+            <% perRow = 3 %>
+            <% @levels.each do |level| %>
+                <% count = count + 1 %>
+                <% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
+			   	<% style = 'style=\'background-image: url("/game/assets/images/page/completed_level_bg_0' + '.png");\''.html_safe if has_highscore(@user_scores, level.id) %>
+			   	<% style ||= "".html_safe %>
+                <%= "\t<div data-location='' class='grid_2  #{css_class}' #{style}><p>#{level.title}</p></div>".html_safe %>
+            <% end %>
+       </div>
+        <!--    END LEVEL LIST -->
+    </div>
+	<div class="grid_6">
+		<div class="grid_6">
+			<p class="grayBorder jura_36">Level Information </p>
+		</div>
+
+		<div class="grid_6">
+			<div class="grid_2 grayBorder alpha jura_13" style="text-align: center;">AUTHOR</div>
+			<div class="grid_4 grayBorder alpha jura_13 omega" style="text-align: center;padding-right:6px" id="author"><%= @level.user.name %></div>
+		</div>
+		<div class="clear"></div>
+		<div class="grid_6" style="margin-top:10px">
+			<div class="grid_2 grayBorder alpha jura_13" style="text-align: center;">COMPLETION RATE</div>
+			<div class="grid_4 grayBorder alpha jura_13 omega" style="text-align: center;padding-right:6px"><%= (@level.times_played/@level.times_completed * 100) %>% Completion rate</div>
+		</div>
+		<div class="grid_6" style="margin-top:38px">
+			<p class="grayBorder jura_36">Best Times</p>
+		</div>
+
+		<div class="grid_6" style="margin-top:0">
+			<% @level.highscores.each_with_index do |score, i|  %>
+				<%= "<div class='grid_2 grayBorder alpha jura_13' style='text-align: center; margin-top:-10px'>#{score.user.name} </div>".html_safe %>
+				<%= "<div class='grid_2 grayBorder alpha jura_13' id='time_#{i}' style='text-align:center; margin-top:-10px; margin-bottom:20px; width: 165px '> #{score.score/1000} seconds</div>".html_safe %>
+				<%= "<div class='grid_2 grayBorder alpha jura_13 omega' id='time_#{i}' style='text-align:center; margin-top:-10px; margin-bottom:20px; width: 129px'> #{distance_of_time_in_words_to_now(score.updated_at)} ago</div>".html_safe %>
+			<% end %>
+
+		<% # Some filler level times  %>
+		<% (9 - @level.highscores.length).times do |i| %>
+			<% levelTime = (999 + i - 10)*1000 %>
+			<% color = rand(360) %>
+			<%= "<div class='grid_2 grayBorder alpha jura_13' style='text-align: center; margin-top:-10px'>UserName #{color} </div>".html_safe %>
+			<%= "<div class='grid_4 grayBorder alpha jura_13 omega' id='time_#{i}' style='text-align:center; margin-top:-10px; margin-bottom:20px; padding-right:6px'> #{levelTime/1000} seconds</div>".html_safe %>
+		<% end %>
+			</div>
+	</div>
+
+	<div class="clear"></div>
+</div>
+
+<div class="grid_1 doMore prefix_1">
+	<p><a href="https://github.com/onedayitwillmake/ChuClone">Fork on Github</a></p>
+</div>

@@ -15,6 +15,9 @@ ActiveAdmin.register Level do
 
 		column :created_at
 		column :updated_at
+
+		default_actions
+
 	end
 
 	#filter :playable, :as => :check_boxes
