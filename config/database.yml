@@ -34,9 +34,9 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: ChuCloneSite_production
+  database: chuclone_prod
   pool: 5
-  username: root
-  password: root
+  username: chuclone_prod
+  password: genfu4TW
   host: localhost
-  socket: /Applications/MAMP/tmp/mysql/mysql.sock
+  socket: /tmp/mysql.sock
