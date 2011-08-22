@@ -8,41 +8,42 @@
 
 # Scrubs the level directory and adds those levels to the DB
 def scrub_levels
-  prefix = "#{APP_CONFIG["PATHS"]["LEVELS_DIRECTORY"]}/"
-  Dir.glob(prefix + "*.json") do |rb_file|
-    next if rb_file.include? '_t.json'
+	prefix = "#{APP_CONFIG["PATHS"]["LEVELS_DIRECTORY"]}/"
+	Dir.glob(prefix + "*.json") do |rb_file|
+		next if rb_file.include? '_t.json'
 
-    file = File.open(rb_file, 'rb')
-    contents = file.read
+		file = File.open(rb_file, 'rb')
+		contents = file.read
 
-    leveljson = ActiveSupport::JSON.decode(contents)
-    levelname = leveljson["editingInfo"]["levelName"]
-
-
-    # Check if exist
-    #@level = Level.all# first('title' => levelname)
-    @level = Level.find(:first, :conditions => ["title = :u", {:u => levelname}])
+		leveljson = ActiveSupport::JSON.decode(contents)
+		levelname = leveljson["editingInfo"]["levelName"]
 
 
-    if not @level.nil? then # Update
-      puts "Found: #{@level.title.html_safe}...".html_safe
+		# Check if exist
+		#@level = Level.all# first('title' => levelname)
+		@level = Level.find(:first, :conditions => ["title = :u", {:u => levelname}])
 
-	  # Save if record is different
-      if not leveljson.to_json == @level.json then # Create new
-        puts "Updated: " << @level.title
-        @level.json = @level.json.gsub(APP_CONFIG["SPECIAL_STRINGS"]["LEVEL_JSON"]["USER_NAME_MASK"], "1dayitwillmake")
-        @level.save
-      end
-    else # Does not exist create it from the DB
-      begin
-        @new_level = Level.createFromJSON(leveljson)
-        puts "Created:" << @new_level.title
-      rescue Exception => e
-        puts "FAILED: '#{levelname}':" << e.message
-        #puts e.message
-      end
-    end
-  end
+
+		if not @level.nil? then # Update
+			puts "Found: #{@level.title.html_safe}...".html_safe
+
+			# Save if record is different
+			if not leveljson.to_json == @level.json then # Create new
+				puts "Updated: " << @level.title
+				@level.json = @level.json.gsub(APP_CONFIG["SPECIAL_STRINGS"]["LEVEL_JSON"]["USER_NAME_MASK"], "1dayitwillmake")
+				@level.save
+			end
+		else # Does not exist create it from the DB
+			begin
+				leveljson = leveljson = leveljson.gsub(APP_CONFIG["SPECIAL_STRINGS"]["LEVEL_JSON"]["USER_NAME_MASK"], "1dayitwillmake")
+				@new_level = Level.createFromJSON(leveljson)
+				puts "Created:" << @new_level.title
+			rescue Exception => e
+				puts "FAILED: '#{levelname}':" << e.message
+				#puts e.message
+			end
+		end
+	end
 end
 
 scrub_levels

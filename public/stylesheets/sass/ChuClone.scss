@@ -102,15 +102,21 @@ a {
     padding: 5px 0;
 }
 
+.magentaBorder {
+    @include lineBorder(#FF77FF);
+    padding: 5px 0;
+}
+
+.greenBorder {
+    @include lineBorder(#49F2DE);
+    padding: 5px 0;
+}
+
 .headerGrid {
 	height: 2px;
 	margin-bottom: 20px;
 }
 
-.magentaBorder {
-    @include lineBorder(#FF0000);
-    padding: 5px 0;
-}
 
 .levelThumbnail {
     border: 1px solid $darkGray;
