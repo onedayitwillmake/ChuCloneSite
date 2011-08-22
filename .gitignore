@@ -6,4 +6,5 @@ tmp/
 ChuCloneSite.iml
 ChuCloneSite.iws
 ChuCloneSite.ipr
+vendor/bundle/
 /ChuCloneSite.iml
