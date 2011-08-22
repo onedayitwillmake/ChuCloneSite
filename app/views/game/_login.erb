@@ -9,6 +9,7 @@
 	<div class="push_1 grid_3 grayBorder user_nav omega" style="text-align: center; font-size: 16px;  margin-top:25px; padding: 5px 0 5px 0; margin-right:0" id='user_nav'>
 		<%= link_to "#{current_user.name} - Sign Out", signout_path %>
 	</div>
+	<%= render :partial => "game/socialmedia" %>
 <% else %>
 	<div class="push_1 grid_2 grayBorder user_nav_disabled">
 		Level Creator
@@ -19,4 +20,5 @@
 	<div class="push_1 grid_3 grayBorder user_nav">
 		<%= link_to "Sign in with twitter", "/auth/twitter" %>
 	</div>
+	<%= render :partial => "game/socialmedia" %>
 <% end %>

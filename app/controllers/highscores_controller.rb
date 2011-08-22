@@ -8,7 +8,10 @@ class HighscoresController < ApplicationController
 			@levels = Level.find_all_playable_levels
 
 			#render :xml => @level.highscores.to_xml
-			render :template => "game/score_index"
+			render :template => "highscores/score_index_ajax" and return
+			render :template => "game/score_index" and return if @_request.method == "GET"
+
+
 		end
 	end
 

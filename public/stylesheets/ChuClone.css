@@ -912,14 +912,19 @@ a {
   text-align: center;
   padding: 5px 0; }
 
+.magentaBorder {
+  border: 1px solid #ff77ff;
+  text-align: center;
+  padding: 5px 0; }
+
+.greenBorder {
+  border: 1px solid #49f2de;
+  text-align: center;
+  padding: 5px 0; }
+
 .headerGrid {
   height: 2px;
   margin-bottom: 20px; }
-
-.magentaBorder {
-  border: 1px solid red;
-  text-align: center;
-  padding: 5px 0; }
 
 .levelThumbnail, .levelThumbnailOmega {
   border: 1px solid #666666;
