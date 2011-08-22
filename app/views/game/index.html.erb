@@ -9,6 +9,8 @@
     <%= render :partial => "game/style" %>
 <% end %>
 
+
+
 <div class="container_12">
 	<%= render :partial => "game/title" %>
 	<%= render :partial => "game/login" %>
@@ -24,6 +26,7 @@
 	<div class="jura_16 grid_2" style="padding-top: 10px;" id="instructions_toggle">
         <p class="grayBorder"> Instructions </p>
     </div>
+
     <div class="grid_4 omega" id="HUDTime">00.0 secs</div>
     <div class="clear"></div>
 	<%#=render :partial => "game/level_recap" %>
@@ -44,10 +47,12 @@
             <% perRow = 3 %>
             <% @levels.each do |level| %>
                 <% count = count + 1 %>
+			   	<% does_have_highscore = has_highscore(@user_scores, level.id) %>
                 <% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
-			   	<% style = 'style=\'background-image: url("/game/assets/images/page/completed_level_bg_0' + '.png");\''.html_safe if has_highscore(@user_scores, level.id) %>
+			   	<% border_style = does_have_highscore ? "greenBorder" : "grayBorder" %>
+			   	<% style = 'style=\'background-image: url("/game/assets/images/page/completed_level_bg_0' + '.png");\''.html_safe if does_have_highscore %>
 			   	<% style ||= "".html_safe %>
-                <%= "\t<div data-location='' data-id='#{level.id}' class='grid_2  #{css_class}' #{style}><p>#{level.title}</p></div>".html_safe %>
+                <%= "\t<div data-location='' data-id='#{level.id}' class='grid_2 #{css_class}' #{style}><p>#{level.title}</p></div>".html_safe %>
             <% end %>
        </div>
         <!--    END LEVEL LIST -->
@@ -69,27 +74,9 @@
 		<div class="grid_6" style="margin-top:38px">
 			<p class="grayBorder jura_36">Best Times</p>
 		</div>
-
-		<div class="grid_6" style="margin-top:0">
-			<% @level.highscores.each_with_index do |score, i|  %>
-				<%= "<div class='grid_2 grayBorder alpha jura_13' style='text-align: center; margin-top:-10px'>#{score.user.name} </div>".html_safe %>
-				<%= "<div class='grid_2 grayBorder alpha jura_13' id='time_#{i}' style='text-align:center; margin-top:-10px; margin-bottom:20px; width: 165px '> #{score.score/1000} seconds</div>".html_safe %>
-				<%= "<div class='grid_2 grayBorder alpha jura_13 omega' id='time_#{i}' style='text-align:center; margin-top:-10px; margin-bottom:20px; width: 129px'> #{distance_of_time_in_words_to_now(score.updated_at)} ago</div>".html_safe %>
-			<% end %>
-
-		<% # Some filler level times  %>
-		<% (9 - @level.highscores.length).times do |i| %>
-			<% levelTime = (999 + i - 10)*1000 %>
-			<% color = rand(360) %>
-			<%= "<div class='grid_2 grayBorder alpha jura_13' style='text-align: center; margin-top:-10px'>UserName #{color} </div>".html_safe %>
-			<%= "<div class='grid_4 grayBorder alpha jura_13 omega' id='time_#{i}' style='text-align:center; margin-top:-10px; margin-bottom:20px; padding-right:6px'> #{levelTime/1000} seconds</div>".html_safe %>
-		<% end %>
+			<div id="score_container" data-id=<%= "#{@level.id}".html_safe %> style="overflow-y:hidden;" class="grid_6" style="margin-top:0">
+				<%= render :partial => "game/score" %>
 			</div>
-	</div>
-
+		</div>
 	<div class="clear"></div>
-</div>
-
-<div class="grid_1 doMore prefix_1">
-	<p><a href="https://github.com/onedayitwillmake/ChuClone">Fork on Github</a></p>
 </div>

@@ -1,0 +1,18 @@
+<% @level.highscores.each_with_index do |score, i| %>
+	<%# Fancy border if the score is ours, or if it's newer than 3 days ago (seconds_in_a_day * 3) %>
+	<% border_style = score.user == current_user ? "magentaBorder" : Time.now - score.updated_at < (86_400 * 3) ? "greenBorder" : "grayBorder" %>
+	<% margin_bottom = i == 0 ? "margin-bottom:20px;" : "margin-bottom:10px;" %>
+	<%= "<div class='grid_2 #{border_style} alpha jura_13' style='text-align: center; #{margin_bottom}'>#{score.user.name} </div>".html_safe %>
+	<%= "<div class='grid_2 #{border_style} alpha jura_13' id='time_#{i}' style='text-align:center;#{margin_bottom} width: 165px '> #{score.score/1000} seconds</div>".html_safe %>
+	<%= "<div class='grid_2 #{border_style} alpha jura_13 omega' id='time_#{i}' style='text-align:center;#{margin_bottom} width: 129px'> #{distance_of_time_in_words_to_now(score.updated_at)} ago</div>".html_safe %>
+<% end %>
+
+<% # Some filler level times   %>
+<% (9 - @level.highscores.length).times do |i| %>
+	<% levelTime = (999 + i - 10)*1000 %>
+	<% color = rand(360) %>
+	<%= "<div class='grid_2 grayBorder alpha jura_13' style='text-align: center; margin-bottom:10px;'>UserName #{color} </div>".html_safe %>
+	<%= "<div class='grid_4 grayBorder alpha jura_13 omega' id='time_#{i}' style='text-align:center; margin-bottom:10px; padding-right:6px'> #{levelTime/1000} seconds</div>".html_safe %>
+<% end %>
+
+
