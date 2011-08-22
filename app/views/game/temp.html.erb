@@ -13,6 +13,7 @@
 	<div class="push_4 grid_2 grayBorder user_nav_disabled">
 		Ones I Made
 	</div>
+	<%= render :partial => "game/socialmedia" %>
     <div class="clear"></div>
 	<%= render :partial => "game/colored_rectangles" %>
 
@@ -32,6 +33,11 @@
 		</object>
 	</div>
 
+	<div id="youtube" class="grid_12">
+		<iframe src="http://player.vimeo.com/video/27996650?title=0&amp;byline=0&amp;portrait=0" width="960" height="636" frameborder="0"></iframe>
+	</div>
+
+
     <div class="clear"></div>
     <div class="grid_12" style="height: 20px"></div>
     <div class="clear"></div>
@@ -40,7 +46,7 @@
             Select Level
         </p>
         <!--    BEGIN LEVEL LIST -->
-       <div id="levellisting">
+       <div id="levellistinga">
             <% count = 0 %>
             <% perRow = 3 %>
             <% @levels.each do |level| %>
@@ -89,8 +95,4 @@
 	</div>
 
 	<div class="clear"></div>
-</div>
-
-<div class="grid_1 doMore prefix_1">
-	<p><a href="https://github.com/onedayitwillmake/ChuClone">Fork on Github</a></p>
 </div>
