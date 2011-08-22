@@ -15,6 +15,21 @@ def scrub_levels
 		file = File.open(rb_file, 'rb')
 		contents = file.read
 
+		#Overwrite author
+		#mario gonzalez
+		contents = contents.gsub(APP_CONFIG["SPECIAL_STRINGS"]["LEVEL_JSON"]["USER_NAME_MASK"], "1dayitwillmake")
+		contents = contents.gsub("mario gonzalez", "1dayitwillmake")
+
+		# Write the file
+		myStr = "This is a test"
+		aFile = File.new(rb_file, "w")
+		aFile.write(contents)
+		aFile.close
+
+		# Map to 1dayitwillmake
+		user = User.find_by_name("1dayitwillmake")
+
+		# Construct string into json object
 		leveljson = ActiveSupport::JSON.decode(contents)
 		levelname = leveljson["editingInfo"]["levelName"]
 
@@ -24,20 +39,26 @@ def scrub_levels
 		@level = Level.find(:first, :conditions => ["title = :u", {:u => levelname}])
 
 
+
 		if not @level.nil? then # Update
 			puts "Found: #{@level.title.html_safe}...".html_safe
 
+
+
 			# Save if record is different
 			if not leveljson.to_json == @level.json then # Create new
-				puts "Updated: " << @level.title
-				@level.json = @level.json.gsub(APP_CONFIG["SPECIAL_STRINGS"]["LEVEL_JSON"]["USER_NAME_MASK"], "1dayitwillmake")
+				puts ">> Updated: " << @level.title
+				@level.json = leveljson.to_json
+				@level.user = user
 				@level.save
 			end
 		else # Does not exist create it from the DB
 			begin
-				leveljson = leveljson = leveljson.gsub(APP_CONFIG["SPECIAL_STRINGS"]["LEVEL_JSON"]["USER_NAME_MASK"], "1dayitwillmake")
 				@new_level = Level.createFromJSON(leveljson)
-				puts "Created:" << @new_level.title
+				@new_level.user = user
+				@new_level.save
+
+				puts ">> Created:" << @new_level.title
 			rescue Exception => e
 				puts "FAILED: '#{levelname}':" << e.message
 				#puts e.message
