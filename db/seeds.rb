@@ -18,7 +18,7 @@ def scrub_levels
 		#Overwrite author
 		#mario gonzalez
 		contents = contents.gsub(APP_CONFIG["SPECIAL_STRINGS"]["LEVEL_JSON"]["USER_NAME_MASK"], "1dayitwillmake")
-		contents = contents.gsub("mario gonzalez", "1dayitwillmake")
+		contents = contents.gsub("mario gonzalez", APP_CONFIG["SPECIAL_STRINGS"]["DEFAULTS"]["MASTER_USER_NAME"])
 
 		# Write the file
 		myStr = "This is a test"
@@ -27,7 +27,7 @@ def scrub_levels
 		aFile.close
 
 		# Map to 1dayitwillmake
-		user = User.find_by_name("1dayitwillmake")
+		user = User.find_by_name(APP_CONFIG["SPECIAL_STRINGS"]["DEFAULTS"]["MASTER_USER_NAME"])
 
 		# Construct string into json object
 		leveljson = ActiveSupport::JSON.decode(contents)
