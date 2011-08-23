@@ -7,7 +7,14 @@ ActiveAdmin.register Level do
 		column :title do |post|
 			link_to post.title, game_path(post)
 		end
-		column :playable
+
+
+		#Link plaable to toggle action below
+		p = column :Playable do |level|
+			link_to level.playable || 'false', "levels/#{level.id}/toggle"
+		end
+		column :playable, :sortable => true
+
 		column :user_id
 
 		column :times_played
@@ -19,7 +26,14 @@ ActiveAdmin.register Level do
 		default_actions
 
 	end
+	#action_path
 
+	# Memeber Methods
+	member_action :toggle do
+		level = Level.find(params[:id]);
+		level.update_attribute("playable", !level.playable)
+		redirect_to(:back)
+	end
 	#filter :playable, :as => :check_boxes
 end
 
