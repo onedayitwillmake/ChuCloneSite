@@ -26,7 +26,7 @@
 				<div class="grid_1 grayBorder"><%= 0 if level.times_completed.nil? %></div>
 			<% end  %>
 		<div class="grid_1 grayBorder">
-			<%form_tag "levels/edit", :method => :post do %>
+			<% form_tag "levels/edit", :method => :post do %>
 				<%= check_box "level", "playable", { :checked => level.playable, :onclick => "console.log(this.parentNode.submit());"}%>
 			<% end %>
 		</div>
