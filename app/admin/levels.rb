@@ -9,13 +9,14 @@ ActiveAdmin.register Level do
 		end
 
 
-		#Link plaable to toggle action below
-		p = column :Playable do |level|
+		column :Playable, :sortable => :playable do |level|
 			link_to level.playable || 'false', "levels/#{level.id}/toggle"
 		end
-		column :playable, :sortable => true
-
-		column :user_id
+		##Link plaable to toggle action below
+		#p = column :Playable do |level|
+		#	link_to level.playable || 'false', "levels/#{level.id}/toggle"
+		#end
+		#column :playable, :sortable => true
 
 		column :times_played
 		column :times_completed
