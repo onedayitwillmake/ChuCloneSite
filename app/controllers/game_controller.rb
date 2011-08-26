@@ -15,6 +15,8 @@ class GameController < ApplicationController
 	end
 
 	def temp
+    redirect_to(:action => "index") and return if current_user != nil
+
 		@levels = Level.find_all_playable_levels
 		# Load the title screen by default
 		@level = Level.find_all_by_title(APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"]).first
