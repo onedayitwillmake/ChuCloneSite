@@ -60,9 +60,9 @@ ActiveRecord::Schema.define(:version => 20110820025002) do
     t.integer  "times_played",                          :default => 1
     t.integer  "times_completed",                       :default => 1
     t.text     "json",            :limit => 2147483647
-    t.integer  "order_index",                           :default => 0,     :null => false
+    t.integer  "order_index",                           :default => 0
     t.datetime "updated_at"
-    t.boolean  "playable",                              :default => false
+    t.boolean  "playable",                              :default => true
     t.integer  "user_id"
   end
 

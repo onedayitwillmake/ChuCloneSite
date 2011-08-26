@@ -1,10 +1,36 @@
 <h1 style="margin-top: 10px; padding-bottom:30px">Order Levels</h1>
-<div class="container_12">
-    <div class="grid_2 omega"><p><%= link_to 'back', levels_path %><p></div>
+
+<!-- <div class="container_12">
+    <div class="grid_2 omega"><p><p></div>
     </div>
 
+
+    text-align: left;
+margin-left: -225px;
+margin-top: 72px;
+height: 60px;
+width: 280px;
+position: absolute;
+
+<div class="push_1 grid_2 flash_notice" id="flash_notice" style="margin-left:0; margin-top:0; position: relative; font-size: 13px;font-family: 'Jura', serif;font-weight: 300;text-shadow: none;text-decoration: none;text-transform: none;letter-spacing: 0em;word-spacing: 0em;line-height: 1.2;text-align: left;border: 1px solid #666;padding-left: 5px;">
+		<a href="/EditMode">Server Notices</a>
+	</div>
+
+
+    -->
+
 <div class="container_12">
-	<div class="push_3 grid_7">
+    <div class="grid_1 flash_notice" id="back" style="cursor:pointer; margin-left:0; margin-top:0; text-align:center; padding-top:5px; margin-bottom: 10px; position: relative; font-size: 13px; height:20px; font-family: 'Jura', serif;font-weight: 300;text-shadow: none;text-decoration: none;text-transform: none;letter-spacing: 0em;word-spacing: 0em;line-height: 1.2;text-align: center;border: 1px solid #ff6666;">
+		<%= link_to 'back', levels_path %>
+	</div>
+     <div class="grid_2 flash_notice" id="save" style="cursor:pointer; margin-left:0; margin-top:0; text-align:center; padding-top:5px; margin-bottom: 10px; position: relative; font-size: 13px; height:20px; font-family: 'Jura', serif;font-weight: 300;text-shadow: none;text-decoration: none;text-transform: none;letter-spacing: 0em;word-spacing: 0em;line-height: 1.2;text-align: center;border: 1px solid #666;">
+		Save&nbsp;
+	</div>
+
+
+
+    
+	<div class="grid_7">
 		<div id="levelContainer">
 			<% count = 0 %>
 			<% perRow = 3 %>
@@ -28,8 +54,8 @@
 		Sortable.create('levelContainer', {
 					tag: 'div', overlap: "horizontal", constraint: false,
 					onChange: function(element) {
-						clearTimeout(lastSave);
-						lastSave = setTimeout(saveLevelData, 1200);
+						//clearTimeout(lastSave);
+						//lastSave = setTimeout(saveLevelData, 1200);
 					}
 				});
 
@@ -59,7 +85,12 @@
 
 			request.open("POST", "/levels/reorder/save.js");
 			request.send(formData);
-		}
+		};
+
+        document.getElementById('save').addEventListener('click', function(){
+            saveLevelData();
+        }, false);
+        //console.log()
 	})();
 </script>
 
