@@ -6,7 +6,7 @@ class LevelsController < ApplicationController
 	def index
 		redirect_to(root_url) and return if current_user.nil?
 
-		@levels = current_user.levels.all(:order => 'created_at DESC')
+		@levels = current_user.levels.all(:order => 'order_index DESC')
 
 		#
 		#@levels = Level.find(:all, :order => 'order_index')
@@ -37,11 +37,10 @@ class LevelsController < ApplicationController
 		sortinfo = ActiveSupport::JSON.decode(params[:data])
 		sendback = []
 
-		sortinfo.each do |leveldata|
-			@level = Level.find( leveldata["id"] )
-      @level.current_user = current_user
+		sortinfo.each do | leveldata |
+			@level = Level.find( leveldata["id"], :select => 'id' )
 			@level.order_index = leveldata["order_index"]
-			@level.save
+			@level.save(:validate => false)
 		end
 
 		render :json => sendback
@@ -121,6 +120,7 @@ class LevelsController < ApplicationController
 			render(:json => ["status" => false, "notice" => [["Cannot save over another users level"]] ]) and return if @level.user.id != current_user.id
 
 			@level.current_user = current_user
+			@level.playable = false if current_user.name != APP_CONFIG["DEFAULTS"]["MASTER_USER_NAME"]
 			@level.json = params[:level_json]
 			unless @level.save
 				render(:json => ["notice" => @level.errors, "status" => false])
@@ -137,22 +137,22 @@ class LevelsController < ApplicationController
 		render(:json => ["status" => true, "notice" => @level])
 	end
 
-	# PUT /levels/1
-	# PUT /levels/1.xml
-	def update
-		@level = Level.find(params[:id])
-		redirect_to(root_url) and return if current_user.nil? || @level.user.id != current_user.id
-
-		respond_to do |format|
-			if @level.update_attributes(params[:level])
-				format.html { redirect_to(@level, :notice => 'Level was successfully updated.') }
-				format.xml { head :ok }
-			else
-				format.html { render :action => "edit" }
-				format.xml { render :xml => @level.errors, :status => :unprocessable_entity }
-			end
-		end
-	end
+	## PUT /levels/1
+	## PUT /levels/1.xml
+	#def update
+	#	@level = Level.find(params[:id])
+	#	redirect_to(root_url) and return if current_user.nil? || @level.user.id != current_user.id
+	#
+	#	respond_to do |format|
+	#		if @level.update_attributes(params[:level])
+	#			format.html { redirect_to(@level, :notice => 'Level was successfully updated.') }
+	#			format.xml { head :ok }
+	#		else
+	#			format.html { render :action => "edit" }
+	#			format.xml { render :xml => @level.errors, :status => :unprocessable_entity }
+	#		end
+	#	end
+	#end
 
 	# DELETE /levels/1
 	# DELETE /levels/1.xml
