@@ -79,17 +79,17 @@ class LevelsController < ApplicationController
 	end
 
 
-	# GET /levels/new
-	# GET /levels/new.xml
-	def new
-		redirect_to root_url and return
-	end
+	## GET /levels/new
+	## GET /levels/new.xml
+	#def new
+	#	redirect_to root_url and return
+	#end
 
 	# GET /levels/1/edit
-	def edit
-		@level = Level.find(params[:id])
-		redirect_to(root_url) and return if current_user.nil? || @level.user.id != current_user.id
-	end
+	#def edit
+	#	@level = Level.find(params[:id])
+	#	redirect_to(root_url) and return if current_user.nil? || @level.user.id != current_user.id
+	#end
 
 	# POST /levels
 	# POST /levels.xml
@@ -128,8 +128,16 @@ class LevelsController < ApplicationController
 			end
 		end
 
+		if(current_user.name != APP_CONFIG["DEFAULTS"]["MASTER_USER_NAME"])
+			dir = "#{APP_CONFIG["PATHS"]["LEVELS_DIRECTORY"]}/_users/#{current_user.name}"
+		else
+			dir = "#{APP_CONFIG["PATHS"]["LEVELS_DIRECTORY"]}"
+		end
+
 		# Save level to file with same name
-		file = File.new("#{APP_CONFIG["PATHS"]["LEVELS_DIRECTORY"]}/#{params[:levelName]}.json", "w")
+		FileUtils.mkdir_p "#{dir}"
+
+		file = File.new("#{dir}/#{params[:levelName]}.json", "w")
 		file.write(params[:level_json])
 		file.close
 
@@ -156,20 +164,20 @@ class LevelsController < ApplicationController
 
 	# DELETE /levels/1
 	# DELETE /levels/1.xml
-	def destroy
-		@level = Level.find(params[:id])
-		redirect_to(root_url) and return if current_user.nil? || @level.user.id != current_user.id
-		puts @level.user.id
-		#puts current_user.id
-		format.html { redirect_to(levels_url) }
-		return
-		#redirect_to(root_url) and return if current_user.nil? || @level.user.id != current_user.id
-
-		@level.destroy
-
-		respond_to do |format|
-			format.html { redirect_to(levels_url) }
-			format.xml { head :ok }
-		end
-	end
+	#def destroy
+	#	@level = Level.find(params[:id])
+	#	redirect_to(root_url) and return if current_user.nil? || @level.user.id != current_user.id
+	#	puts @level.user.id
+	#	#puts current_user.id
+	#	format.html { redirect_to(levels_url) }
+	#	return
+	#	#redirect_to(root_url) and return if current_user.nil? || @level.user.id != current_user.id
+	#
+	#	@level.destroy
+	#
+	#	respond_to do |format|
+	#		format.html { redirect_to(levels_url) }
+	#		format.xml { head :ok }
+	#	end
+	#end
 end
