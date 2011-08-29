@@ -90,6 +90,7 @@ a {
     @include jura(16, 300);
     text-align: center;
     margin-top:25px;
+    margin-right:9px;
 }
 
 .user_nav_disabled {
@@ -110,6 +111,15 @@ a {
 .greenBorder {
     @include lineBorder(#49F2DE);
     padding: 5px 0;
+}
+
+.grayBorderFaq {
+	@include lineBorder(adjust-color($gray, $lightness: 30%));
+    padding: 3px 5px;
+}
+.editorFaq {
+    font-weight: 100;
+    line-height:1.5em;
 }
 
 .headerGrid {

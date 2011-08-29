@@ -1,0 +1,235 @@
+<% content_for :game_start do %>
+<% end %>
+
+<% content_for :game_style do %>
+    <%= render :partial => "game/style" %>
+<% end %>
+
+<div class="container_12">
+	<%= render :partial => "game/title" %>
+	<div class="push_4 grid_2 grayBorder user_nav_disabled">
+		Level Creator
+	</div>
+	<div class="push_4 grid_2 grayBorder user_nav_disabled">
+		Ones I Made
+	</div>
+	<%= render :partial => "game/socialmedia" %>
+    <div class="clear"></div>
+	<%= render :partial => "game/colored_rectangles" %>
+
+    <div class="jura_36 grid_4">
+        <p class="grayBorder">How To Use The Editor</p>
+    </div>
+    <div class="jura_15 push_1 grid_4 editorFaq">
+        <ul>
+            <li style=""><a href="#basics">Basics</a></li>
+             <li style=""><a href="#modify">Modifying Objects</a></li>
+             <li style=""><a href="#move">Maneuvering around the editor<br></a></li>
+             <li style=""><a href="#camera">Using The Camera</a></li>
+             <li style=""><a href="#player">Creating A Player<br></a></li>
+        </ul>
+    </div>
+    <div class="jura_15  grid_4 editorFaq">
+        <ul>
+             <li style=""><a href="#levelmanager">Level Manager Panel</a></li>
+             <li style=""><a href="#saving">Saving To The Server <br></a></li>
+             <li style=""><a href="#level">How To Play Your Level Anyway<br></a></li>
+             <li style=""><a href="#shortcuts"><strong>Important Shortcuts</strong><br></a></li>
+        </ul>
+    </div>
+
+    <div class="clear"></div>
+     <div class="jura_16 grid_10 editorFaq">
+    <span class="grayBorderFaq">ChuClone</span> contains an editor to create your own levels.<br>
+    The editor was created by me while I was making the game, and I added functionality to it on a piece by piece basis.
+    So with that said the editor is still currently in <span class="grayBorderFaq">beta.</span><br><br>
+     </div>
+    <div class="clear"></div>
+    <div class="jura_28 grid_12">
+        <p class="grayBorder"><a name="basics">First Steps</a></p>
+    </div>
+    <div class="clear"></div>
+    <div class="jura_21 grid_7">
+        <p class="grayBorder">The Windows</p>
+    </div>
+    <div class="clear"></div>
+    <div class="jura_15 grid_7 editorFaq">
+        <!-- The editor contains two windows.<br> -->
+        The <span class="grayBorderFaq">Top window</span> is a <strong>live view</strong> of the game<br>
+        This is where you will be able to play the game.<br>
+        If you can't move, <span class="grayBorderFaq">click on the top window and try moving again</span><br><br>
+        The <span class="grayBorderFaq">Bottom Window</span> is the actual <strong>level editor</strong> window<br>
+        This is where you can select/create/modify/delete objects.<br>
+    </div>
+    <div class="alpha omega jura_21 grid_5" style="margin-top: -55px">
+        <img src="/game/assets/images/page/editfaq/twowindows.png" />
+    </div>
+    <div class="clear"></div>
+    <div class="jura_21 grid_7" style="margin-top:40px;">
+        <p class="grayBorder">Creating Objects</p>
+    </div>
+    <div class="jura_15 grid_7 editorFaq">
+        Click on area in the <span class="grayBorderFaq">bottom window</span>, and select <span class="grayBorderFaq">Create Entity</span> from the creation panel<br>
+        <br>Now try dragging that object around.<br>Use the bottom window to interact with objects.
+        <br>Sometimes its <span class="grayBorderFaq">easier to create one entity, and then clone it</span> a bunch of times.
+    </div>
+     <div class="alpha omega jura_21 grid_5">
+        <img src="/game/assets/images/page/editfaq/createentity.png" />
+    </div>
+    <div class="clear"></div>
+     <div class="jura_21 grid_7" style="margin-top:40px;">
+        <p class="grayBorder"><a name="modify">Modifying Objects</a></p>
+    </div>
+    <div class="jura_15 grid_7 editorFaq">
+        First select it in the <span class="grayBorderFaq">bottom window</span>
+        <br>You'll notice the modification panel will change it's properties.
+        <br>Use the <span class="grayBorderFaq">sliders</span>, or or manually enter values to change the entities properties.
+    </div>
+    <div class="alpha omega jura_21 grid_5">
+        <img src="/game/assets/images/page/editfaq/modifyentity.png" />
+    </div>
+     <div class="clear"></div>
+    <div class="jura_28 grid_12" style="margin-top:40px;">
+        <p class="grayBorder">Black Belt Level</p>
+    </div>
+    <div class="jura_21 grid_7" style="margin-top:40px;">
+        <p class="grayBorder"><a name="move">Maneuvering around in the editor</a></p>
+    </div>
+    <div class="jura_15 grid_7 editorFaq">
+        The level editor has all kinds of secrets for you.
+        <br>For example, to <span class="grayBorderFaq">pan</span> around simply press and hold the spacebar and move your mouse around.
+        <br><br>To <span class="grayBorderFaq">zoom in and out</span>, use your mousewheel/trackpad
+        <br>It also has a few other secrets moves, but we'll get to those later
+    </div>
+    <div class="alpha omega jura_21 grid_5">
+        <img src="/game/assets/images/page/editfaq/zooming.png" />
+    </div>
+    <div class="clear"></div>
+    <div class="jura_21 grid_7" style="margin-top:40px;">
+        <p class="grayBorder"><a name="camera">I can't see anything</a></p>
+    </div>
+    <div class="jura_15 grid_7 editorFaq">
+        Make sure you have created some entities.
+        <br>Then using the <span class="grayBorderFaq">Camera Panel</span> set the '_type' to <span class="grayBorderFaq">Follow Editor</span>
+        <br>Conversely, when playtesting your level try setting it to <span class="grayBorderFaq">Follow Player</span> to lock it onto the character
+    </div>
+    <div class="alpha omega jura_21 grid_5" style="text-align: center">
+        <img src="/game/assets/images/page/editfaq/camera.png" />
+    </div>
+
+    <div class="clear"></div>
+    <div class="jura_21 grid_7" style="margin-top:40px;">
+        <p class="grayBorder"><a name="player">Creating A Player</a></p>
+    </div>
+    <div class="jura_15 grid_7 editorFaq">
+        In order to see if your level is fun, you need to have a player character of course.
+        <br><br>Creating a character involves 3 steps:
+        <ul>
+            <li>Create an entity</li>
+            <li>Give it a  <span class="grayBorderFaq">Respawn Component</span>, it will change to a translucent blue color.</li>
+            <li>Now using the <span class="grayBorderFaq">Player Panel</span>, select <strong>Create</strong> and a Chu will magically appear</li>
+        </ul>
+        <br>You can now select the Live Window and move the character around  (hint, if you can't move see above notes on giving focus to the live view
+    </div>
+    <div class="alpha omega jura_21 grid_5" style="text-align: right">
+        <img src="/game/assets/images/page/editfaq/createplayer.png" />
+    </div>
+
+    <div class="clear"></div>
+    <div class="jura_21 grid_7" style="margin-top:40px;">
+        <p class="grayBorder"><a name="levelmanager">Level Manager Panel</a></p>
+    </div>
+    <div class="jura_15 grid_7 editorFaq">
+        This panel is the least self-explanatory of the bunch.
+        <br><br>Here's a few notes about what some of the trickier functions do:
+        <ul>
+            <li><span class="grayBorderFaq">Active Save Slot</span>
+                <br>This is a slot on your local computer that you can save and load from, while you're working on a level.
+                <br>It's a good idea to use these to test out an idea, then switch back to a previous version and compare.
+                <br>It's also a good idea to save often so you don't lose your progress.
+                <br><br>
+            </li>
+            <li><span class="grayBorderFaq">Save To Slotwill</span> save the current level in the respective slot.</li>
+            <li><span class="grayBorderFaq">Load From Slot</span> will clear the current level and load the level at the selected slot. </li>
+        </ul>
+    </div>
+    <div class="alpha omega jura_21 grid_5" style="text-align: right">
+        <img src="/game/assets/images/page/editfaq/levelmanager.png" />
+    </div>
+
+
+    <div class="clear"></div>
+    <div class="jura_21 grid_7" style="margin-top:40px;">
+        <p class="grayBorder"><a name="saving">Saving To The Server</a></p>
+    </div>
+    <div class="jura_15 grid_7 editorFaq">
+        Saving to the server is serious business, so a few things must be in order before you can save to the server.
+        Here's a checklist:
+        <ul>
+            <li>Have at least 1 respawn point</li>
+            <li>You have to have at least 1 character</li>
+            <li>You have to also have a goal pad in the level.</li>
+        </ul>
+    </div>
+    <div class="alpha omega jura_21 grid_5" style="text-align: right">
+        <img src="/game/assets/images/page/editfaq/savetoserver.png" />
+    </div>
+
+    <div class="clear"></div>
+    <div class="jura_21 grid_7" style="margin-top:40px;">
+
+        <p class="grayBorder">I saved a level to the server but it doesn't show up!</p>
+    </div>
+    <div class="jura_15 grid_7 editorFaq">
+        When a level is first saved to the server, it is set as <span class="grayBorderFaq">inactive</span>.
+        <br><br>I'm in the process of creating a system where people can 'rate' and 'flag' levels, however that is not currently in place.
+        <br><br>So for now, when a level is saved to the server I will play it and if it's completable and fun I will mark it as active and it will show up on the official list with credit given to you.
+    </div>
+     <div class="alpha omega jura_21 grid_5" style="text-align: right">
+        <img src="/game/assets/images/page/editfaq/question.png" />
+    </div>
+
+    <div class="clear"></div>
+    <div class="jura_21 grid_7" style="margin-top:40px;">
+        <p class="grayBorder"><a name="level">How to play a level you made anyway</a></p>
+    </div>
+    <div class="jura_15 grid_7 editorFaq">
+        If you saved a level to the server, but it is not yet showing on the active list you can still play it and share it with others.
+            <br><br>All you have to do is select <span class="grayBorderFaq">Ones I Made</span> from the top bar, and then click <span class="grayBorderFaq">play</span> on that level and it will give you the special link that goes <span class="grayBorderFaq">directly to your level</span>
+    </div>
+    <div class="alpha omega jura_21 grid_5" style="text-align: right">
+        <img src="/game/assets/images/page/editfaq/playownlevel.png" />
+        <img src="/game/assets/images/page/editfaq/playownlevel2.png" />
+    </div>
+    <div class="jura_28 grid_12" style="margin-top:40px;">
+        <p class="grayBorder">Master Level</p>
+    </div>
+
+
+
+    <div class="clear"></div>
+    <div class="jura_21 grid_7" style="margin-top:40px;">
+        <p class="grayBorder"><a name="shortcuts">Important Shortcuts</a></p>
+    </div>
+    <div class="jura_15 grid_7 editorFaq">
+        Once you've mastered this much, you probably are too fast to bother with mouse movements.
+        <br>Lucky for you the editor has several shortcuts that you will need while developing a level
+        <br><br>Here's some to get you started:
+        <ul>
+            <li><span class="grayBorderFaq">H</span>  - Hide / Show the panels.
+                <br><strong>This one is important</strong>, because otherwise its hard to give focus to the game area.
+             <br>Usually when trying to play the level, it's a good idea to press H first, to hide the panels.<br></li>
+            <li><span class="grayBorderFaq">Shift+C</span> - Clone an entity (select an entity first)</li>
+            <li><span class="grayBorderFaq">Shift+D</span> - Delete an entity (select an entity first)</li>
+            <li><span class="grayBorderFaq">Alt + Arrow Key</span> - Modify the size of an entity. Hold Shift to magnify the amount (select an entity first)</li>
+            <li><span class="grayBorderFaq">Ctrl+ Arrow Key</span> - Modify the position of an entity. Hold Shift to magnify the amount (select an entity first)</li>
+            <li><span class="grayBorderFaq">Shift+Drag</span> - When dragging an object this will lock it's movement to a single axis</li>
+        </ul>
+    </div>
+<div class="alpha omega jura_21 grid_5" >
+        <img src="/game/assets/images/page/editfaq/shortcuts.png" />
+    </div>
+    <div class="clear" style="margin-bottom:50px;">&nbsp;</div>
+
+<%= render :partial => "game/footer" %>
+</div>
