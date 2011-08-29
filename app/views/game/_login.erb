@@ -1,12 +1,12 @@
 <%# Logged in version  %>
 <% if current_user %>
-	<div class="push_1 grid_2 grayBorder user_nav">
+	<div class="push_3 grid_1 grayBorder user_nav">
 		<a href="/editor">Level Creator</a>
 	</div>
-	<div class="push_1 grid_2 grayBorder user_nav">
+	<div class="push_3 grid_1 grayBorder user_nav">
 		<%= link_to "Ones I Made", levels_path %>
 	</div>
-	<div class="push_1 grid_3 grayBorder user_nav omega" style="text-align: center; font-size: 16px;  margin-top:25px; padding: 5px 0 5px 0; margin-right:0" id='user_nav'>
+	<div class="push_3 grid_3 grayBorder user_nav omega" style="text-align: center; font-size: 16px;  margin-top:25px; padding: 5px 0 5px 5px; margin-right:0" id='user_nav'>
 		<%= link_to "#{current_user.name} - Sign Out", signout_path %>
 	</div>
 	<%= render :partial => "game/socialmedia" %>
