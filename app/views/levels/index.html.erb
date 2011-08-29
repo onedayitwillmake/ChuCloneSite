@@ -1,47 +1,45 @@
-<div class="container_12" >
+<div class="container_12">
 
+	<%= render :partial => "game/title" %>
 	<%= render :partial => "game/login" %>
 	<div class="clear"></div>
-	<div class="grid_10 alpha"><h2>All Levels</h2></div>
-
-
-
+	<%= render :partial => "game/colored_rectangles" %>
 	<div class="clear"></div>
-	<div class="push_1 grid_11">
-	<div class="grid_2 grayBorder alpha">Title</div>
-	<div class="grid_2 grayBorder">Created at</div>
-	<%# <div class="grid_1 grayBorder">playable</div> %>
-	<%# <div class="grid_1 grayBorder">comp.</div> %>
-	<div class="grid_1 grayBorder">Playable</div>
-	<div class="grid_1 grayBorder" style="margin-bottom:5px;">Order</div>
-	<div class="grid_2 grayBorder" style="margin-bottom:5px;">Actions</div>
-	<div class="clear"></div>
-	<% @levels.each do |level| %>
-		<% ampm = level.created_at.hour < 12 ? "am" : "pm"  %>
-		<div class="grid_2 grayBorder alpha"><%= level.title %></div>
-		<div class="grid_2 grayBorder"><%= "#{distance_of_time_in_words_to_now(level.created_at)} ago"  %></div>
+	<div class="push_1 grid_12">
+		<div class="grid_3 magentaBorder alpha">Title</div>
+		<div class="grid_2 magentaBorder">Created</div>
+		<%# <div class="grid_1 grayBorder">playable</div> %>
+		<%# <div class="grid_1 grayBorder">comp.</div> %>
+		<div class="grid_1 magentaBorder">Playable</div>
+		<div class="grid_1 magentaBorder" style="margin-bottom:10px;">Order</div>
+		<div class="grid_3 magentaBorder" style="margin-bottom:10px;">Actions</div>
+		<div class="grid_1 greenBorder alpha omega"><%= link_to 'Order Levels', reorder_path %></div>
+		<div class="clear"></div>
+		<% @levels.each do |level| %>
+			<% ampm = level.created_at.hour < 12 ? "am" : "pm" %>
+			<div class="grid_3 grayBorder alpha"><%= level.title %></div>
+			<div class="grid_2 grayBorder"><%= "#{distance_of_time_in_words_to_now(level.created_at)} ago" %></div>
 
 			<% if false %>
 				<div class="grid_1 grayBorder"><%= 0 if level.times_played.nil? %></div>
 				<div class="grid_1 grayBorder"><%= 0 if level.times_completed.nil? %></div>
-			<% end  %>
-		<div class="grid_1 grayBorder">
-            <%= level.playable %>
-            <% if false %>
-                <% form_tag "levels/edit", :method => :post do %>
-                    <%= check_box "level", "playable", { :checked => level.playable, :onclick => "console.log(this.parentNode.submit());"}%>
-                <% end %>
-            <% end %>
-		</div>
-			<div class="grid_1 grayBorder"><%= level.order_index  %></div>
-			<div class="grid_2 grayBorder omega" style="position:relative;">
-				<%= link_to 'Play', game_path(level) %> | <%= link_to 'Edit', editor_path(level) %> | <%= link_to 'Delete', level, :confirm => 'Are you sure?', :method => :delete %>
+			<% end %>
+			<div class="grid_1 grayBorder">
+				<%= level.playable %>
+				<% if false %>
+					<% form_tag "levels/edit", :method => :post do %>
+						<%= check_box "level", "playable", {:checked => level.playable, :onclick => "console.log(this.parentNode.submit());"} %>
+					<% end %>
+				<% end %>
 			</div>
-		<div class="clear"></div>
-	<% end  %>
-		<div class="clear"></div>
-		<div class="grid_2 grayBorder alpha omega margin_top_1"><p><%= link_to 'Order Levels', reorder_path %><p></div>
+			<div class="grid_1 grayBorder"><%= level.order_index %></div>
+			<div class="grid_3 grayBorder omega" style="margin-bottom:10px">
+				<%= link_to 'Play', game_path(level) %> | <%= link_to 'Edit', editor_path(level) %>
+				| <%= link_to 'Delete', level, :confirm => 'Are you sure?', :method => :delete %>
+			</div>
+			<div class="clear"></div>
+		<% end %>
 	</div>
- </div>
+</div>
 
 
