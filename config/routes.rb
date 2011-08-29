@@ -17,6 +17,7 @@ ChuCloneSite::Application.routes.draw do
 	match "levels/create_from_editor" => "levels#create_from_editor"
 
 	# GAME
+  match "editor/faq" => "game#editorfaq"
 	match "editor/:id" => "game#edit", :as => :editor
 	match "editor" => "game#edit"
 	match "pure/:id" => "game#pure"

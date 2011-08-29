@@ -902,7 +902,8 @@ a {
   word-spacing: 0em;
   line-height: 1.2;
   text-align: center;
-  margin-top: 25px; }
+  margin-top: 25px;
+  margin-right: 9px; }
 
 .user_nav_disabled {
   opacity: 0.75; }
@@ -921,6 +922,15 @@ a {
   border: 1px solid #49f2de;
   text-align: center;
   padding: 5px 0; }
+
+.grayBorderFaq {
+  border: 1px solid gray;
+  text-align: center;
+  padding: 2px 2px 2px 2px; }
+
+.editorFaq {
+  font-weight: 100;
+  line-height: 1.5em; }
 
 .headerGrid {
   height: 2px;
