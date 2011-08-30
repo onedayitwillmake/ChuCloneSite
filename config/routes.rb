@@ -21,6 +21,8 @@ ChuCloneSite::Application.routes.draw do
 	match "editor/:id" => "game#edit", :as => :editor
 	match "editor" => "game#edit"
 	match "pure/:id" => "game#pure"
+  match "kongregate" => "game#kongregate"
+	match "kongregate/:id" => "game#kongregate"
 	match "remoteplay/" => "game#remoteplay"
 	match "remoteplay/:id" => "game#remoteplay"
 

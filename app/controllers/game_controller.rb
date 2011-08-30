@@ -12,6 +12,12 @@ class GameController < ApplicationController
 		@levels = Level.find_all_playable_levels
 		# Load the title screen by default
 		@level = Level.find(params[:id])
+  end
+
+  def kongregate
+		@levels = Level.find_all_playable_levels
+		# Load the title screen by default
+    @level = Level.find_all_by_title(APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"]).first if params[:id].nil?
 	end
 
 	def temp
