@@ -13,16 +13,16 @@
 	<div class="push_1 grid_3 grayBorder user_nav omega" style="text-align: center; font-size: 16px;  margin-top:25px; padding: 5px 0 5px 0; margin-right:0" id='user_nav'>
 		<%= link_to "#{current_user.name} - Sign Out", signout_path %>
 	</div>
-	
+
 <% else %>
      <div id="github" class="push_1 grid_1 grayBorder user_nav" style="margin-top:15px;">
 		<a href="https://github.com/onedayitwillmake/ChuClone">Fork On Github</a>
 	</div>
 	<div class="push_1 grid_2 grayBorder user_nav_disabled">
-		Level Creator
+		Level Creator<br><span class="jura_13">(must be signed in)</span>
 	</div>
 	<div class="push_1 grid_2 grayBorder user_nav_disabled">
-		Ones I Made
+		Ones I Made<br><span class="jura_13">(must be signed in)</span>
 	</div>
 	<div class="push_1 grid_3 grayBorder user_nav">
 		<%= link_to "Sign in with twitter", "/auth/twitter" %>
