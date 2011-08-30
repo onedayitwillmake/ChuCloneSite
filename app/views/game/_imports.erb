@@ -1,6 +1,5 @@
 <% require 'socket'  %>
 <% host = Socket.gethostname %>
-<%= "<!-- //#{Socket.gethostname} -->" %>
 <% if host.include? 'local' %>
 
     <script type='text/javascript' src='/game/js/lib/DAT.GUI.js'></script>
