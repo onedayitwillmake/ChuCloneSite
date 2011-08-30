@@ -46,6 +46,8 @@ class GameController < ApplicationController
 	def show
 		if not params[:id].nil?
 			@level = Level.find(params[:id])
+      #@level.update_attribute(:times_played, @level.times_played+1)
+
 			@levels = Level.find_all_playable_levels
 			@user_scores = current_user.highscores if not current_user.nil?
 			render :template => "game/index"

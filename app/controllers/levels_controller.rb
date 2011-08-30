@@ -51,7 +51,7 @@ class LevelsController < ApplicationController
 	def show
 
 		@level = Level.find(params[:id])
-		@level.increment_times_played
+		@level.update_attribute(:times_played, @level.times_played+1)
 
 		respond_to do |format|
 			format.html # show.html.erb

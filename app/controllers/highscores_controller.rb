@@ -18,6 +18,21 @@ class HighscoresController < ApplicationController
 	# Creates a Highscore entry for this level by current_user
 	# POST /levels/:id/highscores.json
 	def create
+
+    score = params[:score].to_i
+    recording = ActiveSupport::JSON.decode(params[:record])
+    # One of the entries in the record has a greater time than the score they're trying to submit
+		recording.each do |record|
+			if record['t'].to_i > score
+				render :json => ['notice' => 'Error 503', 'status' => false] and return
+			end
+    end
+
+    # Made it far enough to count as valid, increment times completed
+		@level = Level.find(params[:level_id])
+    @level.update_attribute(:times_completed, @level.times_completed+1)
+
+
 		render(:json => ["notice" => "Not signed in", "status" => false]) and return unless current_user
 		render(:json => ["notice" => "Error 504", "status" => false]) and return unless current_user.ScoreHash != ""
 
@@ -25,9 +40,6 @@ class HighscoresController < ApplicationController
 
 		# Remove the hash from the user so they can't resubmit for this level
 		current_user.update_attribute(:ScoreHash, "")
-
-		score = params[:score].to_i
-		recording = ActiveSupport::JSON.decode(params[:record])
 
 		# Check that they have a valid hash - uses the current_user.ScoreHash to decrypt the string
 		begin
@@ -39,19 +51,10 @@ class HighscoresController < ApplicationController
 			render :json => ['notice' => 'Error 501', 'status' => false] and return
 		end
 
-		# One of the entries in the record has a greater time than the score they're trying to submit
-		recording.each do |record|
-			if record['t'].to_i > score
-				render :json => ['notice' => 'Error 503', 'status' => false] and return
-			end
-		end
+
 
 		# Only 3 or less recording states - this is pretty impossible co
 		render(:json => ["notice" => "Error 505", "status" => false]) and return unless recording.length > 3
-
-		# Made it far enough to count as valid, increment times played
-		@level = Level.find(params[:level_id])
-		@level.update_attribute(:times_played, @level.times_played+1)
 
 		# Check if the user already has a record for this level
 		previous_score = Highscore.order('score').find_by_user_id_and_level_id(current_user.id, params[:level_id]) # with dynamic finder
