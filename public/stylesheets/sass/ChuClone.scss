@@ -95,6 +95,7 @@ a {
 
 .user_nav_disabled {
     @extend .user_nav;
+    margin-top:15px;
     opacity: 0.75;
 }
 

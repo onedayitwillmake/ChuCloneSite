@@ -906,6 +906,7 @@ a {
   margin-right: 9px; }
 
 .user_nav_disabled {
+  margin-top: 15px;
   opacity: 0.75; }
 
 .grayBorder {
@@ -926,7 +927,7 @@ a {
 .grayBorderFaq {
   border: 1px solid gray;
   text-align: center;
-  padding: 2px 2px 2px 2px; }
+  padding: 3px 5px; }
 
 .editorFaq {
   font-weight: 100;
