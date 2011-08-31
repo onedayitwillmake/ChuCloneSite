@@ -1,4 +1,6 @@
 <% content_for :game_style do %>
+    <%= render :partial => "game/style" %>
+    
     <style>
     /* Set up some styles. Note the border, margin, and padding settings to make things fit cleanly in the iframe */
     html{border: none; overflow: hidden; background-color: #333;height: 100%; margin:0; padding:0;}
@@ -8,12 +10,13 @@
     p{margin:4px;padding:0;}
     select#item_list{width:150px;}
         :focus {outline: 0; }
+            #gameContainer {width:800px;}
     </style>
 <% end %>
 
 <% content_for :game_start do %>
 	<script type="text/javascript">
-        ChuClone.model.Constants.GAME_WIDTH = 800;
+        ChuClone.model.Constants.GAME_WIDTH = 900;
 		ChuClone.model.Constants.SERVER.ASSET_PREFIX = "game/";
 		<%= render :partial => "game/game_init", :locals => { :level => @level } %>
 	</script>
