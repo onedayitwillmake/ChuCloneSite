@@ -1,5 +1,4 @@
-<% @level.highscores.all(:order => :score).each_with_index do |score, i| %>
-	<%# Fancy border if the score is ours, or if it's newer than 3 days ago (seconds_in_a_day * 3) %>
+<% @level.highscores.all(:order => "score").each_with_index do |score, i| %>
 	<% border_style = score.user == current_user ? "magentaBorder" : Time.now - score.updated_at < (86_400 * 3) ? "greenBorder" : "grayBorder" %>
 	<% margin_bottom = i == 0 ? "margin-bottom:20px;" : "margin-bottom:10px;" %>
 	<%= "<div class='grid_2 #{border_style} alpha jura_13' style='text-align: center; #{margin_bottom}'>#{score.user.name} </div>".html_safe %>
