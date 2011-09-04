@@ -7,6 +7,7 @@ ChuCloneSite::Application.routes.draw do
 
 	# AUTHENTICATION
 	match "/auth/twitter/callback" => "sessions#create"
+	match "/auth/facebook/callback" => "sessions#create"
 	match "/signout" => "sessions#destroy", :as => :signout
 
 	# LEVELS
