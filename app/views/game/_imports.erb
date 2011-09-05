@@ -1,13 +1,14 @@
 <% require 'socket'  %>
 <% host = Socket.gethostname %>
 <% if host.include? 'local' %>
+<%# if false %>
 
     <script type='text/javascript' src='/game/js/lib/DAT.GUI.js'></script>
     <script type='text/javascript' src='/game/js/lib/Stats.js'></script>
-    <script type='text/javascript' src='/game/js/lib/three.js/build/Three.js'></script>
-    <script type='text/javascript' src='/game/js/lib/three.js/examples/js/RequestAnimationFrame.js'></script>
-	<script type='text/javascript' src='/game/js/lib/three.js/examples/js/Stats.js'></script>
-	<script type='text/javascript' src='/game/js/lib/three.js/examples/js/Detector.js'></script>
+    <script type='text/javascript' src='/game/js/lib/threejs/build/Three.js'></script>
+    <script type='text/javascript' src='/game/js/lib/threejs/examples/js/RequestAnimationFrame.js'></script>
+	<script type='text/javascript' src='/game/js/lib/threejs/examples/js/Stats.js'></script>
+	<script type='text/javascript' src='/game/js/lib/threejs/examples/js/Detector.js'></script>
     <script type='text/javascript' src='/game/js/lib/Tween.js'></script>
 
     <script type='text/javascript' src='/game/assets/geometry/Bird.js'></script>
