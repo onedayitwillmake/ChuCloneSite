@@ -13,7 +13,16 @@ module GameHelper
     embed('/game/js/lib/three.js/examples/js/RequestAnimationFrame.js')
 	embed('/game/js/lib/three.js/examples/js/Stats.js')
 	embed('/game/js/lib/three.js/examples/js/Detector.js')
-    embed('/game/js/lib/Tween.js')
+	embed('/game/js/lib/threejs/examples/js/postprocessing/BloomPass.js')
+	embed('/game/js/lib/threejs/examples/js/postprocessing/DotScreenPass.js')
+	embed('/game/js/lib/threejs/examples/js/postprocessing/EffectComposer.js')
+	embed('/game/js/lib/threejs/examples/js/postprocessing/FilmPass.js')
+	embed('/game/js/lib/threejs/examples/js/postprocessing/MaskPass.js')
+	embed('/game/js/lib/threejs/examples/js/postprocessing/RenderPass.js')
+	embed('/game/js/lib/threejs/examples/js/postprocessing/ShaderPass.js')
+	embed('/game/js/lib/threejs/examples/js/postprocessing/TexturePass.js')
+	embed('/game/js/lib/threejs/examples/js/ShaderExtras.js')
+	embed('/game/js/lib/Tween.js')
 
     embed('/game/assets/geometry/Bird.js')
 
