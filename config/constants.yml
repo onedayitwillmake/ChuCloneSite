@@ -3,6 +3,7 @@ PATHS:
 
 DEFAULTS:
  MASTER_USER_NAME: "1dayitwillmake"
+ MASTER_USER_ID: "1"
  TITLE_SCREEN_LEVEL: TitleScreen
 
 SECRET:

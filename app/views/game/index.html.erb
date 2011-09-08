@@ -48,7 +48,12 @@
        <div id="levellisting">
             <% count = 0 %>
             <% perRow = 3 %>
+            <% @user_levels = [] %>
             <% @levels.each do |level| %>
+               <% if (level.user_id.to_s != APP_CONFIG["DEFAULTS"]["MASTER_USER_ID"]) %>
+               <% @user_levels << level %>
+               <% next %>
+               <% end %>
                 <% count = count + 1 %>
 			   	<% does_have_highscore = has_highscore(@user_scores, level.id) %>
                 <% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
@@ -81,16 +86,28 @@
 				<%= render :partial => "game/score" %>
 			</div>
 		</div>
-<div class="margin_top_1 clear">a</div>
-<% if false %>
-
-        <div class="grid_6">
-            <p class="grayBorder jura_36">
-                User Levels
-            </p>
-        </div>
-        <div class="clear"></div>
-    <% end %>
+<div class="clear"></div>
+<div class="grid_6">
+        <p class="grayBorder jura_36">
+            Select Level
+        </p>
+        <!--    BEGIN LEVEL LIST -->
+       <div id="user_levellisting">
+            <% count = 0 %>
+            <% perRow = 3 %>
+            <% @user_levels.each do |level| %>
+                <% count = count + 1 %>
+			   	<% does_have_highscore = has_highscore(@user_scores, level.id) %>
+                <% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
+			   	<% border_style = does_have_highscore ? "greenBorder" : "grayBorder" %>
+			   	<% style = 'style=\'background-image: url("/game/assets/images/page/completed_level_bg_0' + '.png");\''.html_safe if does_have_highscore %>
+			   	<% style ||= "".html_safe %>
+                <%= "\t<div data-location='' data-id='#{level.id}' class='grid_2 #{css_class}' #{style}><p>#{level.title}</p></div>".html_safe %>
+            <% end %>
+       </div>
+        <!--    END LEVEL LIST -->
+    </div>
+<div class="clear"></div>
 
 <%= render :partial => "game/footer" %>
 </div>
