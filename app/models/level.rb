@@ -24,12 +24,12 @@ class Level < ActiveRecord::Base
 			level.user = the_user
 			level.title = title
 			level.json = level_json_string.gsub(APP_CONFIG["SPECIAL_STRINGS"]["LEVEL_JSON"]["USER_NAME_MASK"], the_user.name)
-
+# APP_CONFIG["DEFAULTS"]["MASTER_USER_ID"]
 		end
 	end
 
 	def self.find_all_playable_levels
-		Level.all(:select => 'title,id', :conditions => ["playable = true"], :order => "order_index")
+		Level.all(:select => 'title,id,user_id,times_played,times_completed', :conditions => ["playable = true"], :order => "order_index")
 	end
 
 	###############
