@@ -152,13 +152,17 @@ Version:
          joystickUpdate_counter: 0,
         joystickUpdate: function( client, data) {
         
-        	if(++this.joystickUpdate_counter % 10 == 0)
-	            console.log(data.payload.analog);
-	            
-            if( this.cabinet ) {
-                //console.log("Sending msg to cabinet")
-                var cabinetConnection = this.netChannel.getClientWithID( this.cabinet.clientid );
-                cabinetConnection.sendMessage( data, this.getGameClock() );
+        	//if(++this.joystickUpdate_counter % 10 == 0)
+	        //    console.log(data.payload.analog);
+
+            try {
+                if (this.cabinet) {
+                    //console.log("Sending msg to cabinet")
+                    var cabinetConnection = this.netChannel.getClientWithID(this.cabinet.clientid);
+                    cabinetConnection.sendMessage(data, this.getGameClock());
+                }
+            } catch(e) {
+                this.cabinet = null;
             }
         },
 
