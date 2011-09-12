@@ -67,6 +67,7 @@ Version:
 			//this.cmdMap[RealtimeMultiplayerGame.Constants.CMDS.PLAYER_UPDATE] = this.shouldUpdatePlayer;
             this.cmdMap[RealtimeMultiplayerGame.Constants.CMDS.JOYSTICK_UPDATE] = this.joystickUpdate;
             this.cmdMap[RealtimeMultiplayerGame.Constants.CMDS.JOYSTICK_SELECT_LEVEL] = this.joystickSelectLevel;
+            this.cmdMap[RealtimeMultiplayerGame.Constants.CMDS.LEVEL_COMPLETE] = this.onLevelComplete;
 		},
 
 
@@ -145,6 +146,20 @@ Version:
 		},
 
         /**
+         * Called continuously by a connected joystick - contains information about the state of the joystick
+         * @param {RealtimeMultiplayerGame.network.Client} client
+         * @param {Object} data
+         */
+		onLevelComplete: function( client, data ) {
+            console.log("LEVEL COMPLETE!!!!!!", data.payload)
+            if( this.joystick ) {
+                var joystickConnection = this.netChannel.getClientWithID( this.joystick.clientid );
+                joystickConnection.sendMessage( data, this.getGameClock() );
+            }
+		},
+
+
+        /**
          * Pass joystick data off to the client
          * @param client
          * @param data
@@ -152,8 +167,8 @@ Version:
          joystickUpdate_counter: 0,
         joystickUpdate: function( client, data) {
         
-        	//if(++this.joystickUpdate_counter % 10 == 0)
-	        //    console.log(data.payload.analog);
+        	if(++this.joystickUpdate_counter % 10 == 0)
+	            console.log("Analog: " +data.payload.analog + " Button: " + data.payload.button + " Level:" + data.payload.level);
 
             try {
                 if (this.cabinet) {

@@ -24,6 +24,10 @@
 
         setup: function() {
             this.gameClockReal = new Date().getTime();
+
+            this.cmdMap = {};
+            this.cmdMap[RealtimeMultiplayerGame.Constants.CMDS.LEVEL_COMPLETE] = this.onLevelComplete;
+
 		    this.netChannel = new RealtimeMultiplayerGame.ClientNetChannel( this, RealtimeMultiplayerGame.Constants.SERVER_SETTING.SOCKET_ADDRESS, RealtimeMultiplayerGame.Constants.SERVER_SETTING.SOCKET_PORT, ['websocket'], false);
 
             this._thumbStickControllerLeft = new JoystickDemo.controls.ThumbStickController("left");
@@ -49,6 +53,13 @@
             }
         },
 
+        /**
+         * Level complete, return to index
+         */
+        onLevelComplete: function(){
+            window.location ="./win.html";
+        },
+
 		update_count: 0,
 		update: function() {
 			this.updateClock();
@@ -57,7 +68,8 @@
                 analog: this._thumbStickControllerLeft.getAngle360(),
                 accelX: this._accelX,
                 accelY: this._accelY,
-				button: this._button.getIsDown()
+				button: this._button.getIsDown(),
+                level: this.level_id
             } );
 			this.netChannel.tick();
 		},
@@ -135,6 +147,8 @@
                     level_id: level_id
                 } );
             }
+
+            this.level_id = level_id;
 			// Create a 'join' message and queue it in ClientNetChannel
 			this.netChannel.addMessageToQueue( true, RealtimeMultiplayerGame.Constants.CMDS.PLAYER_JOINED, { nickname: aNickname, type: "joystick" } );
 		},
