@@ -6,7 +6,7 @@
         ChuClone.model.Constants.IS_BLOOM = true;
 		<%= render :partial => "game/game_init", :locals => { :level => @level } %>
 		window.addEventListener('DOMContentLoaded', function callback(e){
-			game._gameView.setFullscreen( true, true )
+			game._gameView.setFullscreen( true, false )
 		}, false);
 	</script>
 <% end %>
@@ -24,4 +24,11 @@
 
 <% end %>
 <div id="gameContainer" style=""></div>
-<div id="editorContainer" class="" style="height: 540px;"></div>
+<div style="width:100%; position:absolute; bottom:50px; z-index:10">
+	<div class="container_12">
+		<div class='push_3 grid_5 jura_48 magentaBorder' style='margin-bottom:20px; color:#01b0ee; text-align:center; margin-left: 20px; background: rgba(0,0,0, 0.75);'>How To Play!</div>
+		<div class="clear"></div>
+		<div class='grid_5 jura_28 magentaBorder omega alpha' style='color:#01b0ee; text-align:center; margin-left: 60px; background: rgba(0,0,0, 0.75);'>1. Connect to <span class="jura_32">ChuClone</span> wifi</div>
+		<div class='grid_5 jura_28 magentaBorder omega alpha' style='color:#01b0ee; text-align:center; margin-left: 20px; background: rgba(0,0,0, 0.75);'>2. Browse to http://<span class="jura_32">10.0.2.1</span></div>
+	</div>
+</div>
