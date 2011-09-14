@@ -95,13 +95,15 @@
          * @param {TouchEvent} e
          */
         onTouchMove: function(e) {
-
             var touchOfInterest = null;
+            
             // android
             if(e.touches[0].identifier == 0) { // android
-                touchOfInterest = this.getTouchOfInterest(e.changedTouches);
-                if(!touchOfInterest) return;
+                var validTouches = this.getValidTouches(e.touches);
+                if(!validTouches[0]) return;
 
+
+                touchOfInterest = validTouches[0];
             } else if(this._touchIdentifier === 0) {
                 return;
             }
@@ -124,11 +126,10 @@
          */
         onTouchEnd: function(e) {
             var touchOfInterest = null;
-            // android
-            if(e.touches[0].identifier == 0) { // android
-                touchOfInterest = this.getTouchOfInterest(e.changedTouches);
-                if(!touchOfInterest) return;
 
+            // android
+            if(!e.touches[0]) {
+                var validTouches  = this.getValidTouches(e.touches);
             } else if(this._touchIdentifier === 0) {
                 return;
             }
@@ -162,9 +163,6 @@
                 console.error("relayTouchToButtons: - Error, no 'touchOfInterest' supplied");
             }
 
-//            console.log('on'+type)
-//            return;
-            // Relay touch
             for(var prop in this._buttons) {
                 if( !this._buttons.hasOwnProperty(prop) ) return;
                 this._buttons[prop]['on'+type]( touchOfInterest );
@@ -227,15 +225,21 @@
 		 * @param e
 		 */
 		setAngle: function( e ) {
+
 			// Get the offset of our element
 			var offset = this.getOffset(this._touchAreaHtmlElement);
 			// Offset it by the stage position
 			var layerX = e.clientX - offset.left;
 			var layerY = e.clientY - offset.top;
+
+            console.log("SetAngle! " + e.clientX + ":");
+            
 			// Offset it by our radius
 			var x = this._radius-layerX;
 			var y = this._radius-layerY;
 			this._angle = Math.atan2(y, x);
+
+            ;
 
 			var top = (Math.sin(-this._angle)*this._radius/2) + this._radius - this._nub.offsetWidth/2;
 			var left = (Math.cos(this._angle)*-this._radius/2) + this._radius - this._nub.offsetWidth/2;
