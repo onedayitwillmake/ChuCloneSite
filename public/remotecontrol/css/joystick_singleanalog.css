@@ -8,11 +8,11 @@ body {
     position: absolute;
 	background: #ded7ce;
 	border-radius: 60px;
-    /*top: 215px;*/
-    /*left: 22px;*/
     width: 118px;
     height: 118px;
 }
+
+
 
 .thumb_stick_touch_area {
 	border-radius: 0;
@@ -23,42 +23,44 @@ body {
 .thumb_stick_nub {
     position: absolute;
 	background-image: url("../images/joystick/thumb.png");
-	/*opacity: 0.5;*/
     width: 50px;
     height: 50px;
 }
 
-.dpad_button {
-    width: 75px;
-    height: 75px;
-    position: absolute;
-    background-image: url("../images/joystick/button_large.png");
-    /*opacity: 0.25;*/
-}
 
-#controller_container {
-    position:relative;
-    width: 320px;
-    height: 356px;
-    background-image: url("../images/joystick/joystick-mini.png");
-    /*overflow: hidden;*/
-}
 
 #controller_image {
     position: absolute;
 }
 
-#dpad_button_right {
-	-webkit-transform: scale(1.75);
-    left: 347px;
-	top: 66px;
-}
+
 
 /*PORTRAIT MODE*/
 @media screen and (max-width: 320px) {
-	body {
-		background-color: #00FF00;
-	}
+    #controller_container {
+        position: relative;
+        width: 320px;
+        height: 356px;
+        background-image: url("../images/joystick/joystick-mini.png");
+    }
+
+    .dpad_button {
+        width: 75px;
+        height: 75px;
+        position: absolute;
+        background-image: url("../images/joystick/button_large.png");
+    }
+
+    #dpad_button_right {
+        -webkit-transform: scale(1.5);
+        left: 210px;
+        top: 95px;
+    }
+
+    .thumb_stick_container {
+        left: 15px;
+        top: 75px;
+    }
 
 }
 
@@ -70,4 +72,22 @@ body {
 		height: 208px;
 		background-image: url("../images/joystick/joystick-mini_landscape.png");
 	}
+
+    .dpad_button {
+        width: 75px;
+        height: 75px;
+        position: absolute;
+        background-image: url("../images/joystick/button_large.png");
+    }
+
+    #dpad_button_right {
+        -webkit-transform: scale(1.75);
+        left: 347px;
+        top: 66px;
+    }
+
+    .thumb_stick_container {
+        left:45px;
+        top:50px
+    }
 }

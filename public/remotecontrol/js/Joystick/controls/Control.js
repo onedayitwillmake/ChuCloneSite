@@ -57,7 +57,7 @@
 				this.removeListener( listener.target, listener.eventName );
 			}
 		},
-
+ 
         //http://stackoverflow.com/questions/442404/dynamically-retrieve-html-element-x-y-position-with-javascript
         getOffset: function(el) {
             var _x = 0;
@@ -78,6 +78,7 @@
         getValidTouches: function( touchList ) {
             var validTouches = [];
             for(var i = 0; i < touchList.length; i++) {
+                console.log("validTouchCheck" + touchList[i] );
                 if( this.hitTest( touchList[i] ) ) {
                     validTouches.push( touchList[i] );
                 }
@@ -93,7 +94,7 @@
          */
         getTouchOfInterest: function(touchList) {
             for(var i = 0; i < touchList.length; i++) {
-                if( touchList[i].identifier === this._touchIdentifier )
+                if( this.getTouchIdentifier(touchList[i]) === this._touchIdentifier )
                     return touchList[i];
             }
 
@@ -109,6 +110,7 @@
             if( !this._touchAreaHtmlElement ) {
                 throw new Error("This controller doesn't have an '_touchAreaHtmlElement' set! hitTest aborted...");
             }
+
             var radius = this._touchAreaHtmlElement.offsetWidth/2;
 
             // Get the offset of our element
@@ -122,8 +124,9 @@
             var x = Math.round(layerX - radius);
             var y = Math.round(layerY - radius);
 
-            var dist = Math.sqrt(x*x + y*y);
 
+            var dist = Math.sqrt(x*x + y*y);
+            
             return dist < (radius+this._hitAreaBuffer);
         },
 
@@ -152,7 +155,18 @@
 									  false, false, false, 0, null);
 
 			first.target.dispatchEvent(fakeMouseEvent);
-		}
+		},
+
+
+        /**
+         * Because android webkit always returns zero for identifier, but the property is also readonly
+         * We stuff our own fakeidentifier property and return
+         * @param touch
+         */
+        getTouchIdentifier: function( touch ) {
+            return touch.identifier;
+        }
+
 
     }
 

@@ -61,24 +61,23 @@
          * @param {TouchEvent} e
          */
         onTouchStart: function(e) {
-            console.log("TOUCH")
             if( this._touchIdentifier !== 0 ) {
                 console.log("ThumbStickController::onTouchStart - Already have a touch '"+this._touchIdentifier+"' - Aborting...");
                 return;
             }
-            
-            var validTouches  = this.getValidTouches(e.touches);
 
+
+            var validTouches  = this.getValidTouches(e.touches);
             if( validTouches[0] ) {
-                this._touchIdentifier = validTouches[0].identifier;
+                this._touchIdentifier = this.getTouchIdentifier( validTouches[0] );
             } else {
                 console.log("ThumbstickController::onTouchStart - No valid touches found!");
                 return;
             }
 
 
-            console.log( validTouches.length);
-            console.log( this._touchIdentifier );
+            //console.log( validTouches.length);
+            //console.log( this._touchIdentifier );
 
             // Inform all buttons
             //this.relayTouchToButtons( e.touches[0], 'touchmove' );
@@ -89,22 +88,33 @@
             this.addListener( document, "touchend", function(e){ that.onTouchEnd(e);} );
         },
 
+
         /**
          * Called on 'touchmove' - Checks to see if the touch we're interested in is in the list of changed touches.
          * If it is, relayTouchToButtons is called
          * @param {TouchEvent} e
          */
         onTouchMove: function(e) {
-            if(this._touchIdentifier === 0) return;
 
-            // See if it was the one we're interested in
-            var touchOfInterest = this.getTouchOfInterest(e.changedTouches);
-            if(!touchOfInterest) return;
+            var touchOfInterest = null;
+            // android
+            if(e.touches[0].identifier == 0) { // android
+                touchOfInterest = this.getTouchOfInterest(e.changedTouches);
+                if(!touchOfInterest) return;
+
+            } else if(this._touchIdentifier === 0) {
+                return;
+            }
+
+
+            if( !touchOfInterest ) {
+                // See if it was the one we're interested in
+                var touchOfInterest = this.getTouchOfInterest(e.changedTouches);
+                if(!touchOfInterest) return;
+            }
 
 
 			this.setAngle(touchOfInterest);
-            // Inform all buttons
-//            this.relayTouchToButtons( touchOfInterest, e.type );
         },
 
         /**
@@ -113,11 +123,21 @@
          * @param e
          */
         onTouchEnd: function(e) {
-            if(this._touchIdentifier === 0) return;
+            var touchOfInterest = null;
+            // android
+            if(e.touches[0].identifier == 0) { // android
+                touchOfInterest = this.getTouchOfInterest(e.changedTouches);
+                if(!touchOfInterest) return;
 
-            // See if it was the one we're interested in
-            var touchOfInterest = this.getTouchOfInterest(e.changedTouches);
-            if(!touchOfInterest) return;
+            } else if(this._touchIdentifier === 0) {
+                return;
+            }
+
+             if( !touchOfInterest ) {
+                // See if it was the one we're interested in
+                var touchOfInterest = this.getTouchOfInterest(e.changedTouches);
+                if(!touchOfInterest) return;
+             }
 
 
 			this._angle = 0;
