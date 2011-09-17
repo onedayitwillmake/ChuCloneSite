@@ -28,10 +28,12 @@
             this.cmdMap = {};
             this.cmdMap[RealtimeMultiplayerGame.Constants.CMDS.LEVEL_COMPLETE] = this.onLevelComplete;
 
-		    this.netChannel = new RealtimeMultiplayerGame.ClientNetChannel( this, RealtimeMultiplayerGame.Constants.SERVER_SETTING.SOCKET_ADDRESS, RealtimeMultiplayerGame.Constants.SERVER_SETTING.SOCKET_PORT, ['websocket'], false);
+		    this.netChannel = new RealtimeMultiplayerGame.ClientNetChannel( this, RealtimeMultiplayerGame.Constants.SERVER_SETTING.SOCKET_ADDRESS, RealtimeMultiplayerGame.Constants.SERVER_SETTING.SOCKET_PORT, ['websocket', 'xhr-polling', 'json-polling'], false);
 
             this._thumbStickControllerLeft = new JoystickDemo.controls.ThumbStickController("left");
-			this._button = new JoystickDemo.controls.ButtonController( document.getElementById('dpad_button_right'), true );
+
+            if( document.getElementById('dpad_button_right') )
+			    this._button = new JoystickDemo.controls.ButtonController( document.getElementById('dpad_button_right'), true );
 
 
             
@@ -68,7 +70,7 @@
                 analog: this._thumbStickControllerLeft.getAngle360(),
                 accelX: this._accelX,
                 accelY: this._accelY,
-				button: this._button.getIsDown(),
+				button: (this._button) ? this._button.getIsDown() : 'null',
                 level: this.level_id
             } );
 			this.netChannel.tick();
