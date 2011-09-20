@@ -11,7 +11,12 @@ ActiveAdmin.register Level do
 
 		column :Playable, :sortable => :playable do |level|
 			link_to level.playable || 'false', "levels/#{level.id}/toggle"
-		end
+    end
+
+    column :is_beta, :sortable => :is_beta do |level|
+      link_to level.is_beta || 'false', "levels/#{level.id}/togglebeta"
+    end
+
 		##Link plaable to toggle action below
 		#p = column :Playable do |level|
 		#	link_to level.playable || 'false', "levels/#{level.id}/toggle"
@@ -34,8 +39,13 @@ ActiveAdmin.register Level do
 		level = Level.find(params[:id]);
 		level.update_attribute("playable", !level.playable)
 		redirect_to(:back)
+  end
+
+  member_action :togglebeta do
+		level = Level.find(params[:id]);
+		level.update_attribute("is_beta", !level.is_beta)
+		redirect_to(:back)
 	end
-	#filter :playable, :as => :check_boxes
 end
 
 

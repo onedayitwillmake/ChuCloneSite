@@ -61,24 +61,23 @@
          * @param {TouchEvent} e
          */
         onTouchStart: function(e) {
-            console.log("TOUCH")
             if( this._touchIdentifier !== 0 ) {
                 console.log("ThumbStickController::onTouchStart - Already have a touch '"+this._touchIdentifier+"' - Aborting...");
                 return;
             }
-            
-            var validTouches  = this.getValidTouches(e.touches);
 
+
+            var validTouches  = this.getValidTouches(e.touches);
             if( validTouches[0] ) {
-                this._touchIdentifier = validTouches[0].identifier;
+                this._touchIdentifier = this.getTouchIdentifier( validTouches[0] );
             } else {
                 console.log("ThumbstickController::onTouchStart - No valid touches found!");
                 return;
             }
 
 
-            console.log( validTouches.length);
-            console.log( this._touchIdentifier );
+            //console.log( validTouches.length);
+            //console.log( this._touchIdentifier );
 
             // Inform all buttons
             //this.relayTouchToButtons( e.touches[0], 'touchmove' );
@@ -89,22 +88,35 @@
             this.addListener( document, "touchend", function(e){ that.onTouchEnd(e);} );
         },
 
+
         /**
          * Called on 'touchmove' - Checks to see if the touch we're interested in is in the list of changed touches.
          * If it is, relayTouchToButtons is called
          * @param {TouchEvent} e
          */
         onTouchMove: function(e) {
-            if(this._touchIdentifier === 0) return;
+            var touchOfInterest = null;
+            
+            // android
+            if(e.touches[0].identifier == 0) { // android
+                var validTouches = this.getValidTouches(e.touches);
+                if(!validTouches[0]) return;
 
-            // See if it was the one we're interested in
-            var touchOfInterest = this.getTouchOfInterest(e.changedTouches);
-            if(!touchOfInterest) return;
+
+                touchOfInterest = validTouches[0];
+            } else if(this._touchIdentifier === 0) {
+                return;
+            }
+
+
+            if( !touchOfInterest ) {
+                // See if it was the one we're interested in
+                var touchOfInterest = this.getTouchOfInterest(e.changedTouches);
+                if(!touchOfInterest) return;
+            }
 
 
 			this.setAngle(touchOfInterest);
-            // Inform all buttons
-//            this.relayTouchToButtons( touchOfInterest, e.type );
         },
 
         /**
@@ -113,11 +125,20 @@
          * @param e
          */
         onTouchEnd: function(e) {
-            if(this._touchIdentifier === 0) return;
+            var touchOfInterest = null;
 
-            // See if it was the one we're interested in
-            var touchOfInterest = this.getTouchOfInterest(e.changedTouches);
-            if(!touchOfInterest) return;
+            // android
+            if(!e.touches[0]) {
+                var validTouches  = this.getValidTouches(e.touches);
+            } else if(this._touchIdentifier === 0) {
+                return;
+            }
+
+             if( !touchOfInterest ) {
+                // See if it was the one we're interested in
+                var touchOfInterest = this.getTouchOfInterest(e.changedTouches);
+                if(!touchOfInterest) return;
+             }
 
 
 			this._angle = 0;
@@ -142,9 +163,6 @@
                 console.error("relayTouchToButtons: - Error, no 'touchOfInterest' supplied");
             }
 
-//            console.log('on'+type)
-//            return;
-            // Relay touch
             for(var prop in this._buttons) {
                 if( !this._buttons.hasOwnProperty(prop) ) return;
                 this._buttons[prop]['on'+type]( touchOfInterest );
@@ -207,15 +225,21 @@
 		 * @param e
 		 */
 		setAngle: function( e ) {
+
 			// Get the offset of our element
 			var offset = this.getOffset(this._touchAreaHtmlElement);
 			// Offset it by the stage position
 			var layerX = e.clientX - offset.left;
 			var layerY = e.clientY - offset.top;
+
+            console.log("SetAngle! " + e.clientX + ":");
+            
 			// Offset it by our radius
 			var x = this._radius-layerX;
 			var y = this._radius-layerY;
 			this._angle = Math.atan2(y, x);
+
+            ;
 
 			var top = (Math.sin(-this._angle)*this._radius/2) + this._radius - this._nub.offsetWidth/2;
 			var left = (Math.cos(this._angle)*-this._radius/2) + this._radius - this._nub.offsetWidth/2;
