@@ -1,7 +1,7 @@
 <% require 'socket'  %>
 <% host = Socket.gethostname %>
-<%# if host.include? 'local' %>
-<% if false %>
+<% if host.include? 'local' %>
+<%# if false %>
 
     <script type='text/javascript' src='/game/js/lib/DAT.GUI.js'></script>
     <script type='text/javascript' src='/game/js/lib/Stats.js'></script>
@@ -36,6 +36,7 @@
     <script type='text/javascript' src='/game/js/ChuClone/Utils.js'></script>
     <script type='text/javascript' src='/game/js/ChuClone/utils/TextureUtils.js'></script>
     <script type='text/javascript' src='/game/js/ChuClone/utils/StyleMemoizer.js'></script>
+    <script type='text/javascript' src='/game/js/ChuClone/utils/FunctionQueue.js'></script>
 
     <script type='text/javascript' src='/game/js/ChuClone/gui/LevelListing.js'></script>
     <script type='text/javascript' src='/game/js/ChuClone/gui/HUDController.js'></script>
