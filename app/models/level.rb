@@ -29,7 +29,7 @@ class Level < ActiveRecord::Base
 	end
 
 	def self.find_all_playable_levels
-		Level.all(:select => 'title,id,user_id,times_played,times_completed', :conditions => ["playable = true"], :order => "order_index")
+		Level.all(:select => 'title,id,user_id,times_played,times_completed,is_beta', :conditions => ["playable = true"], :order => "order_index")
 	end
 
 	###############
