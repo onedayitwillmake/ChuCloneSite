@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110820025002) do
+ActiveRecord::Schema.define(:version => 20110917003108) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -60,10 +60,11 @@ ActiveRecord::Schema.define(:version => 20110820025002) do
     t.integer  "times_played",                          :default => 1
     t.integer  "times_completed",                       :default => 1
     t.text     "json",            :limit => 2147483647
-    t.integer  "order_index"
+    t.integer  "order_index",                           :default => 0,     :null => false
     t.datetime "updated_at"
-    t.boolean  "playable",                              :default => true
+    t.boolean  "playable",                              :default => false
     t.integer  "user_id"
+    t.boolean  "is_beta",                               :default => false
   end
 
   create_table "users", :force => true do |t|
