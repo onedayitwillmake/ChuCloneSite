@@ -13,6 +13,7 @@
 		}
 
         this._touchAreaHtmlElement = this._htmlElement = anHTMLElement;
+        this._hitAreaBuffer = 10;
 		this._catchOwnEvents = shouldCatchOwnEvents;
         this.setup();
         this.id == 1;
@@ -43,7 +44,12 @@
 
 			var that = this;
             //this.addListener( this._touchAreaHtmlElement, 'mousedown', function(e){ that.onMouseDown(e);} );
-            this.addListener( this._touchAreaHtmlElement, 'touchstart', function(e){ that.ontouchstart(e);} );
+            this.addListener( document, 'touchstart', function(e){ that.ontouchstart(e);} );
+            this.addListener( document, 'touchmove', function(e){ that.ontouchmove(e);} );
+            this.addListener( document, 'touchend', function(e){ that.ontouchend(e);} );
+            //setInterval(function(){
+            //    that.ontou
+            //}, 30)
         },
 
 		onMouseDown: function(e) {
@@ -54,6 +60,7 @@
 
 			var that = this;
 			this.addListener( document, 'mouseup', function(e){ that.ontouchend(e);} );
+
 		},
 
         /**
@@ -62,22 +69,24 @@
          */
         ontouchstart: function(e) {
 
-            // If catchOwnEvents - verfiy that the touch was over over us - and store the identifier
-			if(this._catchOwnEvents) {
+            if( this._touchIdentifier != 0 ) {
+                //console.log("TouchStart: Ignore");
+                return;
+            }
+            var validTouches  = this.getValidTouches(e.touches, false);
 
-                var validTouches  = this.getValidTouches(e.touches);
-                if( validTouches[0] ) this._touchIdentifier = validTouches[0].identifier;
-                else {
-                    console.log("ThumbstickController::onTouchStart - No valid touches found!");
-                    return;
-                }
+            if(validTouches.length == 0) {
+                //console.log("TouchStart: NoTouches");
+                return;
+            }
 
-                var that = this;
-                this.ontouchmove(validTouches[0]);
-				this.addListener( document, 'touchend', function(e){ that.ontouchend(e);} );
-			}
 
-            this._isDown = true;
+
+
+            this._touchIdentifier = validTouches[0].identifier;
+
+            //console.log("TouchStart:" + validTouches.length + " " + this._touchIdentifier);
+            this._isDown = validTouches.length != 0;
             this._htmlElement.style.opacity = (this._isDown) ? 1 : 0.25;
         },
 
@@ -86,7 +95,17 @@
          * @param {MouseEvent} e
          */
         ontouchmove: function(e) {
-            this._isDown = this.hitTest(e);
+            var touchOfInterest  = this.getTouchOfInterest(e.changedTouches);
+            if(!touchOfInterest) return;
+
+            //console.log("TouchMove:" + touchOfInterest );
+            
+            this._isDown = this.hitTest(touchOfInterest);
+
+            if(!this._isDown) {
+                this._touchIdentifier = 0;
+            }
+
             this._htmlElement.style.opacity = (this._isDown) ? 1 : 0.25;
         },
 
@@ -95,20 +114,31 @@
          * @param {MouseEvent} e
          */
         ontouchend: function(e) {
-
-            // If catching own events - verify that this touch was ours
-            if( this._catchOwnEvents && !this.getTouchOfInterest(e.changedTouches)) {
-                console.log("ButtonController::ontouchend - Touch ignored" + String(this.getTouchOfInterest(e.changedTouches)));
-                return;
-            }
+            var touchOfInterest  = this.getTouchOfInterest(e.changedTouches);
+            this._isDown = touchOfInterest == null;
+            this._htmlElement.style.opacity = (this._isDown) ? 1 : 0.25;
+            this._touchIdentifier = 0;
+            //console.log("TouchEnd:" + touchOfInterest);
+            return;
+            var validTouches  = this.getValidTouches(e.changedTouches);
+            //console.log("TouchEnd:" + validTouches.length)
             
-            this._isDown = false;
-            this._htmlElement.style.opacity = 0.25;
-
-			if(this._catchOwnEvents) {
-				this.removeListener( document, 'mouseup' );
-				this.removeListener( document, 'touchend' );
-			}
+            this._isDown = !(validTouches.length != 0);
+            this._htmlElement.style.opacity = (this._isDown) ? 1 : 0.25;
+            
+            //// If catching own events - verify that this touch was ours
+            //if( this._catchOwnEvents && !this.getTouchOfInterest(e.changedTouches)) {
+             //   console.log("ButtonController::ontouchend - Touch ignored" + String(this.getTouchOfInterest(e.changedTouches)));
+             //   return;
+            //}
+            //
+            //this._isDown = false;
+            //this._htmlElement.style.opacity = 0.25;
+            //
+			//if(this._catchOwnEvents) {
+			//	this.removeListener( document, 'mouseup' );
+			//	this.removeListener( document, 'touchend' );
+			//}
 
 			//console.log("touchup")
         },

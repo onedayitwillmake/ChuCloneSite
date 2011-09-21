@@ -10,7 +10,7 @@
 
         var ua = navigator.userAgent.toLowerCase();
         var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
-        isAndroid = true;
+        //isAndroid = true;
         if(isAndroid) {
           // Do something!
           // Redirect to Android-site?

@@ -57,7 +57,7 @@
 				this.removeListener( listener.target, listener.eventName );
 			}
 		},
- 
+
         //http://stackoverflow.com/questions/442404/dynamically-retrieve-html-element-x-y-position-with-javascript
         getOffset: function(el) {
             var _x = 0;
@@ -75,11 +75,11 @@
          * Checks all touches in the event and returns an array of ones which pass our hitTest
          * @param {TouchList} touchList A list of touches to check. Usually pass in - event.changedTouches or event.touches
          */
-        getValidTouches: function( touchList ) {
+        getValidTouches: function( touchList, log ) {
             var validTouches = [];
             for(var i = 0; i < touchList.length; i++) {
-                console.log("validTouchCheck" + touchList[i] );
-                if( this.hitTest( touchList[i] ) ) {
+                //console.log("validTouchCheck" + touchList[i] );
+                if( this.hitTest( touchList[i], log ) ) {
                     validTouches.push( touchList[i] );
                 }
             }
@@ -92,9 +92,13 @@
          * @param {Array}   A touch list from the event - e.changedTouches | e.touches | e.targetedTouches
          * @return {Touch} A touch event that matches our identifier
          */
-        getTouchOfInterest: function(touchList) {
+        getTouchOfInterest: function(touchList, log) {
+            
             for(var i = 0; i < touchList.length; i++) {
-                if( this.getTouchIdentifier(touchList[i]) === this._touchIdentifier )
+
+                if(log)
+                    console.log("toe: " + touchList[i].identifier + " : " + this._touchIdentifier);
+                if( touchList[i].identifier == this._touchIdentifier )
                     return touchList[i];
             }
 
@@ -106,7 +110,7 @@
          * @param {Touch} e
          * @return Boolean
          */
-        hitTest: function( e ) {
+        hitTest: function( e, log ) {
             if( !this._touchAreaHtmlElement ) {
                 throw new Error("This controller doesn't have an '_touchAreaHtmlElement' set! hitTest aborted...");
             }
@@ -125,9 +129,11 @@
             var y = Math.round(layerY - radius);
 
 
-            var dist = Math.sqrt(x*x + y*y);
-            
-            return dist < (radius+this._hitAreaBuffer);
+            var distSq = Math.sqrt(x*x + y*y);
+
+            if( log )
+                console.log("Dist: "+Math.sqrt(distSq)+" Radius:"+(radius+this._hitAreaBuffer));
+            return distSq < (radius+this._hitAreaBuffer);
         },
 
         /**
@@ -139,7 +145,7 @@
 			first = touches[0],
 			type = "";
 
-			event.preventDefault();
+			//event.preventDefault();
 			switch(event.type) {
 				case "touchstart": type = "mousedown"; break;
 				case "touchmove":  type ="mousemove"; break;
