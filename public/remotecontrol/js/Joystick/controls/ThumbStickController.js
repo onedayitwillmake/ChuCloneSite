@@ -53,7 +53,7 @@
             // Listen for mouse events
             var that = this;
             //this.addListener( this._touchAreaHtmlElement, "mousedown", function(e){ that.onMouseDown(e);} );
-            this.addListener( this._touchAreaHtmlElement, "touchstart", function(e){ that.onTouchStart(e);} );
+            //this.addListener( this._touchAreaHtmlElement, "touchstart", function(e){ that.onTouchStart(e);} );
         },
 
         /**
@@ -232,7 +232,7 @@
 			var layerX = e.clientX - offset.left;
 			var layerY = e.clientY - offset.top;
 
-            console.log("SetAngle! " + e.clientX + ":");
+            //console.log("SetAngle! " + e.clientX + ":");
             
 			// Offset it by our radius
 			var x = this._radius-layerX;
