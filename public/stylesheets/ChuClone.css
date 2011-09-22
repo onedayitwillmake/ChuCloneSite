@@ -1030,3 +1030,7 @@ a {
   padding: 5px 0;
   margin-left: 15px;
   text-align: center; }
+
+#leveltitle {
+  height: 43px;
+  font-size: 36px; }
