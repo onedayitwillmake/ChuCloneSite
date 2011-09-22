@@ -45,16 +45,19 @@ body {
     }
 
     .dpad_button {
-        width: 75px;
-        height: 75px;
+        width: 125px;
+        height: 125px;
         position: absolute;
         background-image: url("../images/joystick/button_large.png");
     }
 
     #dpad_button_right {
         -webkit-transform: scale(1.5);
-        left: 210px;
-        top: 95px;
+        left: 180px;
+        top: 72px;
+        background-repeat:no-repeat;
+        /*background-attachment:fixed;*/
+        background-position:center;
     }
 
     .thumb_stick_container {
@@ -74,16 +77,21 @@ body {
 	}
 
     .dpad_button {
-        width: 75px;
-        height: 75px;
+
+        width: 135px;
+        height: 135px;
         position: absolute;
         background-image: url("../images/joystick/button_large.png");
+        background-repeat:no-repeat;
+        /*background-attachment:fixed;*/
+        background-position:center;
+
     }
 
     #dpad_button_right {
         -webkit-transform: scale(1.75);
-        left: 347px;
-        top: 66px;
+        left: 317px;
+        top: 43px;
     }
 
     .thumb_stick_container {

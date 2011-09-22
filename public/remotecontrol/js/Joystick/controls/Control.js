@@ -119,20 +119,24 @@
 
             // Get the offset of our element
             var offset = this.getOffset(this._touchAreaHtmlElement);
+            offset.left += radius;
+            offset.top += radius;
 
             // Offset it by the stage position
-            var layerX = e.screenX - offset.left;
-            var layerY = e.screenY - offset.top;
+            var layerX = e.pageX;//e.screenX - offset.left;
+            var layerY = e.pageY;//e.screenY - offset.top;
 
             // Convert to center based
-            var x = Math.round(layerX - radius);
-            var y = Math.round(layerY - radius);
+            var x = Math.round(layerX - offset.left);
+            var y = Math.round(layerY - offset.top);
 
 
             var distSq = Math.sqrt(x*x + y*y);
 
-            if( log )
-                console.log("Dist: "+Math.sqrt(distSq)+" Radius:"+(radius+this._hitAreaBuffer));
+            //console.log(distSq < (radius+this._hitAreaBuffer));
+            //console.log(e.pageX + ":" + offset.left);
+            //if( log )
+            //    console.log("Dist: "+Math.sqrt(distSq)+" Radius:"+(radius+this._hitAreaBuffer));
             return distSq < (radius+this._hitAreaBuffer);
         },
 

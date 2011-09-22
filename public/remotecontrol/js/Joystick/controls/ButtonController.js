@@ -13,7 +13,7 @@
 		}
 
         this._touchAreaHtmlElement = this._htmlElement = anHTMLElement;
-        this._hitAreaBuffer = 10;
+        this._hitAreaBuffer = 60;
 		this._catchOwnEvents = shouldCatchOwnEvents;
         this.setup();
         this.id == 1;
@@ -44,50 +44,27 @@
 
 			var that = this;
             //this.addListener( this._touchAreaHtmlElement, 'mousedown', function(e){ that.onMouseDown(e);} );
-            this.addListener( document, 'touchstart', function(e){ that.ontouchstart(e);} );
-            this.addListener( document, 'touchmove', function(e){ that.ontouchmove(e);} );
-            this.addListener( document, 'touchend', function(e){ that.ontouchend(e);} );
+            this.addListener( this._touchAreaHtmlElement, 'touchstart', function(e){ that.ontouchstart(e);} );
+            
             //setInterval(function(){
             //    that.ontou
             //}, 30)
         },
 
-		onMouseDown: function(e) {
-			this.ontouchstart(e);
-
-
-            if(this._)
-
-			var that = this;
-			this.addListener( document, 'mouseup', function(e){ that.ontouchend(e);} );
-
-		},
-
+		
         /**
          * Mousedown callback
          * @param {MouseEvent} e
          */
         ontouchstart: function(e) {
-
-            if( this._touchIdentifier != 0 ) {
-                //console.log("TouchStart: Ignore");
-                return;
-            }
-            var validTouches  = this.getValidTouches(e.touches, false);
-
-            if(validTouches.length == 0) {
-                //console.log("TouchStart: NoTouches");
-                return;
-            }
-
-
-
-
-            this._touchIdentifier = validTouches[0].identifier;
-
-            //console.log("TouchStart:" + validTouches.length + " " + this._touchIdentifier);
-            this._isDown = validTouches.length != 0;
-            this._htmlElement.style.opacity = (this._isDown) ? 1 : 0.25;
+            var that = this;
+            this._isDown = true;
+            this._htmlElement.style.opacity = 1;
+            clearTimeout( this._downTimer );
+            this._downTimer = setTimeout(function(){
+                that._isDown = false;
+                that._htmlElement.style.opacity = (that._isDown) ? 1 : 0.25;
+            }, 60);
         },
 
         /**
@@ -101,11 +78,6 @@
             //console.log("TouchMove:" + touchOfInterest );
             
             this._isDown = this.hitTest(touchOfInterest);
-
-            if(!this._isDown) {
-                this._touchIdentifier = 0;
-            }
-
             this._htmlElement.style.opacity = (this._isDown) ? 1 : 0.25;
         },
 
@@ -115,9 +87,18 @@
          */
         ontouchend: function(e) {
             var touchOfInterest  = this.getTouchOfInterest(e.changedTouches);
-            this._isDown = touchOfInterest == null;
+            if(!touchOfInterest) return;
+
+            //console.log("TouchEnd:" + touchOfInterest);
+            this._isDown = false;
             this._htmlElement.style.opacity = (this._isDown) ? 1 : 0.25;
             this._touchIdentifier = 0;
+
+// Clean up event listeners
+            this.removeListener( document, "touchmove" );
+            this.removeListener( document, "touchend" );
+
+            
             //console.log("TouchEnd:" + touchOfInterest);
             return;
             var validTouches  = this.getValidTouches(e.changedTouches);
