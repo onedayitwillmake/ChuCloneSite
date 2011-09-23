@@ -6,7 +6,7 @@
 <% end %>
 
 <% content_for :game_style do %>
-    <%= render :partial => "game/style" %>
+	<%= render :partial => "game/style" %>
 <% end %>
 
 
@@ -14,69 +14,69 @@
 	<%= render :partial => "game/title" %>
 	<%= render :partial => "game/login" %>
 
-    <%= render :partial => "game/socialmedia" %>
-    <div class="jura_14 grid_2" style="color: #7595FF; z-index:1; box-shadow: 3px 3px 3px #CCC; position: absolute; top: -5px; left: 10px; padding: 8px 0 4px 0; background-color: #52F3FF;text-align: center; ">
-    <a href="http://youandneru.com"><span style="color:#7595ff">&diams;&nbsp;YouAndNeru</span></a>
-</div>
+	<%= render :partial => "game/socialmedia" %>
+	<div class="jura_14 grid_2" style="color: #7595FF; z-index:1; box-shadow: 3px 3px 3px #CCC; position: absolute; top: -5px; left: 10px; padding: 8px 0 4px 0; background-color: #52F3FF;text-align: center; ">
+		<a href="http://youandneru.com"><span style="color:#7595ff">&diams;&nbsp;YouAndNeru</span></a>
+	</div>
 
-    <div class="clear"></div>
+	<div class="clear"></div>
 	<%= render :partial => "game/colored_rectangles" %>
 
-    <div class="jura_36 grid_4">
-        <p class="grayBorder" id="leveltitle" data-fontsize="36" data-charcount="16"><%= @level.title == APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"] ? "LevelName" : @level.title %></p>
-    </div>
+	<div class="jura_36 grid_4">
+		<p class="grayBorder" id="leveltitle" data-fontsize="36" data-charcount="16"><%= @level.title == APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"] ? "LevelName" : @level.title %></p>
+	</div>
 	<div class="jura_16 grid_2" style="padding-top: 10px;" id="fullscreen_toggle">
-        <p class="grayBorder"> Full Screen </p>
-    </div>
+		<p class="grayBorder"> Full Screen </p>
+	</div>
 	<div class="jura_16 grid_2" style="padding-top: 10px;" id="instructions_toggle">
-        <p class="grayBorder"> Instructions </p>
-    </div>
+		<p class="grayBorder"> Instructions </p>
+	</div>
 
-    <div class="grid_4 omega" id="HUDTime">00.0 secs</div>
-    <div class="clear"></div>
+	<div class="grid_4 omega" id="HUDTime">00.0 secs</div>
+	<div class="clear"></div>
 	<%#=render :partial => "game/level_recap" %>
 
-    <div id="gameContainer" class="grid_12"></div>
-    <div class="clear"></div>
-    <div class="grid_12" style="height: 20px"></div>
-    <div class="clear"></div>
-    <div class="grid_6">
-        <p class="grayBorder jura_36">
-            Select Level
-        </p>
-        <!--    BEGIN LEVEL LIST -->
-       <div id="levellisting">
-            <% count = 0 %>
-            <% perRow = 3 %>
-            <% @user_levels = [] %>
-            <% @beta_levels = [] %>
-            <% @highscoreCount = 0 %>
-            <% @levels.each do |level| %>
-                <%# USER LEVEL %>
-               <% if (level.user_id.to_s != APP_CONFIG["DEFAULTS"]["MASTER_USER_ID"]) %>
-               <% @user_levels << level %>
-               <% next %>
-                <% end %>
+	<div id="gameContainer" class="grid_12"></div>
+	<div class="clear"></div>
+	<div class="grid_12" style="height: 20px"></div>
+	<div class="clear"></div>
+	<div class="grid_6">
+		<p class="grayBorder jura_36">
+			Select Level
+		</p>
+		<!--    BEGIN LEVEL LIST -->
+		<div id="levellisting">
+			<% count = 0 %>
+			<% perRow = 3 %>
+			<% @user_levels = [] %>
+			<% @beta_levels = [] %>
+			<% @highscoreCount = 0 %>
+			<% @levels.each do |level| %>
+				<%# USER LEVEL %>
+				<% if (level.user_id.to_s != APP_CONFIG["DEFAULTS"]["MASTER_USER_ID"]) %>
+					<% @user_levels << level %>
+					<% next %>
+				<% end %>
 
-                   <%# BETA LEVEL %>
-               <% if (level.is_beta) %>
-               <% @beta_levels << level %>
-               <% next %>
-                <% end %>
+				<%# BETA LEVEL %>
+				<% if (level.is_beta) %>
+					<% @beta_levels << level %>
+					<% next %>
+				<% end %>
 
 
-                <% count = count + 1 %>
-			   	<% does_have_highscore = has_highscore(@user_scores, level.id) %>
-                <% @highscoreCount = does_have_highscore ? @highscoreCount + 1 : @highscoreCount %>
-                <% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
-			   	<% border_style = does_have_highscore ? "greenBorder" : "grayBorder" %>
-			   	<% style = 'style=\'background-image: url("/game/assets/images/page/completed_level_bg_0' + '.png");\''.html_safe if does_have_highscore %>
-			   	<% style ||= "".html_safe %>
-                <%= "\t<div data-location='' data-id='#{level.id}' data-fontsize='16' data-charcount='21' class='grid_2 #{css_class}' #{style}><p>#{level.title}</p></div>".html_safe %>
-            <% end %>
-       </div>
-        <!--    END LEVEL LIST -->
-    </div>
+				<% count = count + 1 %>
+				<% does_have_highscore = has_highscore(@user_scores, level.id) %>
+				<% @highscoreCount = does_have_highscore ? @highscoreCount + 1 : @highscoreCount %>
+				<% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
+				<% border_style = does_have_highscore ? "greenBorder" : "grayBorder" %>
+				<% style = 'style=\'background-image: url("/game/assets/images/page/completed_level_bg_0' + '.png");\''.html_safe if does_have_highscore %>
+				<% style ||= "".html_safe %>
+				<%= "\t<div data-location='' data-id='#{level.id}' data-fontsize='16' data-charcount='21' class='grid_2 #{css_class}' #{style}><p>#{level.title}</p></div>".html_safe %>
+			<% end %>
+		</div>
+		<!--    END LEVEL LIST -->
+	</div>
 	<div class="grid_6">
 		<div class="grid_6">
 			<p class="grayBorder jura_36">Level Information </p>
@@ -89,62 +89,65 @@
 		<div class="clear"></div>
 		<div class="grid_6" style="margin-top:10px">
 			<div class="grid_2 grayBorder alpha jura_13" style="text-align: center;">COMPLETION RATE</div>
-			<div class="grid_4 grayBorder alpha jura_13 omega" style="text-align: center;padding-right:6px"><%= (@level.times_played/@level.times_completed * 100) %>% Completion rate</div>
+			<div class="grid_4 grayBorder alpha jura_13 omega" style="text-align: center;padding-right:6px"><%= sprintf('%.2f', [(@level.times_completed / (@level.times_played*0.1) * 100), 99.99].min) %>
+				% Completion rate
+			</div>
 		</div>
 		<div class="grid_6" style="margin-top:38px">
 			<p class="grayBorder jura_36">Best Times</p>
 		</div>
-			<div id="score_container" data-id=<%= "#{@level.id}".html_safe %> style="overflow-y:hidden;" class="grid_6" style="margin-top:0">
-				<%= render :partial => "game/score" %>
-			</div>
-		</div>
+		<div id="score_container" data-id=<%= "#{@level.id}".html_safe %> style="overflow-y:hidden;" class="grid_6" style="margin-top:0">
+		<%= render :partial => "game/score" %>
+	</div>
+</div>
 <div class="clear"></div>
 <div class="grid_6">
-        <p class="grayBorder jura_36">
-            User Levels
-        </p>
-        <!--    BEGIN LEVEL LIST -->
-       <div id="user_levellisting">
-            <% count = 0 %>
-            <% perRow = 3 %>
-            <% @user_levels.each do |level| %>
-                <% count = count + 1 %>
-			   	<% does_have_highscore = has_highscore(@user_scores, level.id) %>
-                <% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
-			   	<% border_style = does_have_highscore ? "greenBorder" : "grayBorder" %>
-			   	<% style = 'style=\'background-image: url("/game/assets/images/page/completed_level_bg_0' + '.png");\''.html_safe if does_have_highscore %>
-			   	<% style ||= "".html_safe %>
-                <%= "\t<div data-location='' data-id='#{level.id}' data-fontsize='16' data-charcount='21' class='grid_2 #{css_class}' #{style}><p>#{level.title}</p></div>".html_safe %>
-            <% end %>
-       </div>
-        <!--    END LEVEL LIST -->
-    </div>
+	<p class="grayBorder jura_36">
+		User Levels
+	</p>
+	<!--    BEGIN LEVEL LIST -->
+	<div id="user_levellisting">
+		<% count = 0 %>
+		<% perRow = 3 %>
+		<% @user_levels.each do |level| %>
+			<% count = count + 1 %>
+			<% does_have_highscore = has_highscore(@user_scores, level.id) %>
+			<% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
+			<% border_style = does_have_highscore ? "greenBorder" : "grayBorder" %>
+			<% style = 'style=\'background-image: url("/game/assets/images/page/completed_level_bg_0' + '.png");\''.html_safe if does_have_highscore %>
+			<% style ||= "".html_safe %>
+			<%= "\t<div data-location='' data-id='#{level.id}' data-fontsize='16' data-charcount='21' class='grid_2 #{css_class}' #{style}><p>#{level.title}</p></div>".html_safe %>
+		<% end %>
+	</div>
+	<!--    END LEVEL LIST -->
+</div>
 
 
 <% if @beta_levels.count > 0 %>
-<div class="grid_6">
+	<div class="grid_6">
 
-        <p class="magentaBorder" style="height:43px;">
-            <span class="jura_18">Beta Levels</span><br><span class="jura_16" style="margin-top:-225px;">(You must complete at least <%= APP_CONFIG["DEFAULTS"]["MINIMUM_SCORES_FOR_BETA_LEVELS"] %> levels first)</span>
-        </p>
-        <!--    BEGIN LEVEL LIST -->
-       <div id="beta_levellisting">
-            <% count = 0 %>
-            <% perRow = 3 %>
-            <% @beta_levels.each do |level| %>
-                <% count = count + 1 %>
-			   	<% does_have_highscore = has_highscore(@user_scores, level.id) %>
-                <% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
-			   	<% border_style = does_have_highscore ? "greenBorder" : "grayBorder" %>
-			   	<% style = 'style=\'background-image: url("/game/assets/images/page/completed_level_bg_0' + '.png");\''.html_safe if does_have_highscore %>
-			   	<% style ||= "".html_safe %>
-                <% id = @highscoreCount >= APP_CONFIG["DEFAULTS"]["MINIMUM_SCORES_FOR_BETA_LEVELS"] ? level.id : "" %>
-                <%= "\t<div data-location='' data-id='#{id}' data-fontsize='16' data-charcount='21' class='grid_2 #{css_class}' #{style}><p>#{level.title}</p></div>".html_safe %>
-            <% end %>
-       </div>
-        <!--    END LEVEL LIST -->
-    </div>
-        <% end %>
+		<p class="magentaBorder" style="height:43px;">
+			<span class="jura_18">Beta Levels</span><br><span class="jura_16" style="margin-top:-225px;">(You must complete at least <%= APP_CONFIG["DEFAULTS"]["MINIMUM_SCORES_FOR_BETA_LEVELS"] %>
+			levels first)</span>
+		</p>
+		<!--    BEGIN LEVEL LIST -->
+		<div id="beta_levellisting">
+			<% count = 0 %>
+			<% perRow = 3 %>
+			<% @beta_levels.each do |level| %>
+				<% count = count + 1 %>
+				<% does_have_highscore = has_highscore(@user_scores, level.id) %>
+				<% css_class = count % perRow == 0 ? "levelThumbnailOmega" : "levelThumbnail" %>
+				<% border_style = does_have_highscore ? "greenBorder" : "grayBorder" %>
+				<% style = 'style=\'background-image: url("/game/assets/images/page/completed_level_bg_0' + '.png");\''.html_safe if does_have_highscore %>
+				<% style ||= "".html_safe %>
+				<% id = @highscoreCount >= APP_CONFIG["DEFAULTS"]["MINIMUM_SCORES_FOR_BETA_LEVELS"] ? level.id : "" %>
+				<%= "\t<div data-location='' data-id='#{id}' data-fontsize='16' data-charcount='21' class='grid_2 #{css_class}' #{style}><p>#{level.title}</p></div>".html_safe %>
+			<% end %>
+		</div>
+		<!--    END LEVEL LIST -->
+	</div>
+<% end %>
 <div class="clear"></div>
 
 
