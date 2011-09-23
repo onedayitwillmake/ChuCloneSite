@@ -51,7 +51,11 @@ class LevelsController < ApplicationController
 	def show
 
 		@level = Level.find(params[:id])
-		@level.update_attribute(:times_played, @level.times_played+1)
+
+		# Don't incriment titlescreen count
+		if(@level.title != APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"])
+			@level.update_attribute(:times_played, @level.times_played+1)
+		end
 
 		respond_to do |format|
 			format.html # show.html.erb
