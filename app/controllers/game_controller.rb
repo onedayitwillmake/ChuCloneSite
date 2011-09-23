@@ -3,6 +3,9 @@ class GameController < ApplicationController
 		@levels = Level.find_all_playable_levels
 
 		@user_scores = current_user.highscores if not current_user.nil?
+		#redirect_to(:action => "index") and return if current_user.nil?
+		#redirect_to(:action=> "index") and return if request.referer.include? "learningwebgl.com" and params[:id] == "5"
+
 
 		# Load the title screen by default
 		@level = Level.find_all_by_title(APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"]).first
@@ -12,23 +15,16 @@ class GameController < ApplicationController
 		@levels = Level.find_all_playable_levels
 		# Load the title screen by default
 		@level = Level.find(params[:id])
-  end
-
-  def kongregate
-		@levels = Level.find_all_playable_levels
-		# Load the title screen by default
-    @level = Level.find_all_by_title(APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"]).first if params[:id].nil?
 	end
 
-	def temp
-    redirect_to(:action => "index") and return if current_user != nil
-
+	def kongregate
 		@levels = Level.find_all_playable_levels
 		# Load the title screen by default
-		@level = Level.find_all_by_title(APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"]).first
-  end
+		@level = Level.find_all_by_title(APP_CONFIG["DEFAULTS"]["TITLE_SCREEN_LEVEL"]).first if params[:id].nil?
+	end
 
-  def editorfaq
+
+	def editorfaq
 	end
 
 	def remoteplay
@@ -51,8 +47,12 @@ class GameController < ApplicationController
 
 	def show
 		if not params[:id].nil?
+
+			# Annoying ghetto redirect for when people accidently link to the tutorial level
+			# TODO: Remove after a long enough time
+			redirect_to(:action=> "index") and return if request.referer.include? "learningwebgl.com" and params[:id] == "5"
+
 			@level = Level.find(params[:id])
-      #@level.update_attribute(:times_played, @level.times_played+1)
 
 			@levels = Level.find_all_playable_levels
 			@user_scores = current_user.highscores if not current_user.nil?
