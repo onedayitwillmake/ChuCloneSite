@@ -9,12 +9,11 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: ChuCloneSite_development
+  database: onedayrails
   pool: 5
-  username: root
-  password: root
-  host: localhost
-  socket: /Applications/MAMP/tmp/mysql/mysql.sock
+  username: onedayrails
+  password: 1dayfails
+  host: mysql.onedayitwillmake.com
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -23,20 +22,18 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: ChuCloneSite_test
+  database: onedayrails_test
   pool: 5
-  username: root
-  password: root
-  host: localhost
-  socket: /Applications/MAMP/tmp/mysql/mysql.sock
+  username: onedayrails
+  password: 1dayfails
+  host: mysql.onedayitwillmake.com
 
 production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: chuclone_prod
+  database: onedayrails
   pool: 5
-  username: chuclone_prod
-  password: genfu4TW
-  host: localhost
-  socket: /tmp/mysql.sock
+  username: onedayrails
+  password: 1dayfails
+  host: mysql.onedayitwillmake.com
