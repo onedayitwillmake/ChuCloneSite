@@ -16,7 +16,7 @@
 
 	<%= render :partial => "game/socialmedia" %>
 	<div class="jura_14 grid_2" style="color: #7595FF; z-index:1; box-shadow: 3px 3px 3px #CCC; position: absolute; top: -5px; left: 10px; padding: 8px 0 4px 0; background-color: #52F3FF;text-align: center; ">
-		<a href="http://youandneru.com"><span style="color:#7595ff">&diams;&nbsp;YouAndNeru</span></a>
+		<a href="http://lionplex.com"><span style="color:#7595ff">&diams;&nbsp;Lionplex</span></a>
 	</div>
 
 	<div class="clear"></div>
@@ -41,8 +41,8 @@
 	<div class="grid_12" style="height: 20px"></div>
 	<div class="clear"></div>
 	<div class="grid_6">
-		<p class="grayBorder jura_36">
-			Select Level
+		<p class="grayBorder jura_38">
+			Official Levels
 		</p>
 		<!--    BEGIN LEVEL LIST -->
 		<div id="levellisting">
@@ -102,7 +102,7 @@
 </div>
 <div class="clear"></div>
 <div class="grid_6">
-	<p class="grayBorder jura_36">
+	<p class="grayBorder jura_22">
 		User Levels
 	</p>
 	<!--    BEGIN LEVEL LIST -->
@@ -116,7 +116,7 @@
 			<% border_style = does_have_highscore ? "greenBorder" : "grayBorder" %>
 			<% style = 'style=\'background-image: url("/game/assets/images/page/completed_level_bg_0' + '.png");\''.html_safe if does_have_highscore %>
 			<% style ||= "".html_safe %>
-			<%= "\t<div data-location='' data-id='#{level.id}' data-fontsize='16' data-charcount='21' class='grid_2 #{css_class}' #{style}><p>#{level.title}</p></div>".html_safe %>
+			<%= "\t<div data-location='' data-id='#{level.id}' data-fontsize='14' data-charcount='21' class='grid_2 #{css_class}' #{style}><p>#{level.title}</p></div>".html_safe %>
 		<% end %>
 	</div>
 	<!--    END LEVEL LIST -->
